@@ -15,10 +15,10 @@ book:
   description: "Early version needed to be severely updated/modified"
   author: Julien Martin
 
-  site-url: https://biostats-uottawa.github.io/R-way/
-  repo-url: https://github.com/biostats-uottawa/R-way/
+  site-url: https://biostats-uottawa.github.io/Rway/
+  repo-url: https://github.com/biostats-uottawa/Rway/
   
-  doi: 10.5281/zenodo.10929585
+  doi: 10.5281/zenodo.13801263
 
 #  margin-header: '![](images/book_hex_en.png){width="100px"}'
   page-footer:

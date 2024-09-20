@@ -243,7 +243,7 @@ useful or have any comments or suggestions I would love to hear from you
 Julien Martin. ({{< meta year >}}). On the R-way to hell. A multilingual
 introduction to R book. Version: {{< meta version >}}
 ({{< meta date >}}).DOI:
-[{{< meta doi >}}](https://zenodo.org/doi/10.5281/zenodo.10929585)
+[{{< meta doi >}}](https://zenodo.org/doi/{{< meta doi >}})
 
 {{< pagebreak >}}
 
