@@ -1,7 +1,56 @@
 # Data used in this book {#sec-data-files}
 
 
+```{r}
+#| include: false
 
+ui_list <- function(vec) {
+  for (x in vec) {
+    cat("-", x, "\n")
+  }
+}
+
+data <- data.frame(
+  Files = list.files("data/"),
+  link = list.files("data/", full.names = TRUE)
+)
+# code <- data.frame(
+#  Files = list.files("../data/R_code/"),
+#  link = list.files("../data/R_code/", full.names = TRUE)
+# )
+if (file.exists("/data/Rway-enfR_data_code.zip")) {
+  file.remove("/data/Rway-enfR_data_code.zip")
+}
+zip("/data/Rway-enfR_data_code.zip", c("/data/")) # , "../data/R_code/"))
+```
+
+## All in one zip file
+
+Tous les fichiers de données et de code dans un [**fichier zip**](./data/Rway-enfR_data_code.zip)
+
+## All the data files
+
+```{r}
+#| echo: false
+#| output: asis
+apply(data, 1, function(x) paste0("[", x[1], "](", x[2], ")")) |>
+  ui_list()
+```
+
+<!-- ## Code R et fonctions utilisées dans les diapositives-->
+
+```{r}
+#| echo: false
+#| eval: false
+#| output: asis
+apply(code, 1, function(x) paste0("[", x[1], "](", x[2], ")")) |>
+  ui_list()
+```
+
+
+
+
+<!--
 check what is done for BIO8940
 
 use downlaod this to create nice downlaod options potentially
@@ -19,3 +68,4 @@ download_file(
   self_contained = FALSE
 )
 ```
+-->
