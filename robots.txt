@@ -1,0 +1,1 @@
+Sitemap: https://biostats-uottawa.github.io/R-way/sitemap.xml
