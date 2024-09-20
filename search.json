@@ -37,7 +37,7 @@
     "href": "index.html#how-to-use-this-book",
     "title": "On the R-way to hell",
     "section": "How to use this book",
-    "text": "How to use this book\n\nFor the best experience we recommend that you read the web version of this book which you can find https://biostats-uottawa.github.io/R/en.\nThe web version includes a navbar at the top of the page where you can toggle the sidebars on and off , search through the book , change the page color  and suggest revisions if you spot a typo or mistake . You can also download  a pdf and epub versions of the book.\nWe use a few typographical conventions throughout this book.\nR code and the resulting output are presented in code blocks in our book.\n\n2 + 2\n\n[1] 4\n\n\nFunctions in the text are shown with brackets at the end using code font, i.e. mean() or sd() etc.\nObjects are shown using code font without the round brackets, i.e. obj1, obj2 etc.\nR packages in the text are shown using code font and followed by the 📦 icon, i.e. tidyverse 📦.\nA series of actions required to access menu commands in RStudio or VSCode are identified as File -&gt; New File -&gt; R Script which translates to ‘click on the File menu, then click on New File and then select R Script’.\nWhen we refer to IDE (Integrated Development Environment software) later in the text we mean either RStudio of VScode.\nWhen we refer to .[Rq]md, we mean either R markdown (.Rmd) or Quarto (.qmd) documents and would generally talk of R markdown documents when referring to either .Rmd or .qmd files.\nThe manual tries to highlight some part of the text using the following boxes and icons.\n\n\n\n\n\n\nExercises\n\n\n\nStuff for you to do\n\n\n\n\n\n\n\n\nSolutions\n\n\n\nR code and explanations\n\n\n\n\n\n\n\n\nWarning\n\n\n\nwarnings\n\n\n\n\n\n\n\n\nImportant\n\n\n\nimportant points\n\n\n\n\n\n\n\n\nNote\n\n\n\nnotes",
+    "text": "How to use this book\n\nFor the best experience we recommend that you read the web version of this book which you can find https://biostats-uottawa.github.io/Rway.\nThe web version includes a navbar at the top of the page where you can toggle the sidebars on and off , search through the book , change the page color  and suggest revisions if you spot a typo or mistake . You can also download  a pdf and epub versions of the book.\nWe use a few typographical conventions throughout this book.\nR code and the resulting output are presented in code blocks in our book.\n\n2 + 2\n\n[1] 4\n\n\nFunctions in the text are shown with brackets at the end using code font, i.e. mean() or sd() etc.\nObjects are shown using code font without the round brackets, i.e. obj1, obj2 etc.\nR packages in the text are shown using code font and followed by the 📦 icon, i.e. tidyverse 📦.\nA series of actions required to access menu commands in RStudio or VSCode are identified as File -&gt; New File -&gt; R Script which translates to ‘click on the File menu, then click on New File and then select R Script’.\nWhen we refer to IDE (Integrated Development Environment software) later in the text we mean either RStudio of VScode.\nWhen we refer to .[Rq]md, we mean either R markdown (.Rmd) or Quarto (.qmd) documents and would generally talk of R markdown documents when referring to either .Rmd or .qmd files.\nThe manual tries to highlight some part of the text using the following boxes and icons.\n\n\n\n\n\n\nExercises\n\n\n\nStuff for you to do\n\n\n\n\n\n\n\n\nSolutions\n\n\n\nR code and explanations\n\n\n\n\n\n\n\n\nWarning\n\n\n\nwarnings\n\n\n\n\n\n\n\n\nImportant\n\n\n\nimportant points\n\n\n\n\n\n\n\n\nNote\n\n\n\nnotes",
     "crumbs": [
       "Data & Code",
       "Preface"
@@ -1875,7 +1875,19 @@
     "href": "902-data.html",
     "title": "Appendix A — Data used in this book",
     "section": "",
-    "text": "check what is done for BIO8940\nuse downlaod this to create nice downlaod options potentially\npath_files &lt;- list.files(path = system.file(\"assets/css\", package = \"downloadthis\"), full.names = TRUE)\n\ndownload_file(\n  path = path_files,\n  output_name = \"Files from downloadthis\",\n  button_label = \"Download files\",\n  button_type = \"danger\",\n  has_icon = TRUE,\n  icon = \"fa fa-save\",\n  self_contained = FALSE\n)",
+    "text": "A.1 All in one zip file\nTous les fichiers de données et de code dans un fichier zip",
+    "crumbs": [
+      "Data & Code",
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Data used in this book</span>"
+    ]
+  },
+  {
+    "objectID": "902-data.html#all-the-data-files",
+    "href": "902-data.html#all-the-data-files",
+    "title": "Appendix A — Data used in this book",
+    "section": "\nA.2 All the data files",
+    "text": "A.2 All the data files\n\nage.csv\nanc1dat.csv\nanc3dat.csv\natmosphere.txt\nBanta_TotalFruits.csv\nBiston_pd_1.csv\nBiston_pd_2.csv\nBiston_student.csv\nBiston.postdoc.csv\nBiston.prof.csv\nDam10dat.csv\ndata-bioxx58.zip\ndragons.csv\nErablesGatineau.csv\nextra_funs.R\ngala.txt\nhypoxia.uottawa.csv\nJacobsenDangles_1.csv\nJacobsenDangles_2.csv\nloglin.csv\nmouflon.csv\nMregdat.csv\nnematodes.csv\nnestdat.csv\nnr2wdat.csv\npollution.txt\nr_obj\nsalmonella.csv\nsimulies.csv\nsimuliidae.csv\nskulldat_2020.csv\nskulldat-rm.csv\nsmoking.txt\nStu2mdat.csv\nStu2wdat.csv\nsturgdat.csv\nsturgeon.csv\nunicorns_aggression.csv\nunicorns.csv\nunicorns.txt\nunicorns.xlsx\nUSPopSurvey.csv\nwmc2dat2.csv\nwmcdat2.csv",
     "crumbs": [
       "Data & Code",
       "Appendices",
