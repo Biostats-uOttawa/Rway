@@ -58,7 +58,7 @@ but useless for pdf
 -->
 ```
 For the best experience we recommend that you read the web version of
-this book which you can find <https://biostats-uottawa.github.io/R/en>.
+this book which you can find <https://biostats-uottawa.github.io/Rway>.
 
 The web version includes a navbar at the top of the page where you can
 toggle the sidebars on and off {{< fa align-left >}}, search through the
@@ -314,6 +314,7 @@ font_add_google("Jim Nightshade", "jim")
 ## Automatically use showtext to render text for future devices
 showtext_auto()
 
+book<- "Rway"
 hexSticker::sticker("images/cover/cover_hex.jpg",
   package = title,
   angle = 0,
@@ -327,7 +328,7 @@ hexSticker::sticker("images/cover/cover_hex.jpg",
   s_height = 0.85,
   p_family = "jim",
   h_color = "black",
-  url = paste0("biostats-uottawa.github.io/R/", lang),
+  url = paste0("biostats-uottawa.github.io/", book),
   u_color = "grey80",
   u_size = 5,
   filename = paste0("images/cover/book_hex_", lang, ".png")

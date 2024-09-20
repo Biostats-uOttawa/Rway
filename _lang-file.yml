@@ -49,9 +49,9 @@ book:
 #      - text: Livre / Book
 #        menu:
 #          - text: R-way to hell
-#            href: https://biostats-uottawa.github.io/R/en/
+#            href: https://biostats-uottawa.github.io/Rway
 #          - text: Chemin de l'enf-R
-#            href: https://biostats-uottawa.github.io/R/fr/
+#            href: https://biostats-uottawa.github.io/enfR
 
       - auto
   cover-image: images/cover/cover_en.png
