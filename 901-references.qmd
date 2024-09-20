@@ -1,0 +1,31 @@
+# References {.unnumbered}
+
+## R packages {.unnumbered}
+
+
+This book was produced all packages (excluding dependencies) listed in table @tbl-r-lib.
+As recommended by the 'tidyverse' team, all citations to tidyverse packages are collapsed into a single citation.
+
+```{r}
+#| label: tbl-r-lib
+#| tbl-cap: R packages used in this book
+#| echo: FALSE
+#| message: false
+#| cache: false
+library(tidyverse)
+library(grateful)
+pkgs <- cite_packages(
+  output = "table",
+  out.dir = "biblio/",
+  omit = ""
+)
+knitr::kable(
+  pkgs,
+  col.names = c("Package", "Version", "Citation")
+)
+```
+
+## Bibliography  {.unnumbered}
+
+::: {#refs}
+:::

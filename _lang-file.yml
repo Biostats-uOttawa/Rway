@@ -1,0 +1,118 @@
+version: 0.6.0
+year: 2024
+
+lang: en-CA
+
+cit-title: |
+  Do what you think is interesting,  
+  do something that you think is fun and worthwhile,  
+  because otherwise you won’t do it well anyway.
+cit-author: Brian W. Kernighan
+
+book:
+  title: "On the R-way to hell"
+  subtitle: "Statistical analysis in the marvelous world of R"
+  description: "Early version needed to be severely updated/modified"
+  author: Julien Martin
+
+  site-url: https://biostats-uottawa.github.io/R-way/
+  repo-url: https://github.com/biostats-uottawa/R-way/
+  
+  doi: 10.5281/zenodo.10929585
+
+#  margin-header: '![](images/book_hex_en.png){width="100px"}'
+  page-footer:
+    left: |
+      <a href="https://biostats-uottawa.github.io/people.html">Julien Martin</a>
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+
+  navbar:
+    background: light
+    collapse-below: lg
+    title: '![](images/cover/book_hex_en.png){width="50px"} R Way'
+    left:
+      - icon: flag
+        menu:
+        - href: https://biostats-uottawa.github.io/enfR
+          text: Français
+#        - href: ../es
+#          text: Español
+      - text: Data & Code
+        href: 902-data.qmd
+      - text: Biostats uOttawa
+        href: https://biostats-uottawa.github.io/
+      - text: Intro Biostats & R (BioXx58)
+        href: https://biostats-uottawa.github.io/bioXx58/
+      - text: Advanced Biostats (Bio8940)
+        href: https://biostats-uottawa.github.io/bio8940/
+#      - text: Livre / Book
+#        menu:
+#          - text: R-way to hell
+#            href: https://biostats-uottawa.github.io/R/en/
+#          - text: Chemin de l'enf-R
+#            href: https://biostats-uottawa.github.io/R/fr/
+
+      - auto
+  cover-image: images/cover/cover_en.png
+  chapters:
+    - index.qmd
+    - part: Using R
+      chapters:
+#        - test.qmd
+        - 01-start.qmd
+        - 02-basics.qmd
+        - 03-data.qmd
+        - 04-graphics_short.qmd
+        - 05-programming.qmd
+        - 06-quarto.qmd
+        - 07-github.qmd
+    - part: Fundamentals of stats
+      chapters:
+#        - 21-distributions, p CI.qmd
+        - 25-power.qmd
+    - part: Linear models
+      chapters:
+        #- 11-stats.qmd
+        - 31-reg_lin.qmd
+        - 32-t_test.qmd
+        - 33-anova.qmd
+        - 34-anova_mult.qmd
+        - 35-reg_mult.qmd
+        - 36-ancova_glm.qmd
+    - part: Generalized linear models
+      chapters:
+        - 41-glm.qmd
+        - 42-model_freq.qmd
+#        - 31-principles.qmd
+#        - 31-poisson.qmd
+#        - 31-binomial.qmd
+    - part: Mixed models
+      chapters:
+        - 51-lmm.qmd
+        - 52-intro_glmm.qmd
+        - 53-randreg.qmd
+        - 54-multivar.qmd
+#        - 31-principles.qmd
+#        - 31-lme.qmd
+#        - 32-glme.qmd
+#        - 33-multi_lme.qmd
+    - part: Generalized additive models
+#        - 41-gam.qmd
+    - part: Multivariate analysis
+#      chapters:
+#        - 71-pca_try.qmd
+#        - 51-acp.qmd
+#        - 52-overview others.qmd
+    - part: Bayesian approach
+      chapters:
+        - 81-beyond_p.qmd
+        - 82-intro_bayesian.qmd
+#        - 61-intro to Bayesian.qmd
+#        - 62-lm-brms.qmd
+#        - 63-lme-brms.qmd
+#        - 64-gam-brms.qmd
+    - 901-references.qmd
+  appendices:
+    - 902-data.qmd
+    - 903-latex.qmd

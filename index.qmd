@@ -1,0 +1,342 @@
+# Preface {.unnumbered}
+
+```{r}
+#| label: links
+#| child: images/_links.md
+```
+
+::: callout-warning
+Book in development. Several sections not developed yet
+:::
+
+## The aim of this book {.unnumbered}
+
+The aim of this book is two-fold:
+
+1.  introduce you to R, a powerful and flexible interactive environment
+    for statistical computing and research.
+2.  introduce you to (or reacquaint you with) statistical analysis done
+    in R.
+
+R in itself is not difficult to learn, but as with learning any new
+language (spoken or computer) the initial learning curve can be steep
+and somewhat daunting. It is not intended to cover everything (neither
+with R not with statistics) but simply to help you climb the initial
+learning curve (potentially faster) and provide you with the basic
+skills (and confidence!) needed to start your own journey with R and
+with specific analysis.
+
+## Multilingual book
+
+The book is provided as a multilingual book breaking that language
+barrier and potentially allow to facilitate the learn of R and its
+mainly english-speaking environment. We are always looking for
+volunteers to help developed the book further and add more languages to
+the growing list. Please [contact us][whoarewe] if you want to help
+
+On the web version of the book, use {{< fa regular flag >}} in the
+navigation bar to switch from one language to another. After switching
+to your preferred language, you can of course also download the pdf and
+epub versions in this language if you want to using {{< fa download >}}.
+
+List of languages:
+
+- english (work in progresspublish but need polishing)
+- french (in development, waiting for english to be polished)
+- spanish (one day maybe)
+- ... volunteers for more ??
+
+## How to use this book {.unnumbered}
+
+```{=html}
+<!-- bootstrap icons works with 
+bi body-text
+bi search
+bi toggle-off
+bi github
+but useless for pdf
+-->
+```
+For the best experience we recommend that you read the web version of
+this book which you can find <https://biostats-uottawa.github.io/R/en>.
+
+The web version includes a navbar at the top of the page where you can
+toggle the sidebars on and off {{< fa align-left >}}, search through the
+book {{< fa search >}}, change the page color {{< fa toggle-off >}} and
+suggest revisions if you spot a typo or mistake
+{{< fa brands github >}}. You can also download {{< fa download >}} a
+pdf and epub versions of the book.
+
+We use a few typographical conventions throughout this book.
+
+R code and the resulting output are presented in code blocks in our
+book.
+
+```{r}
+#| echo: true
+#| eval: true
+2 + 2
+```
+
+Functions in the text are shown with brackets at the end using code
+font, i.e. `mean()` or `sd()` etc.
+
+Objects are shown using code font without the round brackets, i.e.
+`obj1`, `obj2` etc.
+
+R packages in the text are shown using code font and followed by the
+:package: icon, i.e. `tidyverse` :package:.
+
+A series of actions required to access menu commands in RStudio or
+VSCode are identified as `File` -\> `New File` -\> `R Script` which
+translates to 'click on the File menu, then click on New File and then
+select R Script'.
+
+When we refer to **IDE** (**I**ntegrated **D**evelopment **E**nvironment
+software) later in the text we mean either RStudio of VScode.
+
+When we refer to **.\[Rq\]md**, we mean either R markdown (.Rmd) or
+Quarto (.qmd) documents and would generally talk of R markdown documents
+when referring to either `.Rmd` or `.qmd` files.
+
+The manual tries to highlight some part of the text using the following
+boxes and icons.
+
+::: callout-caution
+# Exercises
+
+Stuff for you to do
+:::
+
+::: callout-note
+# Solutions
+
+R code and explanations
+:::
+
+::: callout-warning
+warnings
+:::
+
+::: callout-important
+important points
+:::
+
+::: callout-note
+notes
+:::
+
+## Who are we ? {#sec-who}
+
+```{r}
+#| label: crop-julien
+#| echo: false
+#| eval: false
+
+crop_fn <- function(author, overwrite = FALSE){
+  if (!file.exists(paste0("images/author/", author, "_circ.jpg"))|overwrite == TRUE) {
+    if(file.exists(paste0("images/author/", author, ".jpg"))){
+      cropcircles::crop_circle(
+        paste0("images/author/", author, ".jpg"),
+        to = paste0("images/author/", author, "_circ.jpg")
+      )
+    } else {
+      file.copy("images/author/default_circ.jpg", paste0("images/author/", author, "_circ.jpg"))
+    }
+      cat("generated cropped circle image for", author, "as file:", paste0("/images/author/", author, "_circ.jpg"))
+  } else {
+ cat("nothing happened", paste0("/images/author/", author, "_circ.jpg"), "already exist")
+  }
+}
+
+```
+
+:::::: {#sec-julien layout="[29, -1, 70]"}
+![](images/author/julien_circ.jpg){fig-align="center" width="100%"}
+
+<div>
+
+**Julien Martin** is a Professor at the University of Ottawa working on
+Evolutionary Ecology and has discovered R with version 1.8.1 and teaches
+R since v2.4.0.
+
+::: {.content-visible when-format="pdf"}
+-   {{< fa bookmark >}}: uOttawa
+    <https://www.uottawa.ca/faculty-science/professors/julien-martin/>,
+    lab page <https://juliengamartin.github.io>
+-   {{< fa brands twitter >}}: <https://twitter.com/jgamartin>
+-   {{< fa brands github >}}: <https://github.com/juliengamartin>
+:::
+
+::: {.content-visible when-format="html"}
+-   {{< fa bookmark >}}: [uOttawa
+    page](https://www.uottawa.ca/faculty-science/professors/julien-martin/),
+    [lab page](https://juliengamartin.github.io)
+-   {{< fa brands twitter >}}:
+    [jgamartin](https://twitter.com/jgamartin)
+-   {{< fa brands github >}}:
+    [juliengamartin](https://github.com/juliengamartin)
+:::
+
+</div>
+
+::::::
+
+## Thanks {.unnumbered}
+
+The first part of the book on using R started as a fork on github from the excellent
+[An introduction to R](https://intro2r.com/) book by Douglas, Roos, Mancini,
+Couto and Lusseau [@douglas2023]. It was forked on April 23rd, 2023 from
+[Alexd106 github repository](https://github.com/alexd106/Rbook) then
+modified and updated following my own needs and teaching perspective of
+R. The content was neither reviewed nor endorsed by any the previous
+developers.
+
+Several parts in the book were based on previous lab manuals for biostatistics classes at uOttawa written by
+Martin, Findlay, Morin and Rundle.
+
+Site that provided a lot of information for the book:
+
+- [dplyr introduction](https://dplyr.tidyverse.org/articles/dplyr.html)
+- [Introduction to gam](https://m-clark.github.io/generalized-additive-models/)
+- [Intoduction to gams by Noam Ross](https://noamross.github.io/gams-in-r-course/)
+
+
+```{=html}
+<!-- other resources
+https://r.qcbs.ca/workshops/
+
+for gams see https://gavinsimpson.github.io/gratia/
+
+https://m-clark.github.io/mixed-models-with-R/
+-->
+```
+
+## Image credits
+
+Photos, images and screenshots are from Julien Martin except when
+indicated in caption.
+
+[Cover image](https://creator.nightcafe.studio/creation/P0VHCquzSe5LedOzfxwY?ru=1LIicoDlCUOaydR20fvyG3kYCUp1)
+was generated via [Nightcafe Ai Art generator](https://creator.nightcafe.studio). Favicon and hex sticker
+were created from the cover image.
+
+::: callout-note
+several screenshot are currently by Alex Douglas and are being redone to
+abide by the previous statement
+:::
+
+## License {.unnumbered}
+
+I share this work under the license [License Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+![License Creative Commons](images/license_cc.png)
+
+If you teach R, feel free to use some or all of the content in this book
+to help support your own students. The only thing I ask is that you
+acknowledge the original source and authors. If you find this book
+useful or have any comments or suggestions I would love to hear from you
+([contact info](#sec-who)).
+
+## Citing the book
+
+Julien Martin. ({{< meta year >}}). On the R-way to hell. A multilingual
+introduction to R book. Version: {{< meta version >}}
+({{< meta date >}}).DOI:
+[{{< meta doi >}}](https://zenodo.org/doi/10.5281/zenodo.10929585)
+
+{{< pagebreak >}}
+
+## Course associated reading {#chapters-to-read}
+
+```{r}
+#| label: tbl-reading
+#| eval.expr: true
+#| tbl-cap: Course associated reading for biostatistical course at uOttawa
+#| echo: false
+#| message: false
+library(tibble)
+library(gt)
+library(emoji)
+library(dplyr)
+tribble(
+  ~Part, ~Chapter, ~BioXx58, ~Bio8940,
+  "Using R", "1.-4.", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+#  "Using R", "  2. R basics", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+#  "Using R", "  3. Data", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+#  "Using R", "  4. Figures", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+  "Using R", "5. Programming", "", paste(rep(emoji("white_check_mark"), 2), collapse = ""),
+  "Using R", "6. Reproducible reports", emoji("check_mark"), paste(rep(emoji("white_check_mark"), 2), collapse = ""),
+  "Using R", "7. Version control", "", paste(rep(emoji("white_check_mark"), 2), collapse = ""),
+  "Stats fundamentals", "all chapters", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+  "Linear models", "all chapters", paste(rep(emoji("white_check_mark"), 2), collapse = ""), emoji("smiley"),
+  "Generalized linear models", "all chapters", paste(rep(emoji("check_mark"), 1), collapse = ""), paste(rep(emoji("white_check_mark"), 2), collapse = ""),
+  "Mixed models", "all chapters", "", paste(rep(emoji("white_check_mark"), 2), collapse = ""),
+  "Generalized additive models", "all chapters", "", paste(rep(emoji("check_mark"), 1), collapse = ""),
+  "Multivariate analysis", "all chapters", "", paste(rep(emoji("check_mark"), 1), collapse = ""),
+  "Bayesian approach", "all chapters", "", paste(rep(emoji("white_check_mark"), 2), collapse = "")
+) |>
+  group_by(Part) |>
+  gt() |>
+  cols_align(
+    align = "center",
+    columns = starts_with("Bio")
+  ) |>
+  tab_footnote(
+    footnote = paste("Suggested", emoji::emoji("check_mark"), "; mandatory", paste(rep(emoji::emoji("white_check_mark"), 2), collapse = ""), "; expected knowledge (might need a refresher)", emoji::emoji("smiley"))
+  ) |>
+  cols_label(
+    BioXx58 = md('[BioXx58 ![](images/hex/bio4x58_logo_hex.png){width="60px"}](https://biostats-uottawa.github.io/bioXx58/en/)'),
+    Bio8940 = md('[Bio8940 ![](images/hex/bio8940_logo_hex.png){width="60px"}](https://biostats-uottawa.github.io/bio8940)')
+  ) |>
+  tab_options(
+    row_group.font.weight ="bold"
+  )
+
+```
+
+{{< pagebreak >}}
+
+## Hex Sticker
+
+```{r}
+#| label: create-hexsticker
+#| echo: false
+#| eval: false
+
+# used only once or when cover image is modified
+lang <- "en"
+title <- "R Way to hell"
+
+library(showtext)
+## Loading Google fonts (http://www.google.com/fonts)
+font_add_google("Jim Nightshade", "jim")
+## Automatically use showtext to render text for future devices
+showtext_auto()
+
+hexSticker::sticker("images/cover/cover_hex.jpg",
+  package = title,
+  angle = 0,
+  p_size = 25,
+  s_x = 1,
+  s_y = 1,
+  p_x = 1,
+  p_y = 0.8,
+  p_color = "white",
+  s_width = 0.85,
+  s_height = 0.85,
+  p_family = "jim",
+  h_color = "black",
+  url = paste0("biostats-uottawa.github.io/R/", lang),
+  u_color = "grey80",
+  u_size = 5,
+  filename = paste0("images/cover/book_hex_", lang, ".png")
+)
+
+```
+
+![](images/cover/book_hex_en.png){fig-align="center" width="50%"}
+
+::: {.content-visible when-format="pdf"}
+\clearpage\pagenumbering{arabic}\setcounter{page}{1}
+:::

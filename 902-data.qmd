@@ -1,0 +1,21 @@
+# Data used in this book {#sec-data-files}
+
+
+
+check what is done for BIO8940
+
+use downlaod this to create nice downlaod options potentially
+
+```r
+path_files <- list.files(path = system.file("assets/css", package = "downloadthis"), full.names = TRUE)
+
+download_file(
+  path = path_files,
+  output_name = "Files from downloadthis",
+  button_label = "Download files",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```

@@ -1,0 +1,399 @@
+# One-way ANOVA
+
+After completing this laboratory exercise, you should be able to:
+
+* Use R to do a one-way parametric ANOVA with multiple comparisons
+* Use R to test the validity of the parametric ANOVA assumptions
+* Use R to perform a one-way non-parametric ANOVA
+* Use R to transform your data so that the assumptions of parametric ANOVA are met.
+
+## R packages and data {#set-ano}
+
+For this lab you need:
+
+* R packages:
+  * ggplot2
+  * multcomp
+  * car
+* data
+  * dam10dat.csv
+
+```{r}
+library(ggplot2)
+library(car)
+library(multcomp)
+```
+
+## One-way ANOVA with multiple comparisons
+
+The one-way ANOVA is the multi-group analog of the *t*-test, which is used to compare two groups/levels. It makes essentially the same assumptions, and in the case of two groups/levels, is in fact mathematically equivalent to the *t*-test.
+
+In 1960-1962, the Grand Rapids Dam was built on the Saskatchewan River upstream of Cumberland House. There are anecdotal reports that during dam construction, a number of large sturgeon were stranded and died in shallow pools. Surveys of sturgeon were carried out in 1954, 1958, 1965 and 1966 with fork length (`fklngth`) and round weight (`rdwght`) being recorded (not necessarily both measurements for each individual). These data are in the data file `Dam10dat.csv`.
+
+### Visualiser les données
+- Using `Dam10dat.csv`, you must first change the data type of the
+numerical variable year , so that R recognizes that we wish to treat this
+variable as a factor variable and not a continuous variable.
+
+::: {.callout-tip}
+# Solution
+
+```{r}
+#| label: ano-1
+dam10dat <- read.csv("data/Dam10dat.csv")
+dam10dat$year <- as.factor(dam10dat$year)
+str(dam10dat)
+```
+:::
+
+- Next, have a look at the fklngth data, just as we did in the last lab for t-tests. Create a histogram with density line grouped by year to get a feel for what’s happening with your data and a boxplot of length per year. What can you say about these data?
+
+::: {.callout-tip}
+# Solution
+
+```{r}
+#| label: ano-2
+#| warning: false
+#| message: false
+#| fig-cap: Distribution of sturgeon length per year
+
+mygraph <- ggplot(dam10dat, aes(x = fklngth)) +
+  labs(x = "Fork length (cm)") +
+  geom_density() +
+  geom_rug() +
+  geom_histogram(aes(y = ..density..),
+    color = "black",
+    alpha = 0.3
+  ) +
+  stat_function(
+    fun = dnorm,
+    args = list(
+      mean = mean(dam10dat$fklngth),
+      sd = sd(dam10dat$fklngth)
+    ),
+    color = "red"
+  )
+
+# display graph, by year
+mygraph + facet_wrap(~year, ncol = 2)
+```
+
+```{r}
+#| fig-cap: Boxplot of sturgeon length per year
+boxplot(fklngth ~ year, data = dam10dat)
+```
+:::
+
+It appears as though there may have been a small drop in `fklngth` after the construction of the dam, but the data are variable and the effects are not clear. There might also be some problems with normality in the 1954 and 1966 samples, and it looks as though there are outliers in the 1958 and 1966 samples. Let’s proceed with testing the assumptions of the ANOVA by running the analysis and looking at the residuals.
+
+### Testing the assumptions of a parametric ANOVA
+
+Parametric one-way ANOVAs have three major assumptions:
+
+1. the residuals are normally distributed
+2. the error variance is the same for all groups (homoscedasticity)
+3. the residuals are independent.
+
+These assumptions must be tested before we can accept the results of any parametric ANOVA.
+
+- Carry out a one-way ANOVA on fklngth by year and produce the residual diagnostic plots
+
+
+
+```{r}
+#| label: ano-3
+#| fig-cap: Diagnostic plots for a one-way ANOVA
+# Fit anova model and plot residual diagnostics
+anova.model1 <- lm(fklngth ~ year, data = dam10dat)
+par(mfrow = c(2, 2))
+plot(anova.model1)
+```
+
+::: {.callout-warning}
+Double check that the independent variable is a **factor**. If the dependent variable is a **character**, then you will obtain only 3 graphs and an error message like:
+
+`hat values (leverages) are all = 0.1
+
+ and there are no factor predictors; no plot no. 5`
+:::
+
+D’après les graphiques, on peut douter de la normalité et de l’homogénéité des variances. Judging from the plots, it looks as though there may be problems with both normality and variance heterogeneity. Note that there is one point (case 59) with large expected values and a large residual that appear to lie well off the line: this is the outlier we noted earlier. This point might be expected to inflate the variance for the group it belongs to. Formal tests may also provide some insight as to whether we should be concerned about normality and variance heterogeneity. 
+
+- Perform a normality test on the residuals from the ANOVA.
+
+```{r}
+#| label: ano-4
+shapiro.test(residuals(anova.model1))
+```
+
+This test confirms our suspicions from the probability plot: the residuals are not normally distributed. Recall, however, that the power here is high, so only small deviations from normality are required to reject the null.
+
+- Next, test for homoscedasticity:
+
+```{r}
+#| label: ano-5
+leveneTest(fklngth ~ year, data = dam10dat)
+```
+
+The probability value tells you that you can reject the null hypothesis that there is no difference in variances among years. Thus, we conclude there is evidence that the variances in the groups are not equal.
+
+### Performing the ANOVA
+
+Let’s look at the results of the ANOVA, assuming for the moment that assumptions are met well enough.
+
+```{r}
+#| label: ano-6
+summary(anova.model1)
+```
+
+* *Coefficients: Estimates* Note the 4 coefficients printed. They can be used to obtain the predicted values for the model (i.e. the group means). The mean fklngth for the first year (1954) is 48.0243. The coefficients for the 3 other years are the difference between the mean for that year and for 1954. So, the mean for 1965 is (48.0243-5.5077=42.5166). For each estimated coefficient, there is a standard error, a t-value and associated probability (for H0 that the coefficient is 0). Note here that coefficients for 1965 and 1966 are both negative and significantly less than 0. Fish were smaller after the construction of the dam than in 1954. Take these p-values with a grain of salt: these are not corrected for multiple comparisons, and they constitute only a subset of the possible comparisons. In general, I pay little attention to this part of the output and look more at what comes next.
+* *Residual standard error*: The square root of the variance of the residuals (observed minus fitted values) corresponds to the amount of variability that is unexplained by the models (here an estimate of how much size varied among fish, once corrected for differences among years)
+* *Mutiple R-squared* The R-squared is the proportion of the variance of the dependent variable that can be explained by the model. Here the model explains only 13.5% of the variability. Size differences among year are relatively small compared to the ranges of sizes that can occur within years. This corresponds well to the visual impression left by the histograms of `fklngth` per `year`
+4. *F-Statistic* This is the p-value for the "omnibus" test, the test that all means are equal. Here it is much smaller than 0.05 and hence we would reject H0 and conclude that fklngth varies among the years
+
+The `anova()` command produces the standard ANOVA table that contains most of the same information:
+
+```{r}
+#| label: ano-7
+anova(anova.model1)
+```
+
+The total variability in fklngth sums of square is partitioned into what can be accounted for by year (485.26) and what is left unexplained as residual variability (3095.30). Year indeed explains $(485.26/(3095.30+485.26)=.1355$ or 13.55% of the variability). The mean square of the residuals is their variance.
+
+### Performing multiple comparisons of means test
+
+- The `pairwise.t.test()` function can be used to compare means and adjust (or not) probabilities for multiple comparisons by choosing one of the options for the argument `p.adj`:
+
+Comparing all means without corrections for multiple comparisons.
+
+```{r}
+#| label: ano-8
+pairwise.t.test(dam10dat$fklngth, dam10dat$year,
+  p.adj = "none"
+)
+```
+
+Option `"bonf"` adjusts the p-values according to the Bonferroni correction. In this case, since there are 6 p-values calculated, it amounts to simply multiplying the uncorrected p-values by 6 (unless the result is above 1, in that case the adjusted p-value is 1).
+
+```{r}
+#| label: ano-9
+pairwise.t.test(dam10dat$fklngth, dam10dat$year,
+  p.adj = "bonf"
+)
+```
+
+Option `"holm"` is the sequential Bonferroni correction, where the p-values are ranked from (i=1) smallest to (N) largest. The correction factor for p-values is then $$(N-i+1)$. Here, for example, we have N=6 pairs that are compared. The lowest uncorrected p-value is 0.0019 for 1954 vs 1965. The corrected p-value becomes $0.0019*(6-1+1)= 0.011$. The second lowest p-value is 0.0022. The corrected p/value is therefore $0.0022*(6-2+1)=0.011$. For the highest p-value, the correction is $(N-N+1)=1$, hence it is equal to the uncorrected probability.
+
+```{r}
+#| label: ano-10
+pairwise.t.test(dam10dat$fklngth, dam10dat$year,
+  p.adj = "holm"
+)
+```
+
+The "fdr" option is for controlling the false discovery rate.
+
+```{r}
+#| label: ano-11
+pairwise.t.test(dam10dat$fklngth, dam10dat$year,
+  p.adj = "fdr"
+)
+```
+
+The four post-hoc tests here tell us the same thing: differences are all between two groups of years: 1954/58 and 1965/66, since all comparisons show differences between the 50’s and 60’s but no differences within the 50’s or 60’s. So, in this particular case, the conclusion is not affected by the choice of adjustment method. But in other situations, you will observe contradictory results. 
+
+Which one to choose? Unadjusted p-values are certainly suspect when there are multiple tests. On the other hand, the traditional *Bonferroni* correction is very conservative, and becomes even more so when there are a large number of comparisons. Recent work suggest that the *fdr* approach may be a good compromise when there are a lot of comparisons. The *Tukey* method of multiple comparisons is one of the most popular and is easily performed with R (note, however, that there is a pesky bug that manifests itself when the independent variable can look like a number rather than a factor, hence the little pirouette with `paste0()` to add a letter `m` before the first digit):
+
+```{r}
+#| label: ano-12
+dam10dat$myyear <- as.factor(paste0("m", dam10dat$year))
+TukeyHSD(aov(fklngth ~ myyear, data = dam10dat))
+```
+```{r}
+#| label: ano-13
+#| fig-cap: Inter-annual differences in sturgeon length
+par(mar = c(4, 7, 2, 1))
+plot(TukeyHSD(aov(fklngth ~ myyear, data = dam10dat)), las = 2)
+```
+
+The confidence intervals, corrected for multiple tests by the Tukey method, are plotted for differences among years. Unfortunately, the labels are not all printed because they would overlap, but the order is the same as in the preceding table. The `multcomp` `r emoji::emoji("package")` can produce a better plot version, but requires a bit more code:
+
+```{r}
+#| label: ano-14
+#| fig-cap: Inter-annual differences in sturgeon length
+# Alternative way to compute Tukey multiple comparisons
+# set up a one-way ANOVA
+anova_fkl_year <- aov(fklngth ~ myyear, data = dam10dat)
+# set up all-pairs comparisons for factor `year'
+
+meandiff <- glht(anova_fkl_year, linfct = mcp(
+  myyear =
+    "Tukey"
+))
+confint(meandiff)
+par(mar = c(5, 7, 2, 1))
+plot(meandiff)
+```
+
+This is better. Also useful is a plot the means and their confidence intervals with the Tukey groupings shown as letters above:
+
+```{r}
+#| label: ano-15
+#| fig-cap: Inter-annual differences in sturgeon length
+# Compute and plot means and Tukey CI
+means <- glht(
+  anova_fkl_year,
+  linfct = mcp(myyear = "Tukey")
+)
+cimeans <- cld(means)
+# use sufficiently large upper margin
+# plot
+old_par <- par(mai = c(1, 1, 1.25, 1))
+plot(cimeans)
+```
+
+Note the letters appearing on top. Years labelled with the same letter do not differ significantly.
+
+## Data transformations and non-parametric ANOVA
+
+In the above example to examine differences in fklngth among years , we detected evidence of non-normality and variance heterogeneity. If the assumptions underlying a parametric ANOVA are not valid, there are several options:
+
+1. if sample sizes in each group are reasonably large, parametric ANOVA is reasonably robust with respect to the normality assumption, for the same reason that the t-test is, so the results are probably not too bad;
+2. we can transform the data;
+3. we can go the non-parametric route.
+
+- Repeat the one-way ANOVA in the section above, but this time run the analysis on the log 10 fklngth . With this transformation, do some of the problems encountered previously disappear?
+
+```{r}
+#| label: ano-16
+#| fig-cap: Diagnostic plots for the ANOVA of sturgeon length by year
+# Fit anova model on log10 of fklngth and plot residual diagnostics
+par(mfrow = c(2, 2))
+anova.model2 <- lm(log10(fklngth) ~ year, data = dam10dat)
+plot(anova.model2)
+```
+
+Looking at the residuals, things look barely better than before without the log transformation. Running the Wilks-Shapiro
+test for normality on the residuals, we get:
+
+```{r}
+#| label: ano-17
+shapiro.test(residuals(anova.model2))
+```
+
+So, it would appear that we still have some problems with the assumption of normality and are just on the border line of meeting the assumption of homogeneity of variances. You have several choices here:
+
+1. try to find a different transformation to satisfy the assumptions,
+2. assume the data are close enough to meeting the assumptions, or
+3. perform a non-parametric ANOVA.
+
+- The most commonly used non-parametric analog of the parametric one-way ANOVA is the Kruskall-Wallis one-way ANOVA. Perform a Kruskall-Wallis one-way ANOVA of `fklngth` , and compare these results to the parametric analysis above. What do you conclude?
+
+```{r}
+#| label: ano-18
+kruskal.test(fklngth ~ year, data = dam10dat)
+```
+
+So, the conclusion is the same as with the parametric ANOVA: we reject the null that the mean rank is the same for each year. Thus, despite violation of one or more assumptions, the parametric analysis is telling us the same thing as the non-parametric analysis: the conclusion is, therefore, quite robust.
+
+## Dealing with outliers
+
+Our preliminary analysis of the relationship between `fklngth` and `year` suggested there might be some outliers in the data. These were evident in the box plots of `fklngth` by `year` and flagged as cases 59, 23 and 87 in the residual probability plot and residual-fit plot. In general, you have to have very good reasons for removing outliers from a data set (e.g., you know there was a mistake made in the data collection/entry). However, it is often useful to know how the analysis changes if you remove the outliers from the data set.
+
+- Repeat the original ANOVA of `fklngth` by `year` but work with a subset of the data without the outliers. Have any of the conclusions changed?
+
+```{r}
+#| label: ano-19
+damsubset <- dam10dat[-c(23, 59, 87), ] # removes obs 23, 59 and 87
+aov_damsubset <- aov(fklngth ~ as.factor(year), damsubset)
+summary(aov_damsubset)
+```
+
+```{r}
+#| label: ano-20
+shapiro.test(residuals(aov_damsubset))
+```
+
+```{r}
+#| label: ano-21
+leveneTest(fklngth ~ year, damsubset)
+```
+
+Elimination of three outliers, in this case, makes things better in terms of the normality assumption, but does not improve the
+variances. Moreover, the fact that the conclusion drawn from the original ANOVA with outliers retained does not change upon their removal reinforces the fact that there is no good reason to remove the points. Instead of a Kruskall-Wallis rank-based test, a permutation test could be used.
+
+## Permutation test
+
+This is an example for a more complex way of doing permutation that we used when `lmPerm` was not available.
+
+```{r}
+#| label: ano-23
+#| eval: false
+#############################################################
+# Permutation Test for one-way ANOVA
+# modified from code written by David C. Howell
+# http://www.uvm.edu/~dhowell/StatPages/
+# More_Stuff/Permutation%20Anova/PermTestsAnova.html
+# set desired number of permutations
+nreps <- 500
+# to simplify reuse of this code, copy desired dataframe to mydata
+mydata <- dam10dat
+# copy model formula to myformula
+myformula <- as.formula("fklngth ~ year")
+# copy dependent variable vector to mydep
+mydep <- mydata$fklngth
+# copy independent variable vector to myindep
+myindep <- as.factor(mydata$year)
+################################################
+# You should not need to modify code chunk below
+################################################
+# Compute observed F value for original sample
+mod1 <- lm(myformula, data = mydata) # Standard Anova
+sum_anova <- summary(aov(mod1)) # Save summary to variable
+obs_f <- sum_anova[[1]]$"F value"[1] # Save observed F value
+# Print standard ANOVA results
+cat(
+  " The standard ANOVA for these data follows ",
+  "\n"
+)
+
+print(sum_anova, "\n")
+cat("\n")
+cat("\n")
+print("Resampling as in Manly with unrestricted sampling of observations. ")
+
+# Now start resampling
+boot_f <- numeric(nreps) # initalize vector to receive permuted
+values
+boot_f[1] <- obs_f
+for (i in 2:nreps) {
+  newdependent <- sample(mydep, length(mydep)) # randomize dep
+  var
+  mod2 <- lm(newdependent ~ myindep) # refit model
+  b <- summary(aov(mod2))
+  boot_f[i] <- b[[1]]$"F value"[1] # store F stats
+}
+permprob <- length(boot_f[boot_f >= obs_f]) / nreps
+cat(
+  " The permutation probability value is: ", permprob,
+  "\n"
+)
+# end of code chunk for permutation
+```
+
+Version `lmPerm` du test de permutation.
+
+```{r}
+#| label: ano-24
+#| eval: false
+## lmPerm version of permutation test
+library(lmPerm)
+# for generality, copy desired dataframe to mydata
+# and model formula to myformula
+mydata <- dam10dat
+myformula <- as.formula("fklngth ~ year")
+# Fit desired model on the desired dataframe
+mymodel <- lm(myformula, data = mydata)
+# Calculate permutation p-value
+anova(lmp(myformula, data = mydata, perm = "Prob", center = FALSE, Ca = 0.001))
+```

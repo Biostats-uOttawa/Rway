@@ -1,0 +1,488 @@
+# Multivariate mixed models
+
+## Lecture
+
+Amazing beasties and crazy animals
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: Dream pet dragon
+knitr::include_graphics("images/fun_dragon.jpg")
+```
+
+add a comparison of lrt 
+
+
+## Practical
+
+In this practical, we have collected data on the amazing blue dragon of the East that roam the sky at night.
+
+We will use two different `r emoji::emoji("package")` to fit more complex models that are not possible with  `lmer()` from `lme4` 
+`r emoji::emoji("package")` [@lme4]. We will use:
+
+- `asreml-R` which is a commercial software developed by VSNi [@asreml]. `ASReml` fit models using a maximum likelihood approach, is quite flexible and fast.
+- `MCMCglmm` which is free and open-source and fit model using a Bayesian approach [@MCMCglmm]. It is super flexible and allow to fit a wide diversity of distribution.
+
+
+The aims of the practical are to learn:
+
+- How to phrase questions of interest in terms of variances and covariances (or derived correlations or regressions);
+- How to incorporate more advanced model structures, such as:
+    - Fixed effects that apply only to a subset of the response traits;
+    - Traits which are measured a different number of times (e.g., repeated measures of behaviour and a single value of breeding success);
+- Hypothesis testing using likelihood ratio tests.
+
+### R packages needed
+
+First we load required libraries
+```{r}
+#| label: loadlibs_mm
+#| message: false
+#| results: hide
+#| warning: false
+
+library(lmerTest)
+library(tidyverse)
+library(asreml)
+library(MCMCglmm)
+library(nadiv)
+```
+
+### The blue dragon of the East
+
+For this practical, we have collected data on the amazing blue dragon of the East that roam the sky at night.
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: Blue dragon male
+knitr::include_graphics("images/blue_dragon.jpg")
+```
+
+We tagged all dragons individually when they hatch from their eggs. Here, we concentrate on female dragon that produce a single clucth of eggs per mating seasons. Adult femlae blue dragons need to explore vast amount of land to find a compatible male. We thus hypothesized that maximum flight speed as well as exploration are key traits to determine fitness. We were able to obtain repeated measures of flying speed and exploration on 80 adult females during one mating season and also measure the number of egg layed at the end of the season. 
+
+Each females was capture 4 times during the season and each time we measured the maximum flying speed using a wind tunnel and exploration using a openfield test.
+
+The data frame has 6 variables:
+
+- ID: Individual identity
+- assay_rep: the repeat number of the behavioural assay
+- max_speed: maximum flying speed
+- exploration:
+- eggs: measure of reproductive succes measured only once per individual
+- body_size: individual body size measured on the day of the test
+
+
+```{r}
+df_dragons <- read.csv("data/dragons.csv")
+str(df_dragons)
+```
+
+To help with convergence of the model, and also help with parameter interpretation, we will first scale our covariates.
+
+```{r}
+df_dragons <- df_dragons %>%
+  mutate(
+    body_size_sc = scale(body_size),
+    assay_rep_sc = scale(assay_rep, scale = FALSE)
+  )
+```
+
+### Multiple univariate models
+
+We first use the `lme4` `r emoji::emoji("package")` to determine the proportion of phenotypic variation (adjusted for fixed effects) that is due to differences among individuals, separately for each trait with repeated measures. 
+
+#### Flying speed
+
+Our model includes fixed effects of the assay repeat number (centred) and individual body size (centred and scaled to standard deviation units), as we wish to control for any systematic effects of these variables on individual behaviour. Be aware that controlling variables are at your discretion — for example, while we want to characterise among-individual variance in flying speed after controlling for size effects in this study, others may wish to characterise among-individual variance in flying speed without such control. Using techniques shown later in the practical, it would be entirely possible to characterise both among-individual variance in flying speed and in size, and the among-individual covariance between these measurements.
+
+```{r}
+#| fig-cap: Checking assumptions of model lmer_f
+lmer_f <- lmer(max_speed ~ assay_rep_sc + body_size_sc + (1 | ID),
+  data = df_dragons
+)
+par(mfrow = c(1, 3))
+plot(resid(lmer_f, type = "pearson") ~ fitted(lmer_f))
+qqnorm(residuals(lmer_f))
+qqline(residuals(lmer_f))
+hist(residuals(lmer_f))
+summary(lmer_f)
+```
+
+Having examined diagnostic plots of the model fit, we can check the model summary. We are interested in the random effects section of the lme4 model output (specifically the variance component — note that the standard deviation here is simply the square root of the variance). Evidence for ‘animal personality’ (or ‘consistent among-individual differences in behaviour’) in the literature is largely taken from the repeatability of behaviorual traits: we can compute this repeatability (also known as the intraclass correlation coefficient) by dividing the variance in the trait due to differences among individuals ($V_{ID}$) by the total phenotypic variance after accounting for the fixed effects ($V_{ID} + V_{residual}$ ). 
+
+```{r}
+#| results: hide
+rep_flying <- as.data.frame(VarCorr(lmer_f)) %>%
+  select(grp, vcov) %>%
+  spread(grp, vcov) %>%
+  mutate(repeatability = ID / (ID + Residual))
+rep_flying
+```
+
+```{r}
+#| echo: false
+#| purl: false
+knitr::kable(rep_flying,
+  digits = 3,
+  caption = "Variance components and repeatbility for the maximum
+   flying speed of blue dragons"
+)
+```
+
+So we can see that `r round(rep_flying$repeatability * 100, digits = 2)`\% of the phenotypic variation in boldness (having controlled for body size and assay
+repeat number) is due to differences among individuals.
+
+#### Exploration
+
+```{r}
+#| fig-cap: Checking assumptions of model lmer_e
+lmer_e <- lmer(exploration ~ assay_rep_sc + body_size_sc + (1 | ID),
+  data = df_dragons
+)
+par(mfrow = c(1, 3))
+plot(resid(lmer_e, type = "pearson") ~ fitted(lmer_e))
+qqnorm(residuals(lmer_e))
+qqline(residuals(lmer_e))
+hist(residuals(lmer_e))
+summary(lmer_e)
+```
+
+So the model looks good and we can see our estimates for both fixed and random effects. We can now estimate the repeatbility of exploration.
+
+```{r}
+#| results: hide
+rep_expl <- as.data.frame(VarCorr(lmer_e)) %>%
+  select(grp, vcov) %>%
+  spread(grp, vcov) %>%
+  mutate(repeatability = ID / (ID + Residual))
+rep_expl
+```
+
+```{r}
+#| echo: false
+#| purl: false
+knitr::kable(rep_expl,
+  digits = 3,
+  caption = "Variance components and repeatability for exploration
+   behaviour of blue dragons"
+)
+```
+
+Both of traits of interest are repeatable at the among-individual level. So, the remaining question is estimating the relation between these two traits. Are individuals that are consistently faster than average also more exploratory than average (and vice versa)?
+
+#### Correlation using BLUPs
+
+Using BLUPs to estimate correlations between traits or to further investigate biological associations can lead to spurious results and anticonservative hypothesis tests and narrow confidence intervals. @hadfield_misuse_2010 discuss the problem as well as present some alternative method to avoid the problem using Bayesian methods. However, it is always preferable to use multivariate models when possible.
+
+We need to create a data frame that contain the BLUPs from both univariate models.
+
+```{r}
+df_blups_fe <- merge(
+  as.data.frame(ranef(lmer_f)),
+  as.data.frame(ranef(lmer_e)),
+  by = "grp"
+) %>%
+  mutate(
+    speed = condval.x,
+    exploration = condval.y
+  )
+```
+
+We can now test the correlation among-individual between flying speed and exploration.
+
+```{r}
+#| fig-cap: Relation between exploration and flying speed using BLUPs from univariate
+#|   models
+(cor_blups <- with(df_blups_fe, cor.test(speed, exploration)))
+ggplot(df_blups_fe, aes(x = exploration, y = speed)) +
+  geom_point() +
+  labs(xlab = "Exploration (BLUP)", ylab = "Flying speed (BLUP)") +
+  theme_classic()
+```
+
+As you can see, we get a positive correlation with a very small p-value (P = `r format(cor_blups$p.value, digits = 3)`), indicating that these traits are involved in a behavioural syndrome. While the correlation itself is fairly weak ($r = `r format(cor_blups$estimate, digits = 3)`), it appears to be highly significant, and suggests that individuals that are faster than average also tend to be more exploratory than average.
+However, as discussed in @hadfield_misuse_2010 and @houslay_avoiding_2017, using BLUPs in this way leads to anticonservative significance tests. This is because the error inherent in their prediction is not carried forward from the lmer models to the subsequent analysis (in this case, a correlation test).
+To illustrate this point quickly, below we plot the individual estimates along with their associated standard errors.
+
+```{r}
+#| fig-cap: Relation between exploration and flying speed using BLUPs from univariate
+#|   models including +/- SE as error bars
+ggplot(df_blups_fe, aes(x = exploration, y = speed)) +
+  geom_point() +
+  geom_linerange(aes(
+    xmin = exploration - condsd.x,
+    xmax = exploration + condsd.x
+  )) +
+  geom_linerange(aes(
+    ymin = speed - condsd.y,
+    ymax = speed + condsd.y
+  )) +
+  labs(
+    xlab = "Exploration (BLUP +/- SE)",
+    ylab = "Flying speed (BLUP +/- SE)"
+  ) +
+  theme_classic()
+```
+
+### Multivariate approach
+
+#### Based on ASRemlR
+
+The correct approach for testing the hypothesised relation between speed and exploration uses both response variables in a two-trait (‘bivariate’) mixed model. This model estimates the among-individual variance for each response variable (and the covariance between them).
+Separate (co)variances are also fitted for the residual variation.
+The bivariate model also allows for fixed effects to be fitted on both response variables.
+We set up our model using the `asreml` function call, with our bivariate response variable being `exploration` and flying `speed` bound together using `cbind`. You will also note that we scale our response variables, meaning that each is centred at their mean value and standardised to units of 1 standard deviation. This is not essential, but simply makes it easier for the model to be fit. Scaling the response variables also aids our understanding of the output, as both flying speed and exploration are now on the same scale.
+
+`asreml` can be a bit specific sometime and random effects should absolutely be `factor` and not `character` or `integer`
+
+```{r}
+#| warning: false
+df_dragons <- df_dragons %>%
+  mutate(
+    ID = as.factor(ID),
+    speed_sc = scale(max_speed),
+    exploration_sc = scale(exploration)
+  )
+
+asr_us <- asreml(
+  cbind(speed_sc, exploration_sc) ~ trait +
+    trait:assay_rep_sc + trait:body_size_sc,
+  random = ~ ID:us(trait),
+  residual = ~ units:us(trait),
+  data = df_dragons,
+  maxiter = 100
+)
+```
+
+On the right hand side of our model formula, we use the `trait` keyword to specify that this is a multivariate model — `trait` itself tells the model to give us the intercept for each trait. We then interact `trait` with the fixed effects, `assay_rep_sc` and `body_size_sc`, so that we get estimates for the effect of these variables on each of teh 2 traits.
+The random effects structure starts with the random effects, where we tell the model to fit an *unstructured* (us) covariance matrix for the grouping variable ID. This means that the variance in exploration due to differences among individuals, the variance in boldness due to differences among individuals, and the covariance between these variances will be estimated.
+Next, we set a structure for the residual variation (`residual`), which is also sometimes known as the *within-individual variation*. As we have repeated measures for both traits at the individual level, we also set an *unstructured* covariance matrix, which estimates the residual variance for each trait and also allows the residuals
+to covary across the two traits.
+Finally, we provide the name of the data frame, and a maximum number of iterations for ASReml to attempt to fit the model.
+After the model has been fit by ASReml, we can check the fit using the same type of model diagnostic plots as we use for `lme4`:
+
+```{r}
+#| fig-cap: Checking assumptions of model asr_us
+par(mfrow = c(1, 3))
+plot(residuals(asr_us) ~ fitted(asr_us))
+qqnorm(residuals(asr_us))
+qqline(residuals(asr_us))
+hist(residuals(asr_us))
+```
+
+The summary part of the ASReml model fit contains a large amount of information, so it is best to look only at certain parts of it at a single time. While we are not particularly interested in the fixed effects for current purposes, you can inspect these using the following code to check whether there were any large effects of `assay repeat` or `body size` on either trait:
+
+```{r}
+summary(asr_us, coef = TRUE)$coef.fixed
+wa <- wald(asr_us, ssType = "conditional", denDF = "numeric")
+attr(wa$Wald, "heading") <- NULL
+wa
+```
+
+We can see that there is a separate intercept for both personality traits (no surprise that these are very close to zero, given that we mean-centred and scaled each trait before fitting the model), and an estimate of the effect of assay repeat and body size on both traits. None of these appear to be large effects, so let’s move on to the more interesting parts — the random effects estimates:
+
+```{r}
+summary(asr_us)$varcomp
+```
+
+In the above summary table, we have the among-individual (co)variances listed first (starting with ID), then the residual (or within-individual) (co)variances (starting with R). You will notice that the variance estimates here are actually close to the `lme4` repeatability estimates, because our response variables were scaled to phenotypic standard deviations. We can also find the ‘adjusted repeatability’ (i.e., the repeatability conditional on the fixed effects) for each trait by dividing its among-individual variance estimate by the sum
+of its among-individual and residual variances.
+Here, we use the `vpredict` function to estimate the repeatability and its
+standard error for each trait, conditional on the effects of assay repeat and body size.
+For this function, we provide the name of the model object, followed by a name that we want to give the estimate being returned, and a formula for the calculation. Each ‘V’ term in the formula refers to a variance component, using its position in the model summary shown above.
+
+```{r}
+vpredict(asr_us, rep_speed ~ V1 / (V1 + V5))
+vpredict(asr_us, rep_expl ~ V3 / (V3 + V7))
+```
+
+We can also use this function to calculate the estimate and standard error of the correlation from our model (co)variances. We do this by specifying the formula for the correlation:
+
+```{r}
+(cor_fe <- vpredict(asr_us, cor_expl_speed ~ V2 / (sqrt(V1 * V3))))
+```
+
+In this case, the estimate is similar (here, slightly lower) than our correlation estimate using BLUPs.
+However, if we consider confidence intervals as *+/- 1.96 SE* around the estimate, the lower bound of the confidence interval would actually be `r format(cor_fe[1] - cor_fe[2]*1.96, digits = 3)`.
+With confidence intervals straddling zero, we would conclude that this correlation is likely non-significant.
+As the use of standard errors in this way is only approximate, we should also test our hypothesis formally using likelihood ratio tests.
+
+##### Hypothesis testing
+
+We can now test the statistical significance of this correlation directly, by fitting a second model without the among-individual covariance between our two traits, and then using a likelihood ratio test to determine whether the model with the covariance produces a better fit.
+Here, we use the `idh` structure for our random effects. This stands for ‘identity matrix’ (i.e., with 0s on the off-diagonals) with heterogeneous variances (i.e., the variance components for our two response traits are allowed to be different from one another).
+The rest of the model is identical to the previous version.
+
+```{r}
+asr_idh <- asreml(
+  cbind(speed_sc, exploration_sc) ~ trait +
+    trait:assay_rep_sc + trait:body_size_sc,
+  random = ~ ID:idh(trait),
+  residual = ~ units:us(trait),
+  data = df_dragons,
+  maxiter = 100
+)
+```
+
+The likelihood ratio test is calculated as twice the difference between model log-likelihoods, on a single degree of freedom (the covariance term):
+```{r}
+(p_biv <- pchisq(2 * (asr_us$loglik - asr_idh$loglik),
+  df = 1,
+  lower.tail = FALSE
+))
+```
+
+In sharp contrast to the highly-significant P-value given by a correlation test using BLUPs, here we find no evidence for a correlation between flying speed and exploration.
+To better understand why BLUPs produce an anticonservative p-value in comparison to multivariate models, we should plot the correlation estimates and their confidence intervals. The confidence intervals are taken directly from the cor.test function for BLUPs, and for ASReml they are calculated as 1.96 times the standard error from the `vpredict` function.
+
+```{r}
+#| fig-cap: Correlation estimates (with CI) using 2 different methods
+df_cor <- data.frame(
+  Method = c("ASReml", "BLUPs"),
+  Correlation = c(as.numeric(cor_fe[1]), cor_blups$estimate),
+  low = c(as.numeric(cor_fe[1] - 1.96 * cor_fe[2]), cor_blups$conf.int[1]),
+  high = c(as.numeric(cor_fe[1] + 1.96 * cor_fe[2]), cor_blups$conf.int[2])
+)
+ggplot(df_cor, aes(x = Method, y = Correlation)) +
+  geom_point() +
+  geom_linerange(aes(ymin = low, ymax = high)) +
+  ylim(-1, 1) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  theme_classic()
+```
+
+Here we can clearly see that the BLUPs method - having failed to carry through the error around the predictions of individual-level estimates - is anticonservative, with small confidence intervals and a correspondingly small P-value (*P =* `r format(cor_blups$p.value, digits = 3)`). Testing the syndrome directly in a bivariate model that retains all the data, by
+comparison, enables us to capture the true uncertainty about the estimate of the correlation. This is reflected
+in the larger confidence intervals and, in this case, the non-significant P-value (*P =* `r format(p_biv, digits = 3)`).
+
+<!--
+need to add the selection aspect with trivariate model with fitness
+-->
+
+##### Conclusions
+To conclude, then: we found that the correlation between flying speed and exploration tends to be positive among female blue dragon. This correlation is not statistically significant, and thus does not provide strong evidence. However, inappropriate analysis of BLUP extracted from univariate models would lead to a different (erroneous) conclusion. 
+
+
+
+#### Using MCMCglmm
+
+In this section I present the code needed to fit the model and explain only the specific aspect of fittign and evaluating the models with `MCMCglmm`.
+
+To be completed. with more details
+
+First, we need to create a ‘prior’ for our model. We recommend reading up on the use of priors [see the course notes of `MCMCglmm` @MCMCglmm]; briefly, we use a parameter-expanded prior here that should be uninformative for our model. One of the model diagnostic steps that should be used later is to check that the model is robust to multiple prior specifications.
+
+```{r}
+prior_1ex <- list(
+  R = list(V = diag(2), nu = 0.002),
+  G = list(G1 = list(
+    V = diag(2) * 0.02, nu = 3,
+    alpha.mu = rep(0, 2),
+    alpha.V = diag(1000, 2, 2)
+  ))
+)
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| cache: true
+mcmc_us <- MCMCglmm(cbind(speed_sc, exploration_sc) ~ trait - 1 +
+  trait:assay_rep_sc +
+  trait:body_size_sc,
+random = ~ us(trait):ID,
+rcov = ~ us(trait):units,
+family = c("gaussian", "gaussian"),
+prior = prior_1ex,
+nitt = 420000,
+burnin = 20000,
+thin = 100,
+verbose = FALSE,
+data = df_dragons
+)
+```
+
+```{r}
+#| fig.cap: "MCMC trace and Posterior distribution of the (co)variance estimates of model mcmc_us"
+#| warning: false
+omar <- par()
+par(mar = c(4, 2, 1.5, 2))
+plot(mcmc_us$VCV[, c(1, 2, 4)])
+plot(mcmc_us$VCV[, c(5, 6, 8)])
+par(omar)
+```
+
+```{r}
+summary(mcmc_us)
+```
+
+```{r}
+#| fig-cap: Posterior trace and distribution of the repeatability in flying speed
+mcmc_prop_f <- mcmc_us$VCV[, 1] /
+  (mcmc_us$VCV[, 1] + mcmc_us$VCV[, 5])
+plot(mcmc_prop_f)
+```
+
+```{r}
+posterior.mode(mcmc_prop_f)
+HPDinterval(mcmc_prop_f)
+```
+
+```{r}
+#| fig-cap: Posterior trace and distribution of the repeatbility of exploration
+mcmc_prop_e <- mcmc_us$VCV[, 4] /
+  (mcmc_us$VCV[, 4] + mcmc_us$VCV[, 8])
+plot(mcmc_prop_e)
+posterior.mode(mcmc_prop_e)
+HPDinterval(mcmc_prop_e)
+```
+
+```{r}
+#| fig-cap: Posterior trace and distribution of the correlation between flying speed
+#|   and exploration
+mcmc_cor_fe <- mcmc_us$VCV[, 2] /
+  sqrt(mcmc_us$VCV[, 1] * mcmc_us$VCV[, 4])
+plot(mcmc_cor_fe)
+posterior.mode(mcmc_cor_fe)
+HPDinterval(mcmc_cor_fe)
+```
+
+```{r}
+#| fig-cap: Correlation estimates (with CI) using 3 different methods
+df_cor[3, 1] <- "MCMCglmm"
+df_cor[3, -1] <- c(posterior.mode(mcmc_cor_fe), HPDinterval(mcmc_cor_fe))
+rownames(df_cor) <- NULL
+
+ggplot(df_cor, aes(x = Method, y = Correlation)) +
+  geom_point() +
+  geom_linerange(aes(ymin = low, ymax = high)) +
+  ylim(-1, 1) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  theme_classic()
+```
+```{r}
+#| echo: false
+#| purl: false
+knitr::kable(df_cor,
+  digits = 3,
+  caption =
+    "Correlation (with 95% intervals) between flying speed
+     and exploration estimated with 3 different methods"
+)
+```
+### Happy multivariate models
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: A female blue dragon of the West
+knitr::include_graphics("images/blue_dragon.jpg")
+```
+
+
+

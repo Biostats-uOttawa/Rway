@@ -1,0 +1,10 @@
+# ours
+
+```{r}
+#| label: test-ex
+## Formulas, one ~ one, one ~ many, many ~ one, and many ~ many:
+aggregate(weight ~ feed, data = chickwts, mean)
+aggregate(breaks ~ wool + tension, data = warpbreaks, summary)
+aggregate(cbind(Ozone, Temp) ~ Month, data = airquality, mean)
+aggregate(cbind(ncases, ncontrols) ~ alcgp + tobgp, data = esoph, sum)
+```

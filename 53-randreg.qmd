@@ -1,0 +1,499 @@
+# Random regression and character state approaches
+
+## Lecture
+
+And here there would be dragons
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: Dream pet dragon
+knitr::include_graphics("images/fun_dragon.jpg")
+```
+
+## Practical
+
+In this practical, we will revisit our analysis on unicorn aggressivity.
+Honestly, we can use any other data with repeated measures for this exercise
+but I just `r emoji::emoji("heart")` unicorns.
+
+### R packages needed
+
+First we load required libraries
+```{r}
+#| message: false
+#| results: hide
+#| warning: false
+library(lme4)
+library(tidyverse)
+library(broom.mixed)
+library(asreml)
+library(MCMCglmm)
+library(bayesplot)
+library(patchwork)
+```
+
+### Refresher on unicorn aggression
+
+In the previous, practical on linear mixed models, we simply explored the differences among individuals in their mean aggression (Intercept), but we assumed that the response to the change in aggression with the opponent size (i.e. plasticity) was the same for all individuals. However, this plastic responses can also vary amon individuals. This is called IxE, or individual by environment interaction. To test if individuals differ in their plasticity we can use a random regression, whcih is simply a mixed-model where we fit both a random intercept and a random slope effect.
+
+Following analysis from the previous pratical, our model of interest using scaled covariate was:
+
+```
+aggression ~ opp_size + body_size_sc + assay_rep_sc + block
+              + (1 | ID)
+```
+
+We should start by loading the data and refitting the model using `lmer()`.
+
+```{r}
+unicorns <- read.csv("data/unicorns_aggression.csv")
+unicorns <- unicorns %>%
+  mutate(
+    body_size_sc = scale(body_size),
+    assay_rep_sc = scale(assay_rep, scale = FALSE)
+  )
+
+m_mer <- lmer(
+    aggression ~ opp_size + body_size_sc + assay_rep_sc + block
+      + (1 | ID),
+    data = unicorns
+)
+summary(m_mer)
+```
+
+We can now plot the predictions for each of our observations and plot for the observed and the fitted data for each individuals. Todo so we will use the `augment()` function from the `r emoji::emoji("package")` `broom.mixed`.
+
+Below, we plot the raw data for each individual in one panel, with the fitted slopes in a second panel. Because
+we have 2 blocks of data, and block is fitted as a fixed effect, for ease of presentation we need to either  select only 1 block for representation, take teh avaerage over the block effect or do a more complex graph with the two blocks. Here I have selected only one of the blocks for this plot
+
+```{r}
+#| fig-cap: Predicted (from m_mer) and observed value of aggression as a function of
+#|   opponent size in unicorns
+pred_m_mer <- augment(m_mer) %>%
+  select(ID, block, opp_size, .fitted, aggression) %>%
+  filter(block == -0.5) %>%
+  gather(
+    type, aggression,
+    `.fitted`:aggression
+  )
+ggplot(pred_m_mer, aes(x = opp_size, y = aggression, group = ID)) +
+  geom_line(alpha = 0.3) +
+  theme_classic() +
+  facet_grid(. ~ type)
+```
+
+This illustrates the importance of using model predictions to see whether the model actually fits the individual-level data well or not — while the diagnostic plots looked fine, and the model captures mean plasticity, here we can see that the model really doesn’t fit the actual data very well at all. 
+
+<!--The code below provides a different (and slightly more in-depth) look at this same combination of fitted slope / real data, and indicates that the fitted slopes systematically under- and over-estimate plasticity
+in aggression at the individual level (figure not shown since it has `r length(unique(unicorns$ID))` panels).
+
+need to figure out the code
+-->
+
+### Random regression
+
+#### with `lme4`
+
+
+```{r}
+rr_mer <- lmer(
+  aggression ~ opp_size + body_size_sc + assay_rep_sc + block
+  + (1 + opp_size | ID),
+  data = unicorns
+)
+```
+
+```{r}
+pred_rr_mer <- augment(rr_mer) %>%
+  select(ID, block, opp_size, .fitted, aggression) %>%
+  filter(block == -0.5) %>%
+  gather(type,aggression, `.fitted`:aggression)
+ggplot(pred_rr_mer, aes(x = opp_size, y = aggression, group = ID)) +
+  geom_line(alpha = 0.3) +
+  theme_classic() +
+  facet_grid(. ~ type)
+```
+
+
+We can test the improvement of the model fit using the overloaded anova function in R to perform a likelihood ratio test (LRT):
+
+```{r}
+#| eval: false
+anova(rr_mer, m_mer, refit = FALSE)
+```
+
+```{r}
+#| echo: false
+knitr::kable(anova(rr_mer, m_mer, refit = FALSE))
+```
+
+We can see here that the LRT uses a chi-square test with 2 degrees of freedom, and indicates that the random slopes model shows a statistically significant improvement in model fit. The 2df are because there are two additional (co)variance terms estimated in the random regression model: a variance term for individual slopes, and the covariance (or correlation) between the slopes and intercepts. Let’s look at those values, and also the fixed effects parameters, via the model summary:
+
+```{r}
+summary(rr_mer)
+```
+
+
+#### with `asreml`
+
+```{r}
+unicorns <- unicorns %>%
+  mutate( ID = as.factor(ID))
+rr_asr <- asreml(
+  aggression ~ opp_size + body_size_sc + assay_rep_sc + block,
+  random = ~str(~ ID + ID:opp_size, ~us(2):id(ID)),
+  residual = ~ units,
+  data = unicorns,
+  maxiter = 200
+)
+```
+
+```{r}
+plot(rr_asr)
+```
+```{r}
+summary(rr_asr, coef = TRUE)$coef.fixed
+wa <- wald(rr_asr, ssType = "conditional", denDF = "numeric")
+attr(wa$Wald, "heading") <- NULL
+wa
+```
+
+```{r}
+summary(rr_asr)$varcomp
+```
+
+```{r}
+rio_asr <- asreml(
+  aggression ~ opp_size + body_size_sc + assay_rep_sc + block,
+  random = ~ ID,
+  residual = ~units,
+  data = unicorns,
+  maxiter = 200
+)
+```
+
+```{r}
+pchisq(2 * (rr_asr$loglik - rio_asr$loglik), 2,
+  lower.tail = FALSE
+)
+```
+
+```{r}
+vpredict(rr_asr, cor_is ~ V2 / (sqrt(V1) * sqrt(V3)))
+```
+
+```{r}
+pred_rr_asr <- as.data.frame(predict(rr_asr,
+  classify = "opp_size:ID",
+  levels = list(
+    "opp_size" =
+      c(opp_size = -1:1)
+  )
+)$pvals)
+p_rr <- ggplot(pred_rr_asr, aes(
+  x = opp_size,
+  y = predicted.value,
+  group = ID
+)) +
+  geom_line(alpha = 0.2) +
+  scale_x_continuous(breaks = c(-1, 0, 1)) +
+  labs(
+    x = "Opponent size (SDU)",
+    y = "Aggression"
+  ) +
+  theme_classic()
+p_rr
+```
+
+
+#### with `MCMCglmm`
+
+```{r}
+#| cache: true
+prior_RR <- list(
+  R = list(V = 1, nu = 0.002),
+  G = list(
+    G1 = list(V = diag(2)*0.02, nu = 3,
+alpha.mu = rep(0, 2),
+alpha.V= diag(1000, 2, 2))))
+rr_mcmc <- MCMCglmm(
+  aggression ~ opp_size + assay_rep_sc + body_size_sc + block,
+  random = ~ us(1 + opp_size):ID,
+  rcov = ~ units,
+family = "gaussian",
+prior = prior_RR,
+nitt=750000,
+burnin=50000,
+thin=350,
+verbose = FALSE,
+data = unicorns,
+pr = TRUE,
+saveX = TRUE, saveZ = TRUE)
+```
+
+
+```{r}
+omar <- par()
+par(mar = c(4, 2, 1.5, 2))
+plot(rr_mcmc$VCV)
+par(omar)
+```
+
+```{r}
+posterior.mode(rr_mcmc$VCV[, "opp_size:opp_size.ID"]) # mean
+HPDinterval(rr_mcmc$VCV[, "opp_size:opp_size.ID"])
+```
+
+```{r}
+rr_cor_mcmc <- rr_mcmc$VCV[, "opp_size:(Intercept).ID"] /
+  (sqrt(rr_mcmc$VCV[, "(Intercept):(Intercept).ID"]) *
+    sqrt(rr_mcmc$VCV[, "opp_size:opp_size.ID"]))
+posterior.mode(rr_cor_mcmc)
+HPDinterval(rr_cor_mcmc)
+```
+
+```{r}
+df_rand <- cbind(unicorns,
+  rr_fit = predict(rr_mcmc, marginal = NULL)
+) %>%
+  select(ID, opp_size, rr_fit, aggression) %>%
+  group_by(ID, opp_size) %>%
+  summarise(
+    rr_fit = mean(rr_fit),
+    aggression = mean(aggression)
+  ) %>%
+  gather(
+    Type, Value,
+    rr_fit:aggression
+  )
+# Plot separate panels for individual lines of each type
+ggplot(df_rand, aes(x = opp_size, y = Value, group = ID)) +
+  geom_line(alpha = 0.3) +
+  scale_x_continuous(breaks = c(-1, 0, 1)) +
+  theme_classic() +
+  facet_grid(. ~ Type)
+```
+
+```{r}
+#| echo: false
+#| purl: false
+df_var <-data.frame(Method = c("lmer", "asreml", "MCMCglmm"), v_int = NA, cov = NA, v_sl = NA, v_r = NA)
+v_rr_mer <- as.data.frame(VarCorr(rr_mer))
+df_var[1, 2:5] <- v_rr_mer$vcov[c(1,3,2,4)]
+df_var[2, 2:5] <- summary(rr_asr)$varcomp$component
+df_var[3, 2:5] <- posterior.mode(rr_mcmc$VCV[,-2])
+knitr::kable(df_var,
+  caption = "Variance estimated from random regression models using 3 different softwares")
+```
+
+### Character-State approach
+
+Need to pivot to a wider format
+
+```{r}
+unicorns_cs <- unicorns %>%
+  select(ID, body_size, assay_rep, block, aggression, opp_size) %>%
+  mutate(
+    opp_size = recode(as.character(opp_size), "-1" = "s", "0" = "m", "1" = "l")
+  ) %>%
+  dplyr::rename(agg = aggression) %>%
+  pivot_wider(names_from = opp_size, values_from = c(agg, assay_rep)) %>%
+  mutate(
+    body_size_sc = scale(body_size),
+    opp_order = as.factor(paste(assay_rep_s, assay_rep_m, assay_rep_l, sep = "_"))
+  )
+str(unicorns_cs)
+head(unicorns_cs)
+```
+
+```{r}
+cs_asr <- asreml(
+  cbind(agg_s, agg_m, agg_l) ~ trait + trait:body_size_sc +
+    trait:block +
+    trait:opp_order,
+  random =~ ID:us(trait),
+  residual =~ units:us(trait),
+  data = unicorns_cs,
+  maxiter = 200
+)
+
+plot(residuals(cs_asr) ~ fitted(cs_asr))
+qqnorm(residuals(cs_asr))
+qqline(residuals(cs_asr))
+hist(residuals(cs_asr))
+```
+
+```{r}
+summary(cs_asr, all = T)$coef.fixed
+wa <- wald(cs_asr, ssType = "conditional", denDF = "numeric")
+attr(wa$Wald, "heading") <- NULL
+wa
+```
+
+```{r}
+summary(cs_asr)$varcomp[, c("component", "std.error")]
+```
+
+```{r}
+cs_idh_asr <- asreml(
+  cbind(agg_s, agg_m, agg_l) ~ trait + trait:body_size_sc +
+    trait:block +
+    trait:opp_order,
+  random = ~ ID:idh(trait),
+  residual = ~ units:us(trait),
+  data = unicorns_cs,
+  maxiter = 200
+)
+```
+
+```{r}
+pchisq(2 * (cs_asr$loglik - cs_idh_asr$loglik), 3,
+  lower.tail = FALSE
+)
+```
+
+```{r}
+vpredict(cs_asr, cor_S_M ~ V2 / (sqrt(V1) * sqrt(V3)))
+vpredict(cs_asr, cor_M_L ~ V5 / (sqrt(V3) * sqrt(V6)))
+vpredict(cs_asr, cor_S_L ~ V4 / (sqrt(V1) * sqrt(V6)))
+```
+
+```{r}
+vpredict(cs_asr, prop_S ~ V1 / (V1 + V8))
+vpredict(cs_asr, prop_M ~ V3 / (V3 + V10))
+vpredict(cs_asr, prop_L ~ V6 / (V6 + V13))
+```
+
+```{r}
+init_CS_cor1_tri <- c(
+  0.999,
+  0.999, 0.999,
+  1, 1, 1
+)
+names(init_CS_cor1_tri) <- c(
+  "F",
+  "F", "F",
+  "U", "U", "U"
+)
+cs_asr_cor1_tri <- asreml(
+  cbind(agg_s, agg_m, agg_l) ~ trait + trait:body_size_sc +
+    trait:block +
+    trait:opp_order,
+  random = ~ ID:corgh(trait, init = init_CS_cor1_tri),
+residual = ~ units:us(trait),
+data = unicorns_cs,
+maxiter = 500
+)
+pchisq(2 * (cs_asr$loglik - cs_asr_cor1_tri$loglik),
+  3,
+  lower.tail = FALSE
+)
+```
+
+```{r}
+df_CS_pred <- as.data.frame(predict(cs_asr,
+  classify = "trait:ID"
+)$pvals)
+# Add numeric variable for easier plotting
+# of opponent size
+df_CS_pred <- df_CS_pred %>%
+  mutate(sizeNum = ifelse(trait == "agg_s", -1,
+    ifelse(trait == "agg_m", 0, 1)
+  ))
+p_cs <- ggplot(df_CS_pred, aes(
+  x = sizeNum,
+  y = predicted.value,
+  group = ID
+)) +
+  geom_line(alpha = 0.2) +
+  scale_x_continuous(breaks = c(-1, 0, 1)) +
+  labs(
+    x = "Opponent size (SDU)",
+    y = "Aggression"
+  ) +
+  theme_classic()
+p_cs
+```
+
+```{r}
+unicorns <- arrange(unicorns, opp_size, by_group = ID)
+p_obs <- ggplot(unicorns[unicorns$block==-0.5,], aes(x = opp_size, y = aggression, group = ID)) +
+  geom_line(alpha = 0.3) +
+  scale_x_continuous(breaks = c(-1, 0, 1)) +
+  labs(
+    x = "Opponent size (SDU)",
+    y = "Aggression"
+  ) +
+  ggtitle("Observed") +
+  ylim(5.9, 12) +
+  theme_classic()
+
+p_rr <- p_rr + ggtitle("Random regression") + ylim(5.9, 12)
+p_cs <- p_cs + ggtitle("Character-State") + ylim(5.9, 12)
+p_obs + p_rr + p_cs
+```
+
+### From random regression to character-state
+
+```{r}
+var_mat_asr <- function(model, var_names, pos){
+  size <- length(var_names)
+  v_out <- matrix(NA, ncol = size, nrow = size)
+  rownames(v_out) <- var_names
+  colnames(v_out) <- var_names
+  v_out[upper.tri(v_out, diag = TRUE)] <- summary(model)$varcomp[pos, 1]
+  v_out <- forceSymmetric(v_out, uplo = "U")
+  as.matrix(v_out)
+}
+v_id_rr <- var_mat_asr(rr_asr, c("v_int", "v_sl"), 1:3)
+knitr::kable(v_id_rr, digits = 3)
+```
+```{r}
+v_id_cs <- var_mat_asr(cs_asr, c("v_s", "v_m", "v_l"), 1:6)
+knitr::kable(v_id_cs, digits = 3)
+```
+
+We also need to make a second matrix, let's call it **Q** (no particular reason, pick something else if you want). This is going to contain the values needed to turn an individual's intercept (mean) and slope (plasticity) deviations into estimates of environment-specific individual merit in a character state model.
+
+What do we mean by this? Well if an individual i has an intercept deviation of ID~int(i)~ and a slope deviation of ID~slp(i)~ for a given value of the environment  `opp_size` we might be interested in:
+
+ID~i~ = (1 x ID~int(i)~) + (`opp_size` x ID~slp(i)~)
+
+We want to look at character states representing the three observed values of `opp_size` here so
+
+```{r}
+Q <- as.matrix(cbind(c(1, 1, 1),
+                    c(-1, 0, 1)))
+```
+
+Then we can generate our among-individual covariance matrix environment specific aggresiveness, which we can call **ID_cs_rr** by matrix multiplication:
+
+```{r}
+ID_cs_rr<- Q %*% v_id_rr %*%t(Q)    #where t(Q) is the transpose of Q
+                               #and %*% is matrix multiplication
+
+ID_cs_rr  #rows and columns correspond to aggressiveness at opp_size=-1,0,1 in that order
+
+
+cov2cor(ID_cs_rr)   #Converting to a correlation scale
+cov2cor(v_id_cs)
+```
+
+
+### Conclusions
+
+
+### Happy multivariate models
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: A female blue dragon of the West
+knitr::include_graphics("images/blue_dragon.jpg")
+```
+
+
+

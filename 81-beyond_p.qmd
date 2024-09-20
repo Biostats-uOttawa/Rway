@@ -1,0 +1,35 @@
+# Beyond *P < 0.05*
+
+
+cite a bunch a must read paper on the subject and maybe summarize the big point of **Do** and **Don't**
+
+```{r}
+#| label: fig-beyond-p
+#| echo: false
+#| fig-cap: Reflection on the meaning of probabilities in biology
+
+library(ggplot2)
+
+
+alpha <- 0.05
+beta <- 0.2 
+
+p_h1_true <- seq(0, 1, length = 100)
+p_fp <- alpha * (1 - p_h1_true) /
+  (alpha * (1 - p_h1_true) + (1 - beta) * p_h1_true)
+p_fn <- beta * p_h1_true /
+  (beta * p_h1_true + (1 - alpha) * (1 - p_h1_true))
+
+dat <- rbind(
+  data.frame(p_h1 = p_h1_true, prob = p_fp, result = "positive" ),
+  data.frame(p_h1 = p_h1_true, prob = p_fn, result = "negative")
+)
+ggplot(dat, aes(x = p_h1, y = prob, colour = result)) +
+  geom_line() +
+  geom_vline(xintercept = 0.5, linetype = 2) +
+  #geom_hline(yintercept = 0.05, linetype = 2) +
+  xlab("Probability alternative hypothesis is true") + 
+  ylab("Probabilitity of false results") +
+  xlim(0, 1) +
+  theme_classic()
+```

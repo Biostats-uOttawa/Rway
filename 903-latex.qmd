@@ -1,0 +1,67 @@
+# Installing Quarto and LateX  {#sec-install-lat}
+
+Installing Quarto on your computer is pretty straight forward and should be painless.
+If you're getting started with Quarto we suggest that you use RStudio but of course RStudio is not required and there are other options available.
+You will also need to install some additional software if you want to render your Quarto documents to PDF format.
+
+This guide assumes you have already installed [R][r-proj] and an IDE ([RStudio IDE][rstudio] or [VSCode][vscode]).
+An IDE is not required but recommended, because it makes it easier to work with Quarto.
+If you don't have RStudio IDE installed, you will also have to install [Pandoc][pandoc].
+If you have RStudio installed there is no need to install Pandoc separately because it's bundled with RStudio.
+
+Next you need to install [Quarto][quarto-install]. It is really straightforward, just download and install from the files specific to your OS (Windows, Mac or linux).
+
+You should also install the `quarto` :package: package using:
+
+```{r}
+#| eval: false
+install.packages("quarto", dep = TRUE)
+```
+
+The `dep = TRUE` argument will also install a bunch of additional R packages on which the `quarto` :package: depends.
+
+Finally you can install the `rmarkdown` :package: package but it is not strictly required if using Quarto.
+
+```{r}
+#| eval: false
+install.packages("rmarkdown", dep = TRUE)
+```
+
+
+  
+If you want to generate PDF output, you will need to install {{< latex >}}.
+For R Markdown users who have not installed {{< latex >}} before, we recommend that you install [TinyTeX][tinytex].
+You can install TinyTex from within R using the `tinytex` :package: package with the following code:
+
+```{r}
+#| eval: false
+install.packages("tinytex")
+tinytex::install_tinytex() # install TinyTeX
+```
+
+TinyTeX is a lightweight, portable, cross-platform, and easy-to-maintain {{< latex >}} distribution.
+The R companion package `tinytex` :package: can help you automatically install missing {{< latex >}} packages when compiling {{< latex >}} or R Markdown documents to PDF.
+
+## MS Windows
+
+An alternative option would be to install MiKTeX instead.
+You can download the latest distribution of [MiKTeX][miktex].
+Installing MiKTeX is pretty straight forward, but it can sometimes be a pain to get it to play nicely with RStudio.
+If at all possible we recommend that you use TinyTex.
+
+## Mac OSX
+
+If for some reason TinyTeX does not work on your Mac computer then you can try to install MacTeX instead.
+You can download the latest version of [MacTeX here][mactex].
+
+## Linux
+
+An alternative to TinyTex on linux would be to use a full fledge distribution of {{< latex >}} such as [TexLive][texlive]
+
+
+```{r}
+#| label: links
+#| child: images/_links.md
+```
+
+

@@ -1,0 +1,178 @@
+# Generalized linear model, `glm`
+
+## Lecture
+
+```{r}
+#| echo: false
+#| out-width: 50%
+#| fig-align: center
+#| fig-cap: Dream pet dragon
+knitr::include_graphics("images/fun_dragon.jpg")
+```
+
+```{r}
+#| eval: false
+m1 <- glm(fish ~ french_captain, data = dads_joke, family = poisson)
+```
+
+### Distributions
+
+#### Continuous linear
+
+- Gaussian
+
+#### Count data
+
+- poisson
+- negative binomial
+- quasi-poisson
+- generalized poisson
+- conway-maxwell poisson
+
+#### censored distribution
+
+#### zero-inflated / hurdle distribution
+- zero-inflated/zero-truncated poisson
+- censored poisson
+
+#### zero-truncated distribution
+
+#### zero-one-inflated distribution
+
+see https://cran.r-project.org/web/packages/brms/vignettes/brms_families.html
+see alo MCMCglmm coursenotes
+
+for help on description and to add some plots about those distribution
+
+## Practical
+
+::: {.callout-warning}
+
+This section need to be severely updated
+
+:::
+
+### Logistic regression
+```{r}
+library(tidyverse)
+library(DHARMa)
+library(performance)
+
+mouflon <- read.csv("data/mouflon.csv")
+mouflonc <- mouflon[order(mouflon$age),]
+
+mouflonc$reproduction <- ifelse(mouflonc$age < 13, mouflonc$reproduction, 0)
+mouflonc$reproduction <- ifelse(mouflonc$age > 4, mouflonc$reproduction, 1)
+
+plot(reproduction ~ age, mouflonc)
+plot(jitter(reproduction) ~ jitter(age), mouflonc)
+
+bubble <- data.frame(age = rep(2:16, 2),
+                     reproduction = rep(0:1, each = 15),
+                     size = c(table(mouflonc$age, mouflonc$reproduction)))
+bubble$size <- ifelse(bubble$size == 0 , NA, bubble$size)
+ ggplot(data = bubble, aes(x = age, y = reproduction))+
+ geom_point(aes(size = size*10))
+
+```
+
+
+```{r}
+m1 <- glm(reproduction ~ age,
+    data = mouflonc,
+    family = binomial)
+summary(m1)
+simulationOutput <- simulateResiduals(m1)
+plot(simulationOutput)
+```
+
+plotting the model prediction on the link (latent) scale
+```{r}
+mouflonc$logit_ypred <- 3.19921 -0.36685 * mouflonc$age
+plot(logit_ypred ~  jitter(age), mouflonc)
+points(mouflonc$age, mouflonc$logit_ypred, col="red", type = "l", lwd = 2)
+```
+
+
+
+plotting on the observed scale
+
+```{r}
+mouflonc$ypred <- exp(mouflonc$logit_ypred) / (1 + exp(mouflonc$logit_ypred)) # inverse of logit 
+
+plot(reproduction ~  jitter(age), mouflonc)
+points(mouflonc$age, mouflonc$ypred, col="red", type = "l", lwd = 2)
+```
+
+
+Enfin, pour se simplifier la vie, il est aussi possible de récupérer les valeurs prédites de y directement
+
+```{r}
+#| eval: false
+plot(x,y)
+myreg <- glm(y~x, family=binomial(link=logit))
+ypredit <- myreg$fitted
+o=order(x)
+points(x[o],ypredit[o], col="red", type="l", lwd=2)
+```
+
+```{r}
+m2 <- glm(reproduction ~ age + mass_sept + as.factor(sex_lamb) + mass_gain + density + temp,
+    data = mouflon,
+    family = binomial)
+
+summary(m2)
+
+check_model(m2)
+
+simulationOutput <- simulateResiduals(m2)
+plot(simulationOutput)
+```
+
+#### previous offspring sex effect
+
+
+```{r}
+pred.data <- data.frame(
+  age = mean(mouflon$age),
+  mass_sept = mean(mouflon$mass_sept),
+  sex_lamb = c(0,1),
+  mass_gain = mean(mouflon$mass_gain),
+  density = mean(mouflon$density),
+  temp = mean(mouflon$temp, na.rm =TRUE))
+
+  predict(m2, newdata = pred.data)
+```
+
+
+
+### Poisson regression
+
+data on galapagos islands species richness
+model of total number of species
+model of proportion of native
+model of density of species
+
+Fit 3 models 
+- model of total number of species
+- model of proportion of endemics to total
+- model of species density
+```{r}
+  hist(rpois(10000,3))
+
+#
+ gala <- read.delim2("data/gala.txt")
+ plot(Species ~ Area, gala)
+ plot(Species ~ log(Area), gala)
+ hist(gala$Species)
+ modpl <- glm(Species ~ Area + Elevation + Nearest, family=poisson, gala)
+res <- simulateResiduals(modpl)
+testDispersion(res)
+testZeroInflation(res)
+
+
+ mean(gala$Species)
+ var(gala$Species)
+ hist(rpois(nrow(gala),mean(gala$Species)))
+ plot(modpl)
+```
