@@ -333,7 +333,6 @@ hexSticker::sticker("images/cover/cover_hex.jpg",
   u_size = 5,
   filename = paste0("images/cover/book_hex_", lang, ".png")
 )
-
 ```
 
 ![](images/cover/book_hex_en.png){fig-align="center" width="50%"}
