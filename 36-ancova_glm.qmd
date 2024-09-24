@@ -45,7 +45,7 @@ Remember that there are two parameters that describe a regression line, the inte
 
 ### Case 1 - Size as a function of age (equal slopes example)
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Using the file `anc1dat.csv` , test the hypothesis that female and male sturgeon at The Pas over the years 1978-1980 have the same observed growth rate, defined as the slope of the regression of log~10~ of fork `length`, `lfkl` , on the log~10~ age, `lage` .
 :::
@@ -80,7 +80,7 @@ Anova(model.full1, type = 3)
 
 In the previous output, on line 4, `r Anova(model.full1, type = 3)[4,4]` is the probability of observing an `lage:sex` interaction this strong or stronger under the null hypothesis that slope of the relationship between fork length and age does not vary between the sexes, or equivalently that the difference in fork length between males and females (if it exists) does not vary with age (and providing the assumptions of the analysis have been met).
 
-::: {.callout-note}
+::: callout-note
 Note that I used the Anova() function with an uppercase "a" (from the car library) instead of the "built in" anova() (with a lowercase "a") command to get the results using Type III sums of squares. The type III (partial) sums of squares are calculated as if each variable was the last entered in the model and correspond to the difference in explained SS between the full model and a reduced model where only that variable is excluded. The standard anova() function returns Type I (sequential) SS, calculated as each variable is added sequentially to a null model with only an intercept. In rare cases, the type I and type III SS are equal (when the design is perfectly balanced and there is no multicolinearity). In the vast majority of cases, they will differ, and I recommend that you always use the Type III SS in your analyses.
 :::
 
@@ -91,7 +91,7 @@ On the basis of this analysis, we would accept the null hypotheses that:
 
 But before accepting these conclusions, we should test the assumptions in the usual way
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 ```{r}
 #| fig-cap: Model assumptions for `model.full1`
@@ -116,12 +116,12 @@ resettest(model.full1, power = 2:3, type = "regressor", data = anc1dat)
 
 The last assumption in this sort of analysis is that the covariate (in this case, lage ) has no measurement error. We really have no way of knowing whether this assumption is justified, although multiple aging of fish by several different investigators usually gives ages that are within 1-2 years of each other, which is within the 10% considered by most to be the maximum for Type I modelling. Note that there is no "test" that you can do with the data to determine what the error is, at least in this case. If we had replicate ages for individual fish, it could be estimated quantitatively
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 You will notice that there is one datum with a large studentized residual, i.e. an outlier (case 49). Eliminate this datum from your data file and rerun the analysis. Do your conclusions change?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 ```{r}
 model.full.no49 <- lm(lfkl ~ sex + lage + sex:lage, data = anc1dat[c(-49), ])
 Anova(model.full.no49, type = 3)
@@ -133,7 +133,7 @@ So the conclusion does not change if the outlier is deleted (not surprising as C
 
 ### Case 2 - Size as a function of age (different slopes example)
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 The file `anc3dat.csv` records data on male sturgeon collected at two locations ( locate) , Lake of the Woods, in northwestern Ontario, and the Churchill River in northern Manitoba. Using the same procedure as outlined above (with locate as the categorical variable instead of sex ), test the null hypothesis that the slope of the regression of `lfkl` on `lage` is the same in the two locations. What do you conclude?
 :::
@@ -159,7 +159,7 @@ Anova(model.full2, type = 3)
 
 In this case, we reject the null hypotheses that (1) the slopes of the regressions are the same in the two locations; and (2) that the intercepts are the same in the two locations. In other words, if we want to predict the fork length of a sturgeon of a particular age (accurately) we need to know from which location it came. The fact that we reject the null hypothesis that the slopes of the lfkl - lage regressions are the same in both locations means that we should be doing individual regressions for each location separately (that is in fact what the full model is fitting). But we are jumping the gun here. Before you can trust these p values, you need to confirm that assumptions are met:
 
-::: {.callout-tip}
+::: callout-tip
 ```{r}
 #| fig-cap: Conditions d'applications du modèle `model.full2`
 par(mfrow = c(2, 2))
@@ -231,7 +231,7 @@ According to this test, sex is not significant and therefore we can conclude tha
 
 So we accept the null hypothesis that the intercepts are the same for the two sexes. Running the residual diagnostics, we find no problems with linearity, independence, homogeneity of variances, and normality. 
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 You will notice, in the above analysis that the residuals plots flag three data points (cases 19, 49, and 50) as having high residuals. These points are a bit worrisome, and may be having a disproportionate effect on your analysis. Eliminate these "outliers" and re-run the analysis. Now what do you conclude?
 :::
@@ -249,7 +249,7 @@ Well, well. Now we would, according to convention, reject the null hypothesis, a
 
 (1) is unlikely, since none of the outliers had high leverage (hence Cook's distances were not large), so (2) is more likely, and you can verify this by fitting separate regressions for each sex with and without these three outliers. If you do, you will notice that the estimated intercepts for each sex do not change very much, but the standard errors of these intercepts change quite a lot.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Fit separate regresssions by sex with vs. without the outliers. Pay attention to the intercepts.
 :::
@@ -278,7 +278,7 @@ by(
 ```
 Differences in intercepts are really small and similar than in previous models but now the precision (i.e. standard error) is much smaller for the models without outliers.
 
-::: {.callout-note}
+::: callout-note
 It is often the case that by eliminating outliers, new outliers appear. This is simply because the "outlier" designation is usually based on a standardized residual: if you eliminate a couple of outliers, then the residual sums of squares decreases, i.e. the "average" (absolute) residual decreases. Thus, points which were not "far from the average" when the original average residual was comparatively large (i.e. were not "outliers"), may now become so because the average residual has been decreased. Remember also that as you eliminate outliers, N decreases, and the increase in R^2^ may be more than compensated for by decreased power. So be wary of eliminating outliers!
 :::
 
@@ -286,7 +286,7 @@ It is often the case that by eliminating outliers, new outliers appear. This is 
 
 As we have just seen, the process of fitting models to data is usually an iterative one. That is, there are, more often than not, several competing models that may be used to fit the data and it is left to the analyst to decide which model best balances goodness of fit (which we are usually trying to maximize) and complexity (which we are usually trying to minimize). In general, the strategy to use in regression and anova is to choose a simpler model when doing so does not reduce the goodness-of-fit by a significant amount. R can compute an F-statistic to compare the fit of two models. The null hypothesis in this situation is that there is no difference in goodness of fit between the models.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Working with the `Anc1dat` data set, compare the fit of the ANCOVA and common simple regression models::
 :::
@@ -298,7 +298,7 @@ anova(model.ancova, model.linear)
 
 The `anova()` function can compare the differences in sum of squares and degrees of freedom between the simpler and more complex models, takes the ratio of these two values to generate a mean square, and divides this by the mean square of the more complex model to generate an F-statistic. In the above case, there is insufficient evidence to reject the null hypothesis and we conclude that the simpler model, which is the simple linear regression, is the best model for these data. (Because these models differ by only the presence vs. absence of a single factor (sex), the P-value is the same as the p-value for sex in model 1.)
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Repeat the above procedure with the ANC3DAT data, rerunning the full ANCOVA with interaction ( `lfkl ~ lage + locate + lage:locate` ) and without interaction ( `lfkl ~ lage + locate` ), saving the model objects as you did above. Compare the fits of the two models. What do you conclude?
 :::

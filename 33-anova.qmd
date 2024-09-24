@@ -35,7 +35,7 @@ In 1960-1962, the Grand Rapids Dam was built on the Saskatchewan River upstream 
 numerical variable year , so that R recognizes that we wish to treat this
 variable as a factor variable and not a continuous variable.
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -48,7 +48,7 @@ str(dam10dat)
 
 - Next, have a look at the fklngth data, just as we did in the last lab for t-tests. Create a histogram with density line grouped by year to get a feel for what’s happening with your data and a boxplot of length per year. What can you say about these data?
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -109,7 +109,7 @@ par(mfrow = c(2, 2))
 plot(anova.model1)
 ```
 
-::: {.callout-warning}
+::: callout-warning
 Double check that the independent variable is a **factor**. If the dependent variable is a **character**, then you will obtain only 3 graphs and an error message like:
 
 `hat values (leverages) are all = 0.1

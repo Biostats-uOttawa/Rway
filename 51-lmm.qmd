@@ -313,7 +313,7 @@ Fit a first mixed model with `lmer` that have only individual identity as a rand
 
 Why, so simple? Because we simply want to partition variance around the mean into a component that among-individual variance and one that is within-individual variance.
 
-::: {.callout-important}
+::: callout-important
 
 We are going to use the function `lmer()` from the  `r emoji::emoji("package")` `lme4` package. The notation of the model formula is similar as the notation for a linear model but now we also add random effects using the notation `(1 | r_effect)` which indicates that we want to fit the variable `r_effect` as a random effect for the intercept. Thus, in lmer notation a simploe model would be :
 
@@ -608,7 +608,7 @@ summary(m_2)
 :::
 
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 **Try tweaking the fixed part of your model:**
 
@@ -619,7 +619,7 @@ summary(m_2)
 :::
 
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 **Having changed the fixed part of your model, do the variance estimates change at all?**
 
@@ -650,7 +650,7 @@ So we'd probably calculate R using the individual and residual variance simply a
 0.02538 / (0.02538 + 0.58048)
 ```
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Do you see where I took the numbers ?
 :::
@@ -713,7 +713,7 @@ ranova(lmer_size)
 :::
 
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 **What might you conclude, and why would this be foolish?**
 :::
@@ -726,7 +726,7 @@ Hopefully you spotted the problem here. You have fed in a data set with 6 record
 
 :::
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 **How can we do it properly?**
 :::

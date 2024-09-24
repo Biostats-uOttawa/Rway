@@ -49,7 +49,7 @@ library(pwr)
 sturgeon <- read.csv("data/sturgeon.csv")
 ```
 
-::: {.callout-note}
+::: callout-note
 Note that the command to read the data assumes that the data file is in a folder named `data` within the working directory. Adjust as needed.
 :::
 
@@ -368,7 +368,7 @@ First, you need to load (and maybe install) the `lmtest` package.
 library(lmtest)
 ```
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Run the following commands
 :::

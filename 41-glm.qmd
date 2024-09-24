@@ -46,7 +46,7 @@ for help on description and to add some plots about those distribution
 
 ## Practical
 
-::: {.callout-warning}
+::: callout-warning
 
 This section need to be severely updated
 

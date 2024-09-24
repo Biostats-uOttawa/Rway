@@ -131,7 +131,7 @@ In fact, here we've "forgotten" to change `stovies` to `tartiflette` in the seco
 This is where writing a function comes in handy.
 If we were to write this as a function, there is only one source of potential error (within the function itself) instead of many copy-pasted lines of code (which we also cut down on by using a function).
 
-::: {.callout-tip}
+::: callout-tip
 As a rule of thumb if we have to do the same thing (by copy/paste & modify) 3 times or more,
 we just make a function for it.
 :::

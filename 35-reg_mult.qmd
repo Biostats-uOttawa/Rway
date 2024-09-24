@@ -76,7 +76,7 @@ scatterplotMatrix(
 
 We begin the multiple regression exercise by considering a situation with one dependent variable and three (possibly) independent variables. First, we will start from scratch and build a multiple regression model based on what we know from building simple regression models. Next, we will look at automated methods of building multiple regressions models using simultaneous, forward, and backward stepwise procedures.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Using the subset of the `Mregdat.csv` data file, regress `logherp` on `logarea`.
 :::
@@ -94,12 +94,12 @@ plot(model_loga)
 
 It looks like there is a positive relationship between herptile species richness and wetland area: the larger the wetland, the greater the number of species. Note, however, that about 2/3 of the observed variability in species richness among wetlands is not "explained" by wetland area (R^2^ = 0.355). Residual analysis shows no major problems with normality, heteroscedasticity or independence of residuals.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Rerun the above regression, this time replacing `logarea` with `cpfor2` as the independent variable, such that the expression in the formula field reads: `logherp ~ cpfor2` . What do you conclude? 
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -110,12 +110,12 @@ summary(model_logcp)
 
 According to this result, we would accept the null hypothesis, and conclude that there is no relationship between herptile density and the proportion of forest on adjacent lands. But what happens when we enter both variables into the regression simultaneously?
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Rerun the above regression one more time, this time adding both independent variables into the model at once, such that `logherp ~ logarea + cpfor2` . What do you conclude?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -128,12 +128,12 @@ Now we reject both null hypotheses that the slope of the regression of `logherp`
 
 Why is `cpfor2` a significant predictor of `logherp` in the combined model when it was not significant in the simple linear model? The answer lies in the fact that it is sometimes necessary to control for one variable in order to detect the effect of another variable. In this case, there is a significant relationship between `logherp` and `logarea` that masks the relationship between `logherp` and `cpfor2` . When both variables are entered into the model at once, the effect of logarea is controlled for, making it possible to detect a `cpfor2` effect (and vice versa).
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Run another multiple regression, this time substituting `thtden` for `cpfor2` as an independent variable (`logherp ~ logarea + thtden`).
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -148,12 +148,12 @@ The R^2^ of this model is even higher than the previous multiple regression mode
 
 Thus far, it appears that herptile richness is related to wetland area ( `logarea` ), road density ( `thtden` ), and possibly forest cover on adjacent lands ( `cpfor2` ). But, does it necessarily follow that if we build a regression model with all three independent variables, that all three will show significant relationships? No, because we have not yet examined the relationship between Logarea , `cpfor2` and thtden . Suppose, for example, two of the variables (say, `cpfor2` and `thtden` ) are perfectly correlated. Then the `thtden` effect is nothing more than the `cpfor2` effect (and vice versa), so that once we include one or the other in the regression model, none of the remaining variability would be explained by the third variable. 
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Fit a regression model with logherp as the dependent variable and logarea , cpfor2 and thtden as the independent variables. What do you conclude?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -191,7 +191,7 @@ $$AIC = 2k + 2ln(L))$$
 
 where *k* is the number of regressors, and *L* is the maximized value of the likelihood function for the model). This is a statistic that rewards prediction precision while penalizing model complexity. If a new model has an AIC lower than that of the current model, the new model is a better fit to the data.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Still working with the `Mregdat` data, run a stepwise multiple regression on the same set of variables:
 :::
@@ -235,7 +235,7 @@ When doing multiple regression, always bear in mind the following:
 
 Multicollinearity is the presence of correlations among independent variables. In extreme cases (perfect collinearity) it will prevent you from fitting some models. 
 
-::: {.callout-warning}
+::: callout-warning
  
 When collinearity is not perfect, it reduces your ability to test for the effect of individual variables, but does not affect the ability of the model to predict.
 :::
@@ -249,7 +249,7 @@ where R~i~^2^ is the R^2^ from a regression of predictor `i` against the remaini
 VIFs indicate by how much the variance of each regression coefficient is increased by the presence of collinearity.
 
 
-::: {.callout-note}
+::: callout-note
  
 There are several `vif()` functions (I know of at least three in the packages `car`, `HH` and `DAAG`) and I do not know if and how they differ.
 :::
@@ -272,13 +272,13 @@ In the regression models considered so far, we have assumed that the relationshi
 The simplest type of nonlinear regression method is polynomial regression, in which you fit regression models that include independent variables raised to some power greater than one, e.g. X^2^,
 X^3^, etc.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Plot the relationship between the residuals of the `logherp ~ logarea`
 regression and `swamp`.
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -295,13 +295,13 @@ ggplot(data = mysub, aes(y = resloga, x = swamp)) +
 
 Visual inspection of this graph suggests that there is a strong, but highly nonlinear, relationship between these two variables.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Try regressing the residuals of the `logherp ~ logarea` regression on `swamp`.
 What do you conclude?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -313,7 +313,7 @@ summary(model_resloga)
 
 In other words, the fit is terrible, even though you can see from the graph that there is in fact quite a strong relationship between the two - it's just that it is a non-linear relationship. (If you look at model assumptions for this model, you will see strong evidence of nonlinearity, as expected) The pattern might be well described by a quadratic relation.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Rerun the above regression but add a second term in the Formula field to represent swamp^2^ . If you simply add swamp^2^ in the model R won't fit a quadratic effect, you need to use the function`I()` which indicates that the formula within should be evaluated before fitting the model.
 
@@ -324,7 +324,7 @@ $$ residuals ~ swamp + I(swamp^2)$$.
 What do you conclude? What does examination of the residuals from this multiple regression tell you?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -341,7 +341,7 @@ Based on the results from the above analyses, how would you modify the regressio
 
 In light of these results, we might want to try and fit a model which includes `logarea`, `thtden`, `cpfor2`, `swamp` and `swamp^2^` :
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -355,7 +355,7 @@ summary(model_poly1)
 
 Note that on the basis of this analysis, we could potentially drop `cpfor2` and refit using the remaining variables:
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -382,7 +382,7 @@ All the model selection techniques or the manual model crafting assumes that the
 
 Let’s have a look at the diagnostic plots for the final model. Here we use the `check_model()` function from the `performance` `r emoji::emoji("package")`.
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -394,7 +394,7 @@ check_model(model_poly2)
 
 Alternatively it can be done with the classic method
 
-::: {.callout-tip}
+::: callout-tip
 # Code
 
 ```{r}
@@ -445,7 +445,7 @@ Note that the vertical scale varies among plots. For `thtden`, the dependent var
 
 To illustrate what these graphs would look like if there was deviation from linearity, let’s drop swamp^2^ term and produce the graphs and run the RESET test 
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -539,13 +539,13 @@ One of the main critiques of stepwise methods is that the p-values are not stric
 
 An alternative, very elegantly advocated by Burnham and Anderson (2002, Model selection and multimodel inference: a practical information-theoretic approach. 2nd ed), is to use AIC (or better the AICc that is more appropriate for samples where the number of observations is less that about 40 times the number of variables) to rank potential models, and identify the set of models that are the best ones. One can then average the parameters across models, weighting using the probability that it is the best model to obtain coefficients that are more robust and less likely to be unduly affected by multicollinearity. 
 
-::: {.callout-warning}
+::: callout-warning
 To compare models using *AIC*, models need to be fitted using the exact same data for each model. You thus need to be careful that there are no missing data when using an AIC based approach to model selection
 :::
 
 The approach of comparing model fit using AIC was first developed to compare a set of model carefully build and chosen by the person doing the analysis based on a-priori knowledge and biological hypotheses. Some, however, developped an approach that I consider brainless and brutal to fit all potential models and then compare them using *AIC*. This approach has been implemented in the package MuMIn.
 
-::: {.callout-note}
+::: callout-note
 I do not support the use of stepwise AIC or data dredging which are going against the philosophy of AIC and parsimony. Develop a model based on biological hypothesis and report all the results significant or not without dredging the data.
 :::
 

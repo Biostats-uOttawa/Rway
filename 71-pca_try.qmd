@@ -24,7 +24,7 @@ Technically speaking, the amount of variance retained by each principal componen
 
 Note that, the PCA method is particularly useful when the variables within the data set are highly correlated. Correlation indicates that there is redundancy in the data. Due to this redundancy, PCA can be used to reduce the original variables into a smaller number of new variables ( = principal components) explaining most of the variance in the original variables.
 
-::: {.callout-important}
+::: callout-important
 
 
 Taken together, the main purpose of principal component analysis is to:

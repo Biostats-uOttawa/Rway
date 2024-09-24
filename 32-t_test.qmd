@@ -364,7 +364,7 @@ wilcox.test(skull_w$width5, skull_w$width6,
 )
 ```
 
-::: {.callout-note}
+::: callout-note
 Note that instead of rerunning the t-test specifying a one-tailed test, you can:
 
 - if the sign of the estimate goes in the same direction as the alternative hypothesis, simply divide by 2 the probability you obtain with the two-tailed test

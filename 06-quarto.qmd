@@ -10,7 +10,7 @@ suppressPackageStartupMessages(library(knitr))
 ```
 
 
-::: {.callout-warning}
+::: callout-warning
 screenshot are still with R markdown will be update soon
 :::
 

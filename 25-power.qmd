@@ -123,7 +123,7 @@ G\*Power will allow you to do power analyses for the majority of statistical tes
 
 It is possible to perform all analysis made by G\*Power in R, but it requires a bit more code, and a better understanding of the process since everything should be coded by hand. In simple cases, R code is also provided.
 
-::: {.callout-caution}
+::: callout-caution
 Download the software **[here](https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower.html)** and install it on your computer and your workstation (if it is not there already).
 :::
 
@@ -139,7 +139,7 @@ Using G\*Power generally involves 3 steps:
 
 ### Power analysis for a t-test on two independent means
 
-::: {.callout-important}
+::: callout-important
 All the power analysis presented in this chapter can be done using 2 functions
 in R.
 
@@ -233,7 +233,7 @@ polygon(
 #| label: fig-ggplot
 #| eval: false
 
-qc <- qt(0.025, 16)
+qc <- qt(0.025, 34)
 dat <- data.frame(
   x = seq(-4, 4, length = 200),
   x1 = x + (3.31 - 2.64),
@@ -299,7 +299,7 @@ Note that this post hoc power analysis, done for an effect size considered biolo
 
 Suppose that a difference in biomass of $3.31-2.64 = 0.67 g/m^2$ can be ecologically significant. The next field season should be planned so that Jaynie would have a good chance of detecting such a difference in fish biomass between regions. How many streams should Jaynie sample in each region to have 80% of detecting such a difference (given the observed variability)?
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Change the type of power analysis in G*Power to **A priori: Compute sample size - given $\alpha$ , power, and effect size**. Ensure that the values for means and standard deviations are those obtained by Jaynie. Recalculate the effect size metric and enter 0.8 for power and you will obtain @fig-gpower-3.
 :::
@@ -336,7 +336,7 @@ pwr.t.test(
 ### Sensitivity analysis - Calculate the detectable effect size
 Given the observed variability, a sampling effort of 18 streams per region, and with $\alpha$ = 0.05, what effect size could Jaynie detect with 80% probability $\beta=0.2$?
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Change analysis type in G\*Power to **Sensitivity: Compute required effect size - given $\alpha$ , power, and sample size** and size is 18 in each region.
 :::
@@ -359,7 +359,7 @@ pwr.t.test(
 
 The detectable effect size for this sample size, $\alpha = 0.05$ and $\beta = 0.2$ (or power of 80%) is 0.961296.
 
-::: {.callout-warning}
+::: callout-warning
 Attention, this effect size is the metric `d` and is dependent on sampling variability.
 :::
 

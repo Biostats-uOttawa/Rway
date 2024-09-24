@@ -173,12 +173,12 @@ chisq.test(Popn0.9, correct = F) ### X2 without Yates
 chisq.test(Popn0.9) ### X2 with Yates
 ```
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Test the null hypothesis that the proportion of male and female at birth is equal. What is your conclusion? Do you think the data is appropriate to test this hypothesis?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 ```{r}
 chisq.test(Popn0.9, correct = F)
@@ -239,7 +239,7 @@ There are therefore only 3 terms of interest:
 
 We will now work with the `sturgdat` data set to test the hypothesis that number of fish caught is independent of location, year, and gender. Before the analysis, the data will have to be reshaped to be in suitable format for fitting a log-linear model.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Open `sturgdat.csv` , then use the table() function to summarize the data according to number of individuals by `sex` , `location` , and `year` . Save this object as sturgdat.table . Make a mosaic plot of the data.
 :::
@@ -261,7 +261,7 @@ sturgdat.freq
 mosaic(sturgdat.table, shade = TRUE)
 ```
 
-{.callout-caution}
+callout-caution
 # Exercise
 Using the frequency form of the table, fit the full log-linear model just as we did with the loglin data set and produce the anova table with chi square statistics for the terms in the model. Is the 3-way interaction significant ( location:year:sex )? Does sex ratio change between locations or among years?
 ::
@@ -279,7 +279,7 @@ What does this mean? It means that, if there are any 2-way interactions, they do
 
 - If we adjust the model without the 3-way interaction, we get:
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 ```{r}
 o2int.model <- glm(Freq ~ sex + year + location + sex:year + sex:location + year:location, data = sturgdat.freq, family = "poisson")
@@ -293,7 +293,7 @@ Should you try to simplify the model further? Real statisticians are divided on 
 
 - Refit the model, this time excluding the sex:location interaction.
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 ```{r}
 o2int.model2 <- glm(Freq ~ sex + year + location + sex:year + year:location, data = sturgdat.freq, family = "poisson")

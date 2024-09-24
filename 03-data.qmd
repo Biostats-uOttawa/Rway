@@ -410,7 +410,7 @@ In the example above, the file path is separated with a single forward slash `/`
 This will work regardless of the operating system you are using and we recommend you stick with this.
 However, Windows users may be more familiar with the single backslash notation and if you want to keep using this you will need to include them as double backslashes.
 
-::: {.callout-warning}
+::: callout-warning
 Note though that the double backslash notation will **not** work on computers using Mac OSX or Linux operating systems.
 We thus strongly discourage it since it is not reproducible
 :::

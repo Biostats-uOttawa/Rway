@@ -1,6 +1,6 @@
 # Simple Statistics in R {#sec-stats-r}
 
-:::{.callout-warning}
+:::callout-warning
 To be developed (need to decide what I want in that chapter)
 Potentially just list a few functions since it is not at all about stats but more about r
 :::

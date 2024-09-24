@@ -45,7 +45,7 @@ Suppose that we are interested in the effects of two factors: `location` (Cumber
 
 * Begin by having a look at the data by generating box plots of `rdwght` for `sex` and `location` from the file `Stu2wdat.csv` .
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -94,7 +94,7 @@ anova.model1 <- lm(rdwght ~ sex + location + sex:location,
 anova(anova.model1) 
 ```
 
-::: {.callout-warning}
+::: callout-warning
 Be careful here. R gives you the sequential sums of squares (Type I) and associated Mean squares and probabilities. These are not to be trusted unless the design is perfectly balanced. In this case, there are varying numbers of observations across sex and location combinations and therefore the design is not balanced.
 :::
 
@@ -129,12 +129,12 @@ leveneTest(rdwght ~ sex * location, data = Stu2wdat)
 
 If the assumption of homogeneity of variances was valid, we would be accepting the null that the mean of the absolute values of residuals does not vary among levels of sex and location (i.e., group ). The above table shows that the hypothesis is rejected and we conclude there is evidence of heteroscedascticity. All in all, there is some evidence that several important assumptions have been violated. However, whether these violations are sufficiently large to invalidate our conclusions remains to be seen.
 
-::: {.callout-caution}
+::: callout-caution
 # Exercise
 Repeat this procedure using the data file Stu2mdat.Rdata . Now what do you conclude? Suppose you wanted to compare the sizes of males and females: in what way would these comparisons differ between Stu2wdat.Rdata and Stu2mdat.Rdata ?
 :::
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -202,7 +202,7 @@ We have neglected an important component in the above analyses, and that is rela
 for the situation in which `location` is a random factor and `sex` is a
 fixed factor. To do this, you need to recalculate the F-ratio for sex using the `sex:location` interaction mean square instead of the residual mean square. This is most easily accomplished by hand, making sure you are working with the Type III Sums of squares ANOVA table.
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 ```{r}
 #| eval: false
@@ -227,7 +227,7 @@ pf(35.6, 1, 1, lower.tail = FALSE)
 
 Note that the *p value* for `sex` is now non-significant. This is because the error MS of the initial ANOVA is smaller than the interaction MS, but mostly because the number of degrees of freedom of the denominator of the F test has dropped from 178 to 1. In general, a drop in the denominator degrees of freedom makes it much more difficult to reach significance.
 
-::: {.callout-note}
+::: callout-note
 Mixed model which are a generalisation of mixed-effect ANOVA are now really developped and are to be favoured intead of doing it by hand.
 :::
 
@@ -235,7 +235,7 @@ Mixed model which are a generalisation of mixed-effect ANOVA are now really deve
 
 In some experimental designs, there are no replicates within data cells: perhaps it is simply too expensive to obtain more than one datum per cell. A 2-way ANOVA is still possible under these circumstances, but there is an important limitation.
 
-::: {.callout-warning}
+::: callout-warning
 Because there is no replication within cells, there is no error variance: we have simply a row sum of squares, a column sum of squares, and a remainder sum of squares. This has important implications: if there is an interaction in a Model III ANOVA, only the fixed effect can be tested (over the remainder MS); for Model I ANOVAs, or for random effects in Model III ANOVAs, it is not appropriate to test main effects over the remainder unless we are sure there is no interaction.
 :::
 
@@ -298,7 +298,7 @@ anova.nested <- lm(survival ~ genotype / chamber, data = nestdat)
 What do you conclude from this analysis? What analysis would (should) you do next? (Hint: if there is a non-significant effect of chambers within genotypes, then you can increase the power of between-genotype comparisons by pooling over chambers within genotypes, although not everyone (Dr. Rundle included) agrees with such pooling.) Do it! Make sure you check your assumptions!
 
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -341,7 +341,7 @@ So, we conclude from the Tukey analysis and plot that dessiccation resistance (R
 
 Before concluding this, however, we must test the assumptions. Here are the residual plots and diagnostics for the one-way (unnested) design:
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -414,7 +414,7 @@ The file `wmcdat2.csv` shows measured oxygen consumption ( `o2cons` ) of two spe
 
 - Run a 2-way factorial ANOVA on `wmcdat2` data, using `o2cons` as the dependent variable and species and conc as the factors. What do you conclude?
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -437,7 +437,7 @@ Anova(anova.model5, type = 3)
 
 Look at the diagnostic plots:
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -449,7 +449,7 @@ plot(anova.model5)
 Homoscedasticity looks ok, but normality less so.. Testing for
 normality, we get:
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}
@@ -461,7 +461,7 @@ So there is evidence of non-normality, but otherwise everything looks O.K. Since
 
 - On the basis of the ANOVA results obtained above, which means would you proceed to compare? Why?
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 Need to add an explnation here
 :::
@@ -494,7 +494,7 @@ So there is evidence of a significant difference in oxygen consumption at a redu
 - Repeat the analysis described above using `wmc2dat2.csv` . How do
 your results compare with those obtained for `wmcdat2.csv` ?
 
-::: {.callout-tip}
+::: callout-tip
 # Solution
 
 ```{r}

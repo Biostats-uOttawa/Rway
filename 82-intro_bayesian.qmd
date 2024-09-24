@@ -189,7 +189,7 @@ ggsave("bayestriptic.png", width = 10.4, height = 5.1)
 knitr::include_graphics("images/bayestriptic.png")
 ```
 
-::: {.callout-warning}
+::: callout-warning
 
 **A word of encouragement!** The prior is an intimidating part of Bayesian
 statistics. It seems highly subjective, as though we are pulling numbers from
