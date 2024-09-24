@@ -183,7 +183,7 @@ Start G\*Power.
 should get the following:
 
 ```{r}
-#| label: gpower-1
+#| label: fig-gpower-1
 #| echo: false
 #| fig-cap: Post-hoc analysis with estimated effect size
 #| out-width: 100%
@@ -194,7 +194,7 @@ Similar analysis can be done in R. You first need to calculate the effect size `
 The easiest is to create anew function in R to estimate the effect size `d`since we are going to reuse it multiple times during the lab. 
 
 ```{r}
-#| label: r-power
+#| label: fig-rpower
 #| fig-cap: Post-hoc analysis with estimated effect size in R
 # load package pwr
 library(pwr)
@@ -208,24 +208,54 @@ pwr.t.test(
   n = 18,
   d = d(u1 = 2.64, sd1 = 3.28, u2 = 3.31, sd2 = 2.79),
   sig.level = 0.05,
-  type = "two.sample")
+  type = "two.sample"
+)
 
 # plot similar to G*Power
 x <- seq(-4, 4, length = 200)
-plot(x, dnorm(x), type = "l", col = "red", lwd = 2)
-qc <- qt(0.025, 16)
+x1 <- x + (3.31 - 2.64)
+y <- dt(x, 34)
+plot(x, y, type = "l", col = "red", lwd = 2)
+qc <- qt(0.025, 34)
 abline(v = qc, col = "green")
 abline(v = -qc, col = "green")
-lines(x, dnorm(x, mean = (3.31 - 2.64)), type = "l", col = "blue", lwd = 2)
+lines(x1, y, type = "l", col = "blue", lwd = 2)
 
 # power corresponds to the shaded area
-y <- dnorm(x, mean = (3.31 - 2.64))
+
 polygon(
-  c(x[x <= -qc], -qc), c(y[x <= -qc], 0),
-  col = rgb(red = 0, green = 0.2, blue = 1, alpha = 0.5))
+  c(x1[x1 <= -qc], -qc), c(y[x1 <= -qc], 0),
+  col = rgb(red = 0, green = 0.2, blue = 1, alpha = 0.5)
+)
 ```
 
-Let’s examine the figure \@ref(fig:gpower-1).
+```{r}
+#| label: fig-ggplot
+#| eval: false
+
+qc <- qt(0.025, 16)
+dat <- data.frame(
+  x = seq(-4, 4, length = 200),
+  x1 = x + (3.31 - 2.64),
+  y = dt(x, 34)
+) %>%
+  mutate(
+    area = ifelse(x1 < -qc, y, 0)
+  )
+
+ggplot(dat, aes(y = y)) +
+  geom_line(aes(x = x), color = "red") +
+  geom_line(aes(x = x1), color = "blue") +
+  geom_vline(xintercept = c(-qc, qc), color = "green") +
+  geom_area(
+    aes(x = x1, y = area),
+    fill = rgb(red = 0, green = 0.2, blue = 1, alpha = 0.5)
+  ) +
+  theme_classic() +
+  ylab("dt(x)")
+```
+
+Let’s examine the figure @fig-rpower.
 
 - The curve on the left, in red, corresponds to the expected distribution of the t-statistics when $H_0$ is true (*i.e.* when the two means are equal) given the sample size (18 per region) and the observed standard deviations. 
 - The vertical green lines correspond to the critical values of t for $\alpha = 0.05$ and a total sample size of 36 (2x18).
@@ -240,11 +270,11 @@ Let’s examine the figure \@ref(fig:gpower-1).
 
 ::: callout-caution
 # Exercise
-Change the mean of group 2 to 5.28, recalculate effect size, and click on Calculate to obtain figure \@ref(fig:gpower-2).
+Change the mean of group 2 to 5.28, recalculate effect size, and click on Calculate to obtain figure @fig-gpower-2.
 :::
 
 ```{r}
-#| label: gpower-2
+#| label: fig-gpower-2
 #| echo: false
 #| fig-cap: Post-hoc analysis using an effect size different from the one estimated
 #| out-width: 100%
@@ -271,11 +301,11 @@ Suppose that a difference in biomass of $3.31-2.64 = 0.67 g/m^2$ can be ecologic
 
 ::: {.callout-caution}
 # Exercise
-Change the type of power analysis in G*Power to **A priori: Compute sample size - given $\alpha$ , power, and effect size**. Ensure that the values for means and standard deviations are those obtained by Jaynie. Recalculate the effect size metric and enter 0.8 for power and you will obtain (\@ref(fig:gpower-3).
+Change the type of power analysis in G*Power to **A priori: Compute sample size - given $\alpha$ , power, and effect size**. Ensure that the values for means and standard deviations are those obtained by Jaynie. Recalculate the effect size metric and enter 0.8 for power and you will obtain @fig-gpower-3.
 :::
 
 ```{r}
-#| label: gpower-3
+#| label: fig-gpower-3
 #| echo: false
 #| fig-cap: A priori analysis
 #| out-width: 100%
@@ -304,7 +334,7 @@ pwr.t.test(
 
 
 ### Sensitivity analysis - Calculate the detectable effect size
-Given the observed variability, a sampling effort of 18 streams per region, and with $\alpha$ = 0.05, what effect size could Jaynie detect with 80% probability $\beta=0.2$)?
+Given the observed variability, a sampling effort of 18 streams per region, and with $\alpha$ = 0.05, what effect size could Jaynie detect with 80% probability $\beta=0.2$?
 
 ::: {.callout-caution}
 # Exercise
@@ -312,7 +342,7 @@ Change analysis type in G\*Power to **Sensitivity: Compute required effect size 
 :::
 
 ```{r}
-#| label: gpower-4
+#| label: fig-gpower-4
 #| echo: false
 #| fig-cap: Analyse de sensitivité
 #| out-width: 100%
