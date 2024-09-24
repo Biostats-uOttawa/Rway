@@ -1,7 +1,12 @@
-<!-- # (PART) Analyse de puissance {.unnumbered}
- -->
-
 # Power Analysis
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+
+source("utils/book-fnc.R")
+```
 
 ## The theory
 ### What is power?
@@ -212,19 +217,21 @@ pwr.t.test(
 )
 
 # plot similar to G*Power
+d_cohen <- d(u1 = 2.64, sd1 = 3.28, u2 = 3.31, sd2 = 2.79)
+
 x <- seq(-4, 4, length = 200)
-x1 <- x + (3.31 - 2.64)
-y <- dt(x, 34)
-plot(x, y, type = "l", col = "red", lwd = 2)
+y0 <- dt(x, 34)
+y1 <- dt(x, 34, ncp = d_cohen * sqrt(36) / 2)
+plot(x, y0, type = "l", col = "red", lwd = 2)
 qc <- qt(0.025, 34)
 abline(v = qc, col = "green")
 abline(v = -qc, col = "green")
-lines(x1, y, type = "l", col = "blue", lwd = 2)
+lines(x, y1, type = "l", col = "blue", lwd = 2)
 
-# power corresponds to the shaded area
+# type 2 error corresponds to the shaded area
 
 polygon(
-  c(x1[x1 <= -qc], -qc), c(y[x1 <= -qc], 0),
+  c(x[x <= -qc], -qc), c(y1[x <= -qc], 0),
   col = rgb(red = 0, green = 0.2, blue = 1, alpha = 0.5)
 )
 ```
@@ -234,21 +241,22 @@ polygon(
 #| eval: false
 
 qc <- qt(0.025, 34)
+ncp <- d_cohen * sqrt(36) / 2
 dat <- data.frame(
   x = seq(-4, 4, length = 200),
-  x1 = x + (3.31 - 2.64),
-  y = dt(x, 34)
+  y0 = dt(x, (n - 1) * 2),
+  y1 = dt(x, (n - 1) * 2, ncp = ncp)
 ) %>%
   mutate(
-    area = ifelse(x1 < -qc, y, 0)
+    area = ifelse(x <= qc, y1, 0)
   )
 
-ggplot(dat, aes(y = y)) +
-  geom_line(aes(x = x), color = "red") +
-  geom_line(aes(x = x1), color = "blue") +
-  geom_vline(xintercept = c(-qc, qc), color = "green") +
+ggplot(dat, aes(x = x)) +
+  geom_line(aes(y = y0), color = "red") +
+  geom_line(aes(y = y1), color = "blue") +
+  geom_vline(xintercept = qcl, color = "green") +
   geom_area(
-    aes(x = x1, y = area),
+    aes(x = x, y = area),
     fill = rgb(red = 0, green = 0.2, blue = 1, alpha = 0.5)
   ) +
   theme_classic() +
@@ -289,6 +297,16 @@ pwr.t.test(
   d = d(u1 = 2.64, sd1 = 3.28, u2 = 5.28, sd2 = 2.79),
   sig.level = 0.05,
   type = "two.sample")
+```
+
+```{r}
+#| label: fig-pwr1
+#| echo: false
+plot_pwr(
+  n = 18,
+  d = d(u1 = 2.64, sd1 = 3.28, u2 = 5.28, sd2 = 2.79),
+  sig_level = 0.05, type = "two.sample"
+)
 ```
 
 The power is 0.71, therefore Jaynie had a reasonable chance (71%) of detecting a doubling of biomass with 18 streams in each region.
