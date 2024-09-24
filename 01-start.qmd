@@ -409,12 +409,12 @@ directory by using either `getwd()` or `here()` functions.
 getwd()
 ```
 
-In the example above, the working directory is a folder called 'R_way'
+In the example above, the working directory is a folder called 'Rway'
 which is a subfolder of "biostats' in the 'courses' folder which in turn
 is in a 'Documents' folder located in the 'julien' folder which itself
 is in the 'home' folder. On a Windows based computer our working
 directory would also include a drive letter (i.e.
-`C:\home\julien\Documents\courses\biostats\R_way`).
+`C:\home\julien\Documents\courses\biostats\Rway`).
 
 If you weren't using an IDE then you would have to set your working
 directory using the `setwd()` function at the start of every R script
@@ -424,7 +424,7 @@ directory using the `setwd()` function at the start of every R script
 #| label: wd
 #| echo: true
 #| eval: false
-setwd("/home/julien/Documents/courses/biostats/R_way/")
+setwd("/home/julien/Documents/courses/biostats/Rway/")
 ```
 
 However, the problem with `setwd()` is that it uses an *absolute* file
@@ -465,7 +465,7 @@ to your directory or specify the full path of the data file. Neither
 option would be reproducible on other computers.
 
 ``` r
-setwd("/home/julien/Documents/courses/biostats/R_way")
+setwd("/home/julien/Documents/courses/biostats/Rway")
 
 dat <- read.csv("data/mydata.csv")
 ```
@@ -473,7 +473,7 @@ dat <- read.csv("data/mydata.csv")
 or
 
 ``` r
-dat <- read.csv("/home/julien/Documents/courses/biostats/R_way/data/mydata.csv")
+dat <- read.csv("/home/julien/Documents/courses/biostats/Rway/data/mydata.csv")
 ```
 
 For those of you who want to take the notion of relative file paths a
