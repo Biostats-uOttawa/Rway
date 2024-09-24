@@ -515,8 +515,7 @@ window.Quarto = {
   
 
 
-</header><!-- # (PART) Analyse de puissance {.unnumbered}
- --><section id="the-theory" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="the-theory">
+</header><section id="the-theory" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="the-theory">
 <span class="header-section-number">8.1</span> The theory</h2>
 <section id="what-is-power" class="level3" data-number="8.1.1"><h3 data-number="8.1.1" class="anchored" data-anchor-id="what-is-power">
 <span class="header-section-number">8.1.1</span> What is power?</h3>
@@ -706,9 +705,13 @@ t = -0.5746, df = 34, p-value = 0.5693</code></pre>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/gpower_1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Post-hoc analysis with estimated effect size</figcaption></figure>
+<div id="fig-gpower-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gpower-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gpower_1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpower-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Post-hoc analysis with estimated effect size
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -726,7 +729,8 @@ t = -0.5746, df = 34, p-value = 0.5693</code></pre>
 <span>  n <span class="op">=</span> <span class="fl">18</span>,</span>
 <span>  d <span class="op">=</span> <span class="fu">d</span><span class="op">(</span>u1 <span class="op">=</span> <span class="fl">2.64</span>, sd1 <span class="op">=</span> <span class="fl">3.28</span>, u2 <span class="op">=</span> <span class="fl">3.31</span>, sd2 <span class="op">=</span> <span class="fl">2.79</span><span class="op">)</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"two.sample"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  type <span class="op">=</span> <span class="st">"two.sample"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Two-sample t test power calculation 
@@ -740,26 +744,58 @@ t = -0.5746, df = 34, p-value = 0.5693</code></pre>
 NOTE: n is number in *each* group</code></pre>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plot similar to G*Power</span></span>
+<span><span class="va">d_cohen</span> <span class="op">&lt;-</span> <span class="fu">d</span><span class="op">(</span>u1 <span class="op">=</span> <span class="fl">2.64</span>, sd1 <span class="op">=</span> <span class="fl">3.28</span>, u2 <span class="op">=</span> <span class="fl">3.31</span>, sd2 <span class="op">=</span> <span class="fl">2.79</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span>, length <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">16</span><span class="op">)</span></span>
+<span><span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">34</span><span class="op">)</span></span>
+<span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">34</span>, ncp <span class="op">=</span> <span class="va">d_cohen</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">36</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y0</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">34</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">qc</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="op">-</span><span class="va">qc</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="op">(</span><span class="fl">3.31</span> <span class="op">-</span> <span class="fl">2.64</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># power corresponds to the shaded area</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="op">(</span><span class="fl">3.31</span> <span class="op">-</span> <span class="fl">2.64</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># type 2 error corresponds to the shaded area</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="va">qc</span><span class="op">]</span>, <span class="op">-</span><span class="va">qc</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="va">qc</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span>red <span class="op">=</span> <span class="fl">0</span>, green <span class="op">=</span> <span class="fl">0.2</span>, blue <span class="op">=</span> <span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="va">qc</span><span class="op">]</span>, <span class="op">-</span><span class="va">qc</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y1</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="va">qc</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span>red <span class="op">=</span> <span class="fl">0</span>, green <span class="op">=</span> <span class="fl">0.2</span>, blue <span class="op">=</span> <span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="25-power_files/figure-html/r-power-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Post-hoc analysis with estimated effect size in R</figcaption></figure>
+<div id="fig-rpower" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rpower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="25-power_files/figure-html/fig-rpower-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rpower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: Post-hoc analysis with estimated effect size in R
+</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Let’s examine the figure @ref(fig:gpower-1).</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">34</span><span class="op">)</span></span>
+<span><span class="va">ncp</span> <span class="op">&lt;-</span> <span class="va">d_cohen</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">36</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span>, length <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>  y0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  y1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="va">qc</span>, <span class="va">y1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y1</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">qcl</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_area</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">area</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span>red <span class="op">=</span> <span class="fl">0</span>, green <span class="op">=</span> <span class="fl">0.2</span>, blue <span class="op">=</span> <span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"dt(x)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s examine the figure <a href="#fig-rpower" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>.</p>
 <ul>
 <li>The curve on the left, in red, corresponds to the expected distribution of the t-statistics when <span class="math inline">\(H_0\)</span> is true (<em>i.e.</em> when the two means are equal) given the sample size (18 per region) and the observed standard deviations.</li>
 <li>The vertical green lines correspond to the critical values of t for <span class="math inline">\(\alpha = 0.05\)</span> and a total sample size of 36 (2x18).</li>
@@ -780,20 +816,24 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Change the mean of group 2 to 5.28, recalculate effect size, and click on Calculate to obtain figure @ref(fig:gpower-2).</p>
+<p>Change the mean of group 2 to 5.28, recalculate effect size, and click on Calculate to obtain figure <a href="#fig-gpower-2" class="quarto-xref">Figure&nbsp;<span>8.3</span></a>.</p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/gpower_2.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Post-hoc analysis using an effect size different from the one estimated</figcaption></figure>
+<div id="fig-gpower-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gpower-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gpower_2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpower-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.3: Post-hoc analysis using an effect size different from the one estimated
+</figcaption></figure>
 </div>
 </div>
 </div>
 <p>Same analysis using R (without all the code for the interesting but not really useful plot)</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">18</span>,</span>
 <span>  d <span class="op">=</span> <span class="fu">d</span><span class="op">(</span>u1 <span class="op">=</span> <span class="fl">2.64</span>, sd1 <span class="op">=</span> <span class="fl">3.28</span>, u2 <span class="op">=</span> <span class="fl">5.28</span>, sd2 <span class="op">=</span> <span class="fl">2.79</span><span class="op">)</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -811,6 +851,18 @@ Exercise
 NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pwr1" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-pwr1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="25-power_files/figure-html/fig-pwr1-1.png" id="fig-pwr1" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-pwr1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.4
+</figcaption></figure>
+</div>
+</div>
+</div>
 <p>The power is 0.71, therefore Jaynie had a reasonable chance (71%) of detecting a doubling of biomass with 18 streams in each region.</p>
 <p>Note that this post hoc power analysis, done for an effect size considered biologically meaningful, is much more informative than the preceeding one done with the observed effect size (which is what too many students do because it is the default of so many power calculation programs). Jaynie did not detect a difference between the two regions. There are two possibilities: 1) there is really no difference between the regions, or 2) the precision of measurements is so low (because the sample size is small and/or there is large variability within a region) that it is very unlikely to be able to detect even large differences. The second power analysis can eliminate this second possibility because Jaynie had 71% chances of detecting a doubling of biomass.</p>
 </section><section id="a-priori-analysis" class="level3" data-number="8.2.5"><h3 data-number="8.2.5" class="anchored" data-anchor-id="a-priori-analysis">
@@ -826,19 +878,23 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Change the type of power analysis in G*Power to <strong>A priori: Compute sample size - given <span class="math inline">\(\alpha\)</span> , power, and effect size</strong>. Ensure that the values for means and standard deviations are those obtained by Jaynie. Recalculate the effect size metric and enter 0.8 for power and you will obtain (@ref(fig:gpower-3).</p>
+<p>Change the type of power analysis in G*Power to <strong>A priori: Compute sample size - given <span class="math inline">\(\alpha\)</span> , power, and effect size</strong>. Ensure that the values for means and standard deviations are those obtained by Jaynie. Recalculate the effect size metric and enter 0.8 for power and you will obtain <a href="#fig-gpower-3" class="quarto-xref">Figure&nbsp;<span>8.5</span></a>.</p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/gpower_3.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>A priori analysis</figcaption></figure>
+<div id="fig-gpower-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gpower-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gpower_3.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpower-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.5: A priori analysis
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
 <span>  power <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  d <span class="op">=</span> <span class="fu">d</span><span class="op">(</span>u1 <span class="op">=</span> <span class="fl">2.64</span>, sd1 <span class="op">=</span> <span class="fl">3.28</span>, u2 <span class="op">=</span> <span class="fl">3.31</span>, sd2 <span class="op">=</span> <span class="fl">2.79</span><span class="op">)</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -859,7 +915,7 @@ NOTE: n is number in *each* group</code></pre>
 <p><strong>Ouch!</strong> The required sample would be of 326 streams in each region! It would cost a fortune and require several field teams otherwise only a few dozen streams could be sampled over the summer and it would be very unlikely that such a small difference in biomass could be detected. Sampling fewer streams would probably be in vain and could be considered as a waste of effort and time: why do the work on several dozens of streams if the odds of success are that low?</p>
 <p>If we recalculate for a power of 95%, we find that 538 streams would be required from each region. Increasing power means more work!</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
 <span>  power <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  d <span class="op">=</span> <span class="fu">d</span><span class="op">(</span>u1 <span class="op">=</span> <span class="fl">2.64</span>, sd1 <span class="op">=</span> <span class="fl">3.28</span>, u2 <span class="op">=</span> <span class="fl">3.31</span>, sd2 <span class="op">=</span> <span class="fl">2.79</span><span class="op">)</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -879,7 +935,7 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </section><section id="sensitivity-analysis---calculate-the-detectable-effect-size" class="level3" data-number="8.2.6"><h3 data-number="8.2.6" class="anchored" data-anchor-id="sensitivity-analysis---calculate-the-detectable-effect-size">
 <span class="header-section-number">8.2.6</span> Sensitivity analysis - Calculate the detectable effect size</h3>
-<p>Given the observed variability, a sampling effort of 18 streams per region, and with <span class="math inline">\(\alpha\)</span> = 0.05, what effect size could Jaynie detect with 80% probability <span class="math inline">\(\beta=0.2\)</span>)?</p>
+<p>Given the observed variability, a sampling effort of 18 streams per region, and with <span class="math inline">\(\alpha\)</span> = 0.05, what effect size could Jaynie detect with 80% probability <span class="math inline">\(\beta=0.2\)</span>?</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -895,14 +951,18 @@ Exercise
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/gpower_4.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Analyse de sensitivité</figcaption></figure>
+<div id="fig-gpower-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gpower-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gpower_4.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpower-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.6: Analyse de sensitivité
+</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
 <span>  power <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">18</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -942,7 +1002,7 @@ Warning
 \]</span></p>
 <p>In R this can be done with the following code</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span></span>
 <span>  power <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">18</span>,</span>
 <span>  sig.level <span class="op">=</span> <span class="fl">0.05</span>,</span>

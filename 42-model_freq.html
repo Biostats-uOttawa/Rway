@@ -971,7 +971,7 @@ sex            1978 1979 1980
 </div>
 </div>
 </div>
-<p>{.callout-caution} # Exercise Using the frequency form of the table, fit the full log-linear model just as we did with the loglin data set and produce the anova table with chi square statistics for the terms in the model. Is the 3-way interaction significant ( location:year:sex )? Does sex ratio change between locations or among years? ::</p>
+<p>callout-caution # Exercise Using the frequency form of the table, fit the full log-linear model just as we did with the loglin data set and produce the anova table with chi square statistics for the terms in the model. Is the 3-way interaction significant ( location:year:sex )? Does sex ratio change between locations or among years? ::</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fit full model</span></span>
 <span><span class="va">full.model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">Freq</span> <span class="op">~</span> <span class="va">sex</span> <span class="op">*</span> <span class="va">year</span> <span class="op">*</span> <span class="va">location</span>, data <span class="op">=</span> <span class="va">sturgdat.freq</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span></span>
