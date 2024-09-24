@@ -434,7 +434,7 @@ ggplot(unicorns, aes(x = opp_size, y = aggression)) +
 :::
 
 ```{r}
-#| label: rplotaggr
+#| label: fig-rplotaggr
 #| eval: true
 #| warning: false
 #| fig-cap: Unicorn aggressivity as a function of opponent size when fighting for sweets
@@ -494,7 +494,7 @@ Run a few diagnostic plots before we look at the answers. In diagnostic plots, w
 
 # Solution
 Done with data exploration graph (i.e. just plot the data see if it is linear)
-    - see previous graph \@ref(fig:rplotaggr).
+    - see previous graph @fig-rplotaggr.
 :::
 
 2. No error on measurement of covariates

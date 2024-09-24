@@ -72,7 +72,7 @@ str(sturgeon)
 ```
 
 ```{r}
-#| label: stur-2
+#| label: fig-stur-2
 #| warning: false
 #| message: false
 #| fig-cap: Scatter plot of Weight as a function of length in sturgeons
@@ -98,7 +98,7 @@ There is some evidence of nonlinearity, as the curve appears to have a positive 
 - Redo the scatterplot, but after logtransformation of both axes.
 
 ```{r}
-#| label: stur-log
+#| label: fig-stur-log
 #| warning: false
 #| message: false
 #| fig-cap: Plot weight-length in sturgeon using a log scale
@@ -106,7 +106,7 @@ There is some evidence of nonlinearity, as the curve appears to have a positive 
 mygraph + scale_x_log10() + scale_y_log10()
 ```
 
-Compare the diagrams before and after the transformation (Figs \@ref(fig:stur-2) and \@ref(fig:stur-log)). Since the relationship is more linear after transformation, correlation analysis should be done on the transformed data
+Compare the diagrams before and after the transformation (Figs @fig-stur-2 and @fig-stur-log). Since the relationship is more linear after transformation, correlation analysis should be done on the transformed data
 
 ## Data transformations and the product-moment correlation
 
@@ -117,7 +117,7 @@ Recall that another assumption underlying significance testing of the product-mo
 The following graph contains the 4 QQ plots (`qqplot()`). It was produced by the code below that starts with the `par()` command to ensure that all 4 plots would appear together on the same page in 2 rows and 2 columns:
 
 ```{r}
-#| label: stur-4hist
+#| label: fig-stur-4hist
 par(mfrow = c(2, 2)) # split graph in 4 (2 rows, 2 cols) filling by rows
 qqnorm(sturgeon$fklngth, ylab = "fklngth")
 qqline(sturgeon$fklngth)
@@ -136,7 +136,7 @@ None of these distributions are perfectly normal, but deviations are mostly mino
 - To generate a scatterplot matrix of all pairs of variables, with linear regression and lowess traces, you can use `scatterplotMatrix` from `car` `r emoji::emoji("package")`.
 
 ```{r}
-#| label: stur-scatmat
+#| label: fig-stur-scatmat
 #| warning: false
 scatterplotMatrix(
   ~ fklngth + log10(fklngth) + rdwght + log10(rdwght),
@@ -253,7 +253,7 @@ If you are interested in the relationship between two variables, say, Y and X, p
 - The data file `sturgeon.csv` contains data for sturgeons collected from 1978-1980 at Cumberland House, Saskatchewan and The Pas, Manitoba. Make a scatterplot of `fklngth` (the dependent variable) versus `age` (the independent variable) for males and add a linear regression and a loess smoother. What do you conclude from this plot?
 
 ```{r}
-#| label: sturlm-1
+#| label: fig-sturlm-1
 #| warning: false
 #| message: false
 sturgeon.male <- subset(sturgeon, subset = sex == "MALE")
@@ -322,7 +322,7 @@ For most biological data, the first assumption is almost never valid; usually th
 The other assumptions of a model I regression can, however, be tested, or at least evaluated visually. The `plot()` command can display diagnostics for linear models.
 
 ```{r}
-#| label: sturlmv-1
+#| label: fig-sturlmv-1
 #| eval: false
 par(mfrow = c(2, 2), las = 1)
 plot(RegModel.1)
@@ -332,7 +332,7 @@ The `par()` command is used here to tell R to display 2 rows and 2 columns of gr
 
 You will get:
 ```{r}
-#| label: sturlmv-1eval
+#| label: fig-sturlmv-1eval
 #| echo: false
 par(mfrow = c(2, 2), las = 1)
 plot(RegModel.1)
@@ -343,13 +343,14 @@ plot(RegModel.1)
 3. __Bottom left__ titled Scale-Location, helps with assessing homoscedasticity. It plots the square root of the absolute value of the standardized residual (residual divided by the standard error of the residuals, this scales the residuals so that their variance is 1 ) as a function of the fitted value. This graph can help you visualize whether the spread of the residuals is constant or not. If residuals are homoscedastic, then the average will not change with increasing fitted values. Here, there is slight variability, but it is not monotonous (i.e. it does not increase or decrease systematically) and there is no strong evidence against the assumption of homoscedasticity.
 4. __Bottom right__ plots the residuals as a function of leverage and can help detecting the presence of outliers or points that have a very strong influence on the regression results. The leverage of a point measures how far it is from the other points, but only with respect to the independent variable. In the case of simple linear regression, it is a function of the difference between the observation and the mean of the independent variable. You should look more closely at any observation with a leverage value that is greater than: $2(k+1)/n$, where $$k$ is the number of independent variables (here 1), and $n$ is the number of observations. In this case there is 1 independent variable, 75 observations, and points with a leverage higher than 0.053 may warrant particular scrutiny. The plot also gives you information about how the removal of a point from the data set would change the predictions. This is measured by the Cook’s distance, illustrated by the red lines on the plot. A data point with a Cook distance larger than 1 has a large influence.
 
-::: {.callout-warning}
+::: callout-warning
 Note that R automatically labels the most extreme cases on each of these 4 plots. It does not mean that these cases are outliers, or that you necessarily need be concerned with them. In any data set, there will always be a minimum and a maximum residual.
 :::
 
 The R package `performance` offers a new and updated version of those graphs with colours and more plots to help visually assess the assumptions with the function `model_check()`
 
 ```{r}
+#| label: fig-check
 check_model(RegModel.1)
 ```
 
@@ -408,7 +409,7 @@ The analysis above revealed that the linearity assumption underlying regression 
 Let’s plot the log-transformed data
 
 ```{r}
-#| label: sturtr-1
+#| label: fig-sturtr-1
 #| warning: false
 #| message: false
 par(mfrow = c(1, 1), las = 1)
@@ -432,7 +433,7 @@ summary(RegModel.2)
 Note that by using the log transformed data, the proportion of variation explained by the regression has increased by 10% (from 0.664 to 0.772), a substantial increase. So the relationship has become more linear. Good. Let’s look at the residual diagnostic plots:
 
 ```{r}
-#| label: sturtr-3
+#| label: fig-sturtr-3
 par(mfrow = c(2, 2), las = 1)
 plot(RegModel.2)
 check_model(RegModel.2)
@@ -470,7 +471,7 @@ The intercept, slope, and R squared are about the same, and the significance of 
 As for the diagnostic residual plots and the formal tests of assumptions:
 
 ```{r}
-#| label: sturtr-6
+#| label: fig-sturtr-6
 par(mfrow = c(2, 2))
 plot(RegModel.3)
 bptest(RegModel.3)
@@ -519,15 +520,15 @@ sd(log10(sturgeon.male$age), na.rm = TRUE)
 
 You can then enter these values (slope to be detected, sample size, alpha, standard deviation of the independent variable) to calculate another quantity that G*Power needs (standard deviation of y) using the Determine panel. Finally you can calculate Power. The filled panels should look like this
 
-::: {.callout-note}
+::: callout-note
 Note: The SD of y can't just be taken from the data because if the slope
 chanages (e.g. H1) then this will change the SD of y. SD y needs to be
 estimated from the observed scatter around the line and the
-hypothesized slope).
+hypothesized slope.
 :::
 
 ```{r}
-#| label: lm-pow-fig-1
+#| label: fig-lm-pow-fig-1
 #| echo: false
 #| fig-cap: Power analysis for age-length in sturgeon with N = 20 and slope = 0.1
 #| out-width: 100%
@@ -562,7 +563,7 @@ You can see that the results is really similar but not exactly the same than wit
 To estimate the sample size required to achieve 99% power to detect a slope of 0.1 (in log-log space), with alpha=0.05, you simply change the type of analysis:
 
 ```{r}
-#| label: lm-pow-fig-2
+#| label: fig-lm-pow-fig-2
 #| echo: false
 #| fig-cap: A priori power analysis to estimate the sample size needed to have a power
 #|   of 0.99
@@ -616,7 +617,7 @@ appelée t1\* et la pente de la régression `t2\*`), R imprime :
 3. `std. error` standard error of the bootstrap estimate
 
 ```{r}
-#| label: lm-boot-2
+#| label: fig-lm-boot-2
 par(mfrow = c(2, 2))
 plot(results, index = 1) # intercept
 plot(results, index = 2) # log10(age)

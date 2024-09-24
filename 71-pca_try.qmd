@@ -320,7 +320,7 @@ fviz_pca_var(res.pca, col.var = grp,
 Note that, to change the color of groups the argument palette should be used. To change gradient colors, the argument gradient.cols should be used.
 Dimension description
 
-In the section @ref(pca-variable-contributions), we described how to highlight variables according to their contributions to the principal components.
+In the section @pca-variable-contributions, we described how to highlight variables according to their contributions to the principal components.
 
 Note also that, the function dimdesc() [in FactoMineR], for dimension description, can be used to identify the most significantly associated variables with a given principal component . It can be used as follow:
 
@@ -525,7 +525,7 @@ fviz_pca_ind(res.pca,
 
 Ellipses
 
-As we described in the previous section @ref(color-ind-by-groups), when coloring individuals by groups, you can add point concentration ellipses using the argument addEllipses = TRUE.
+As we described in the previous section @color-ind-by-groups, when coloring individuals by groups, you can add point concentration ellipses using the argument addEllipses = TRUE.
 
 Note that, the argument ellipse.type can be used to change the type of ellipses. Possible values are:
 
@@ -554,7 +554,7 @@ fviz_pca_ind(iris.pca, geom.ind = "point",
 
 Group mean points
 
-When coloring individuals by groups (section @ref(color-ind-by-groups)), the mean points of groups (barycenters) are also displayed by default.
+When coloring individuals by groups (section @color-ind-by-groups), the mean points of groups (barycenters) are also displayed by default.
 
 To remove the mean points, use the argument mean.point = FALSE.
 
@@ -663,7 +663,7 @@ fviz_pca_biplot(iris.pca,
 Supplementary elements
 Definition and types
 
-As described above (section @ref(pca-data-format)), the decathlon2 data sets contain supplementary continuous variables (quanti.sup, columns 11:12), supplementary qualitative variables (quali.sup, column 13) and supplementary individuals (ind.sup, rows 24:27).
+As described above (section @pca-data-format), the decathlon2 data sets contain supplementary continuous variables (quanti.sup, columns 11:12), supplementary qualitative variables (quali.sup, column 13) and supplementary individuals (ind.sup, rows 24:27).
 
 Supplementary variables and individuals are not used for the determination of the principal components. Their coordinates are predicted using only the information provided by the performed principal component analysis on active variables/individuals.
 Specification in PCA
