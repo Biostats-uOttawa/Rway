@@ -10,18 +10,18 @@ ui_list <- function(vec) {
   }
 }
 
-data <- data.frame(
+datf <- data.frame(
   Files = list.files("data/"),
   link = list.files("data/", full.names = TRUE)
 )
- code <- data.frame(
-  Files = list.files("../data/code/"),
-  link = list.files("../data/code/", full.names = TRUE)
+code <- data.frame(
+  Files = list.files("data/code/"),
+  link = list.files("data/code/", full.names = TRUE)
 )
 if (file.exists("/data/Rway-enfR_data_code.zip")) {
   file.remove("/data/Rway-enfR_data_code.zip")
-}
-zip("/data/Rway-enfR_data_code.zip", c("/data/")) # , "../data/R_code/"))
+} 
+zip("data/Rway-enfR_data_code.zip", c(datf$link, code$link))
 ```
 
 ## All in one zip file
@@ -33,18 +33,18 @@ Tous les fichiers de données et de code dans un [**fichier zip**](./data/Rway-e
 ```{r}
 #| echo: false
 #| output: asis
-apply(data, 1, function(x) paste0("[", x[1], "](", x[2], ")")) |>
+apply(datf, 1, function(x) paste0("[", x[1], "](", x[2], ")")) |>
   ui_list()
 ```
 
-## Code R et fonctions utilisées dans les diapositives
+## R code used in the book and slides
 
 ```{r}
 #| echo: false
 #| eval: true
 #| output: asis
 apply(code, 1, function(x) paste0("[", x[1], "](", x[2], ")")) |>
-  ui_list()
+  ui_list() 
 ```
 
 
