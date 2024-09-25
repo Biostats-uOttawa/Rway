@@ -96,7 +96,7 @@ effect size calculator for many tests that only requires you to enter
 the relevant values. The following table lists the effect size metrics
 used by G\*Power for the various tests.
 
-Test | Taille d'effet | Formule
+Test | Effect size | Formula
 :----|:--------------:|:--------------------
 t-test on means | d | $d = \frac{|\mu_1 - \mu_2|}{\sqrt{({s_1}^2 + {s_2}^2)/2}}$
 t-test on correlations |  r |
