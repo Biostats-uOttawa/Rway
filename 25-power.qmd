@@ -8,7 +8,7 @@
 
 source("data/code/book-fnc.R")
 ```
-
+qgwehwbtenbt
 ## The theory
 ### What is power?
 
