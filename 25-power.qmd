@@ -6,7 +6,7 @@
 #| message: false
 #| cache: false
 
-source("data/code/book-fnc.R")
+source("code/book-fnc.R")
 ```
 
 ## The theory

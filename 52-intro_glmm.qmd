@@ -37,7 +37,7 @@ library(tidyverse)
 library(patchwork)
 library(lattice)
 library(DHARMa)
-source("data/code/extra_funs.R")
+source("code/extra_funs.R")
 ```
 
 ### The data set
@@ -578,7 +578,7 @@ simdev <- function() {
 
 set.seed(101)
 nulldist <- raply(200, simdev(), .progress = "text")
-save(nulldist, file = "data/r_obj/glmm_simdev.rda")
+save(nulldist, file = "code/glmm_simdev.rda")
 nulldist[nulldist < 0 & abs(nulldist) < 1e-5] <- 0
 obsdev <- 2 * c(logLik(mp4) - logLik(mp4v1))
 ```
@@ -587,7 +587,7 @@ obsdev <- 2 * c(logLik(mp4) - logLik(mp4v1))
 #| include: false
 #| purl: false
 #| eval: !expr '!params$longrun'
-load("data/r_obj/glmm_simdev.rda")
+load("code/glmm_simdev.rda")
 nulldist[nulldist < 0 & abs(nulldist) < 1e-5] <- 0
 obsdev <- 2 * c(logLik(mp4) - logLik(mp4v1))
 ```
