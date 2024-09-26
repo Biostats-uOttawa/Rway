@@ -18,10 +18,10 @@ code <- data.frame(
   Files = list.files("data/code/"),
   link = list.files("data/code/", full.names = TRUE)
 )
-if (file.exists("/data/Rway-enfR_data_code.zip")) {
-  file.remove("/data/Rway-enfR_data_code.zip")
+if (file.exists("data/Rway_enfR_data_code.zip")) {
+  file.remove("data/Rway_enfR_data_code.zip")
 } 
-zip("data/Rway-enfR_data_code.zip", c(datf$link, code$link))
+zip("data/Rway_enfR_data_code.zip", c(datf$link, code$link))
 ```
 
 ## All in one zip file
