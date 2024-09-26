@@ -811,7 +811,7 @@ Some resources we have found helpful are listed below.
 
 #### Getting help
 
-- [Google it!][google-cust]: Try Googling any error messages you get.
+- [Internet search]: Use your favourite websearch engine (google, ecosia, duckduckgo, ... )for any error messages you get.
 It's not cheating and everyone does it! You'll be surprised how many other people have probably had the same problem and solved it.
 
 - [Stack Overflow][stackr]: There are many thousands of questions relevant to R on Stack Overflow.
