@@ -1159,7 +1159,7 @@ Doing so is not too complex but will require nesting a function (`c()`\index{c()
 
 Choosing colours can be fiddly.
 We've found using a colour wheel helps with this step.
-You can always use Google to find an interactive colour wheel, or use Google's Colour picker.
+You can always use internet to find an interactive colour wheel, or use an addon Colour picker for your web browser.
 Any decent website should give you a HEX code, something like: #5C1AAE which is a "code" representation of a colour.
 Alternatively, there are colour names which R and `ggplot2` will also understand (e.g.
 "firebrick4").
