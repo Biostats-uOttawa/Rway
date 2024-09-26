@@ -37,7 +37,7 @@ library(tidyverse)
 library(patchwork)
 library(lattice)
 library(DHARMa)
-source("data/extra_funs.R")
+source("data/code/extra_funs.R")
 ```
 
 ### The data set
