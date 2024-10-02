@@ -1,9 +1,0 @@
-"temperature","light","infected","frequency"
-"HIGH        ","HIGH        ","YES         ",50
-"HIGH        ","HIGH        ","NO          ",50
-"HIGH        ","LOW         ","YES         ",80
-"HIGH        ","LOW         ","NO          ",20
-"LOW         ","HIGH        ","YES         ",15
-"LOW         ","HIGH        ","NO          ",85
-"LOW         ","LOW         ","YES         ",30
-"LOW         ","LOW         ","NO          ",70
