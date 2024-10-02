@@ -524,7 +524,7 @@ There are numerous other functions to import data from a variety of sources and 
 Most of these functions are contained in packages that you will need to install before using them.
 We list a couple of the more useful packages and functions below.
 
-The `fread()` function from the `read.table` package is great for importing large data files quickly and efficiently (much faster than the `read.table()` function).
+The `fread()` function from the `data.table` :package: package is great for importing large data files quickly and efficiently (much faster than the `read.table()` function).
 One of the great things about the `fread()` function is that it will automatically detect many of the arguments you would normally need to specify (like `sep =` etc).
 One of the things you will need to consider though is that the `fread()` function will return a `data.table` object not a `data.frame` as would be the case with the `read.table()` function.
 This is usually not a problem as you can pass a `data.table` object to any function that only accepts `data.frame` objects.
@@ -534,7 +534,7 @@ To learn more about the differences between `data.table` and `data.frame` object
 #| label: df8
 #| echo: true
 #| eval: false
-library(read.table)
+library(data.table)
 all_data <- fread(file = "data/unicorns.txt")
 ```
 
@@ -543,6 +543,10 @@ The `readr` package is part of the '[tidyverse][tidyverse]' collection of packag
 The `readr` functions are used in a similar way to the `read.table()` or `read.csv()` functions and many of the arguments are the same (see `?readr::read_table` for more details).
 There are however some differences.
 For example, when using the `read_table()` function the `header = TRUE` argument is replaced by `col_names = TRUE` and the function returns a `tibble` class object which is the tidyverse equivalent of a `data.frame` object (see [here][tibbles] for differences).
+
+::: callout-warning
+Some functions are not happy to handle the data format produced by `tidyverse` and might require you to transform them to `data.frame` format using `data.frame()`.
+:::
 
 ```{r}
 #| label: df9
@@ -553,7 +557,7 @@ library(readr)
 all_data <- read_table(file = "data/unicorns.txt", col_names = TRUE)
 
 # import comma delimited files
-all_data <- read_csv(file = "data/unicorns.txt")
+all_data <- read_csv(file = "data/unicorns.csv")
 
 # import tab delimited files
 all_data <- read_delim(file = "data/unicorns.txt", delim = "\t")
@@ -1384,7 +1388,7 @@ We can of course export our files in a variety of other formats.
 As with importing data files into R, there are also many alternative functions for exporting data to external files beyond the `write.table()` function.
 If you followed the 'Other import functions' @sec-import-other of this Chapter you will already have the required packages installed.
 
-The `fwrite()` function from the `read.table` package is very efficient at exporting large data objects and is much faster than the `write.table()` function.
+The `fwrite()` function from the `data.table` :package: package is very efficient at exporting large data objects and is much faster than the `write.table()` function.
 It's also quite simple to use as it has most of the same arguments as `write.table()`.
 To export a tab delimited text file we just need to specify the data frame name, the output file name and file path and the separator between columns.
 
@@ -1392,7 +1396,7 @@ To export a tab delimited text file we just need to specify the data frame name,
 #| label: export5
 #| echo: true
 #| eval: false
-library(read.table)
+library(data.table)
 fwrite(unicorns_df2, file = "data/unicorns_04_12.txt", sep = "\t")
 ```
 
@@ -1402,7 +1406,7 @@ To export a csv delimited file it's even easier as we don't even need to include
 #| label: export6
 #| echo: true
 #| eval: false
-library(read.table)
+library(data.table)
 fwrite(unicorns_df2, file = "data/unicorns_04_12.csv")
 ```
 
