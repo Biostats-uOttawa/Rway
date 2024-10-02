@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Julien Martin">
+<meta name="description" content="Early version needed to be severely updated/modified">
+<title>References – On the R-way to hell</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./902-data.html" rel="next">
+<link href="./82-intro_bayesian.html" rel="prev">
+<link href="./images/cover/book_fav.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-SLXFYRXJR4"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-SLXFYRXJR4', { 'anonymize_ip': true});
+</script>
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title"><img src="images/cover/book_hex_en.png" class="img-fluid" width="50"> R Way</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-flag" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-flag" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-bi-flag">
+<li>
+    <a class="dropdown-item" href="https://biostats-uottawa.github.io/enfR">
+ <span class="dropdown-text">Français</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./902-data.html" aria-current="page"> 
+<span class="menu-text">Data &amp; Code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/"> 
+<span class="menu-text">Biostats uOttawa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/bioXx58/"> 
+<span class="menu-text">Intro Biostats &amp; R (BioXx58)</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/bio8940/"> 
+<span class="menu-text">Advanced Biostats (Bio8940)</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">auto</span>
+    </span>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/biostats-uottawa/Rway/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./On-the-R-way-to-hell.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./On-the-R-way-to-hell.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./901-references.html">References</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Using R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some R basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-graphics_short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reproducible reports with Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Version control with Git and GitHub</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals of stats</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./31-reg_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and simple linear regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-t_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Two - sample comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./33-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./34-anova_mult.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Multiway ANOVA: factorial and nested designs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./35-reg_mult.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./36-ancova_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ANCOVA and general linear model</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Generalized linear models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Generalized linear model, <code>glm</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-model_freq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency data and Poisson Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Mixed models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./51-lmm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Introduction to linear mixed models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./52-intro_glmm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Introduction to <code>GLMM</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./53-randreg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Random regression and character state approaches</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./54-multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Multivariate mixed models</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Generalized additive models</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Multivariate analysis</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bayesian approach</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./81-beyond_p.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P </span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./82-intro_bayesian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Introduction to Bayesian Inference</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./901-references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./902-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Data used in this book</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./903-latex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Installing Quarto and LateX</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#r-packages" id="toc-r-packages" class="nav-link active" data-scroll-target="#r-packages">R packages</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/biostats-uottawa/Rway/edit/main/901-references.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/biostats-uottawa/Rway/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">References</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="r-packages" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="r-packages">R packages</h2>
+<p>This book was produced all packages (excluding dependencies) listed in table <a href="#tbl-r-lib" class="quarto-xref">Table&nbsp;<span>1</span></a>. As recommended by the ‘tidyverse’ team, all citations to tidyverse packages are collapsed into a single citation.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>A large number of files (9124 in total) have been discovered.
+It may take renv a long time to crawl these files for dependencies.
+Consider using .renvignore to ignore irrelevant files.
+See `?renv::dependencies` for more information.
+Set `options(renv.config.dependencies.limit = Inf)` to disable this warning.</code></pre>
+</div>
+<div id="tbl-r-lib" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-r-lib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: R packages used in this book
+</figcaption><div aria-describedby="tbl-r-lib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 67%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Citation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">asreml</td>
+<td style="text-align: left;">4.2.0.302</td>
+<td style="text-align: left;"><span class="citation" data-cites="asreml">The VSNi Team (<a href="06-quarto.html#ref-asreml" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">babeldown</td>
+<td style="text-align: left;">0.0.0.9000</td>
+<td style="text-align: left;"><span class="citation" data-cites="babeldown">Salmon (<a href="06-quarto.html#ref-babeldown" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">4.4.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="base">R Core Team (<a href="06-quarto.html#ref-base" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bayesplot</td>
+<td style="text-align: left;">1.11.1</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="bayesplot2019">Gabry et al. (<a href="06-quarto.html#ref-bayesplot2019" role="doc-biblioref">2019</a>)</span>; <span class="citation" data-cites="bayesplot2024">Gabry and Mahr (<a href="06-quarto.html#ref-bayesplot2024" role="doc-biblioref">2024</a>)</span>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">boot</td>
+<td style="text-align: left;">1.3.31</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="boot1997">A. C. Davison and D. V. Hinkley (<a href="06-quarto.html#ref-boot1997" role="doc-biblioref">1997</a>)</span>; <span class="citation" data-cites="boot2024">Angelo Canty and B. D. Ripley (<a href="06-quarto.html#ref-boot2024" role="doc-biblioref">2024</a>)</span>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">brio</td>
+<td style="text-align: left;">1.1.5</td>
+<td style="text-align: left;"><span class="citation" data-cites="brio">Hester and Csárdi (<a href="06-quarto.html#ref-brio" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">brms</td>
+<td style="text-align: left;">2.21.0</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="brms2017">Bürkner (<a href="06-quarto.html#ref-brms2017" role="doc-biblioref">2017</a>)</span>; <span class="citation" data-cites="brms2018">Bürkner (<a href="06-quarto.html#ref-brms2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="brms2021">Bürkner (<a href="06-quarto.html#ref-brms2021" role="doc-biblioref">2021</a>)</span>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">broom.mixed</td>
+<td style="text-align: left;">0.2.9.5</td>
+<td style="text-align: left;"><span class="citation" data-cites="broommixed">Bolker and Robinson (<a href="06-quarto.html#ref-broommixed" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">car</td>
+<td style="text-align: left;">3.1.2</td>
+<td style="text-align: left;"><span class="citation" data-cites="car">Fox and Weisberg (<a href="06-quarto.html#ref-car" role="doc-biblioref">2019a</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coda</td>
+<td style="text-align: left;">0.19.4.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="coda">Plummer et al. (<a href="06-quarto.html#ref-coda" role="doc-biblioref">2006</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DHARMa</td>
+<td style="text-align: left;">0.4.6</td>
+<td style="text-align: left;"><span class="citation" data-cites="DHARMa">Hartig (<a href="06-quarto.html#ref-DHARMa" role="doc-biblioref">2022</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">digest</td>
+<td style="text-align: left;">0.6.37</td>
+<td style="text-align: left;"><span class="citation" data-cites="digest">Eddelbuettel (<a href="06-quarto.html#ref-digest" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">effects</td>
+<td style="text-align: left;">4.2.2</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="effects2003">Fox (<a href="06-quarto.html#ref-effects2003" role="doc-biblioref">2003</a>)</span>; <span class="citation" data-cites="effects2009">Fox and Hong (<a href="06-quarto.html#ref-effects2009" role="doc-biblioref">2009</a>)</span>; <span class="citation" data-cites="effects2018">Fox and Weisberg (<a href="06-quarto.html#ref-effects2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="effects2019">Fox and Weisberg (<a href="06-quarto.html#ref-effects2019" role="doc-biblioref">2019b</a>)</span>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">emoji</td>
+<td style="text-align: left;">15.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="emoji">Hvitfeldt (<a href="06-quarto.html#ref-emoji" role="doc-biblioref">2022</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">factoextra</td>
+<td style="text-align: left;">1.0.7</td>
+<td style="text-align: left;"><span class="citation" data-cites="factoextra">Kassambara and Mundt (<a href="06-quarto.html#ref-factoextra" role="doc-biblioref">2020</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FactoMineR</td>
+<td style="text-align: left;">2.11</td>
+<td style="text-align: left;"><span class="citation" data-cites="FactoMineR">Lê et al. (<a href="06-quarto.html#ref-FactoMineR" role="doc-biblioref">2008</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GGally</td>
+<td style="text-align: left;">2.2.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="GGally">Schloerke et al. (<a href="06-quarto.html#ref-GGally" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggcleveland</td>
+<td style="text-align: left;">0.1.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="ggcleveland">Prunello and Mari (<a href="06-quarto.html#ref-ggcleveland" role="doc-biblioref">2021</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggfortify</td>
+<td style="text-align: left;">0.4.17</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="ggfortify2016">Tang et al. (<a href="06-quarto.html#ref-ggfortify2016" role="doc-biblioref">2016</a>)</span>; <span class="citation" data-cites="ggfortify2018">Horikoshi and Tang (<a href="06-quarto.html#ref-ggfortify2018" role="doc-biblioref">2018</a>)</span>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggpubr</td>
+<td style="text-align: left;">0.6.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="ggpubr">Kassambara (<a href="06-quarto.html#ref-ggpubr" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">grateful</td>
+<td style="text-align: left;">0.2.10</td>
+<td style="text-align: left;"><span class="citation" data-cites="grateful">Rodriguez-Sanchez and Jackson (<a href="06-quarto.html#ref-grateful" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gt</td>
+<td style="text-align: left;">0.11.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="gt">Iannone et al. (<a href="06-quarto.html#ref-gt" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hexbin</td>
+<td style="text-align: left;">1.28.3</td>
+<td style="text-align: left;"><span class="citation" data-cites="hexbin">Carr et al. (<a href="06-quarto.html#ref-hexbin" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kableExtra</td>
+<td style="text-align: left;">1.4.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="kableExtra">Zhu (<a href="06-quarto.html#ref-kableExtra" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">knitr</td>
+<td style="text-align: left;">1.48</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="knitr2014">Xie (<a href="06-quarto.html#ref-knitr2014" role="doc-biblioref">2014</a>)</span>; <span class="citation" data-cites="knitr2015">Xie (<a href="06-quarto.html#ref-knitr2015" role="doc-biblioref">2015</a>)</span>; <span class="citation" data-cites="knitr2024">Xie (<a href="06-quarto.html#ref-knitr2024" role="doc-biblioref">2024</a>)</span>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lattice</td>
+<td style="text-align: left;">0.22.6</td>
+<td style="text-align: left;"><span class="citation" data-cites="lattice">Sarkar (<a href="06-quarto.html#ref-lattice" role="doc-biblioref">2008</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lme4</td>
+<td style="text-align: left;">1.1.35.5</td>
+<td style="text-align: left;"><span class="citation" data-cites="lme4">Bates et al. (<a href="06-quarto.html#ref-lme4" role="doc-biblioref">2015</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lmerTest</td>
+<td style="text-align: left;">3.1.3</td>
+<td style="text-align: left;"><span class="citation" data-cites="lmerTest">Kuznetsova et al. (<a href="06-quarto.html#ref-lmerTest" role="doc-biblioref">2017</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lmPerm</td>
+<td style="text-align: left;">2.1.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="lmPerm">Wheeler and Torchiano (<a href="06-quarto.html#ref-lmPerm" role="doc-biblioref">2016</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lmtest</td>
+<td style="text-align: left;">0.9.40</td>
+<td style="text-align: left;"><span class="citation" data-cites="lmtest">Zeileis and Hothorn (<a href="06-quarto.html#ref-lmtest" role="doc-biblioref">2002</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MASS</td>
+<td style="text-align: left;">7.3.61</td>
+<td style="text-align: left;"><span class="citation" data-cites="MASS">Venables and Ripley (<a href="06-quarto.html#ref-MASS" role="doc-biblioref">2002</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MCMCglmm</td>
+<td style="text-align: left;">2.36</td>
+<td style="text-align: left;"><span class="citation" data-cites="MCMCglmm">Hadfield (<a href="06-quarto.html#ref-MCMCglmm" role="doc-biblioref">2010</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memoise</td>
+<td style="text-align: left;">2.0.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="memoise">Wickham et al. (<a href="06-quarto.html#ref-memoise" role="doc-biblioref">2021</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">multcomp</td>
+<td style="text-align: left;">1.4.26</td>
+<td style="text-align: left;"><span class="citation" data-cites="multcomp">Hothorn et al. (<a href="06-quarto.html#ref-multcomp" role="doc-biblioref">2008</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MuMIn</td>
+<td style="text-align: left;">1.48.4</td>
+<td style="text-align: left;"><span class="citation" data-cites="MuMIn">Bartoń (<a href="06-quarto.html#ref-MuMIn" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mvtnorm</td>
+<td style="text-align: left;">1.3.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="mvtnorm">Genz and Bretz (<a href="06-quarto.html#ref-mvtnorm" role="doc-biblioref">2009</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nadiv</td>
+<td style="text-align: left;">2.18.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="nadiv">Wolak (<a href="06-quarto.html#ref-nadiv" role="doc-biblioref">2012</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">palmerpenguins</td>
+<td style="text-align: left;">0.1.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="palmerpenguins">Horst et al. (<a href="06-quarto.html#ref-palmerpenguins" role="doc-biblioref">2020</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">patchwork</td>
+<td style="text-align: left;">1.2.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="patchwork">Pedersen (<a href="06-quarto.html#ref-patchwork" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">performance</td>
+<td style="text-align: left;">0.12.3</td>
+<td style="text-align: left;"><span class="citation" data-cites="performance">Lüdecke et al. (<a href="06-quarto.html#ref-performance" role="doc-biblioref">2021</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pwr</td>
+<td style="text-align: left;">1.3.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="pwr">Champely (<a href="06-quarto.html#ref-pwr" role="doc-biblioref">2020</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quantreg</td>
+<td style="text-align: left;">5.98</td>
+<td style="text-align: left;"><span class="citation" data-cites="quantreg">Koenker (<a href="06-quarto.html#ref-quantreg" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reshape2</td>
+<td style="text-align: left;">1.4.4</td>
+<td style="text-align: left;"><span class="citation" data-cites="reshape2">Wickham (<a href="06-quarto.html#ref-reshape2" role="doc-biblioref">2007</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rmarkdown</td>
+<td style="text-align: left;">2.28</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="rmarkdown2018">Xie et al. (<a href="06-quarto.html#ref-rmarkdown2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="rmarkdown2020">Xie et al. (<a href="06-quarto.html#ref-rmarkdown2020" role="doc-biblioref">2020</a>)</span>; <span class="citation" data-cites="rmarkdown2024">Allaire et al. (<a href="06-quarto.html#ref-rmarkdown2024" role="doc-biblioref">2024</a>)</span>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rptR</td>
+<td style="text-align: left;">0.9.22</td>
+<td style="text-align: left;"><span class="citation" data-cites="rptR">Stoffel et al. (<a href="06-quarto.html#ref-rptR" role="doc-biblioref">2017</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">shiny</td>
+<td style="text-align: left;">1.9.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="shiny">Chang et al. (<a href="06-quarto.html#ref-shiny" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">simpleboot</td>
+<td style="text-align: left;">1.1.8</td>
+<td style="text-align: left;"><span class="citation" data-cites="simpleboot">Peng (<a href="06-quarto.html#ref-simpleboot" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tidyverse</td>
+<td style="text-align: left;">2.0.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="tidyverse">Wickham et al. (<a href="06-quarto.html#ref-tidyverse" role="doc-biblioref">2019</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tinkr</td>
+<td style="text-align: left;">0.2.0.9000</td>
+<td style="text-align: left;"><span class="citation" data-cites="tinkr">Salmon et al. (<a href="06-quarto.html#ref-tinkr" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vcd</td>
+<td style="text-align: left;">1.4.12</td>
+<td style="text-align: left;">
+<span class="citation" data-cites="vcd2006">Meyer et al. (<a href="06-quarto.html#ref-vcd2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="vcd2007">Zeileis et al. (<a href="06-quarto.html#ref-vcd2007" role="doc-biblioref">2007</a>)</span>; <span class="citation" data-cites="vcd2023">Meyer et al. (<a href="06-quarto.html#ref-vcd2023" role="doc-biblioref">2023</a>)</span>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vcdExtra</td>
+<td style="text-align: left;">0.8.5</td>
+<td style="text-align: left;"><span class="citation" data-cites="vcdExtra">Friendly (<a href="06-quarto.html#ref-vcdExtra" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vioplot</td>
+<td style="text-align: left;">0.5.0</td>
+<td style="text-align: left;"><span class="citation" data-cites="vioplot">Adler et al. (<a href="06-quarto.html#ref-vioplot" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">withr</td>
+<td style="text-align: left;">3.0.1</td>
+<td style="text-align: left;"><span class="citation" data-cites="withr">Hester et al. (<a href="06-quarto.html#ref-withr" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yaml</td>
+<td style="text-align: left;">2.3.10</td>
+<td style="text-align: left;"><span class="citation" data-cites="yaml">Garbett et al. (<a href="06-quarto.html#ref-yaml" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section><section id="bibliography" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="bibliography">Bibliography</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-boot1997" class="csl-entry" role="listitem">
+A. C. Davison, and D. V. Hinkley. 1997. <a href="https://doi:10.1017/CBO9780511802843">Bootstrap methods and their applications</a>. Cambridge University Press, Cambridge.
+</div>
+<div id="ref-vioplot" class="csl-entry" role="listitem">
+Adler, D., S. T. Kelly, T. Elliott, and J. Adamson. 2024. <a href="https://github.com/TomKellyGenetics/vioplot"><span class="nocase">vioplot</span>: Violin plot</a>.
+</div>
+<div id="ref-rmarkdown2024" class="csl-entry" role="listitem">
+Allaire, J., Y. Xie, C. Dervieux, J. McPherson, J. Luraschi, K. Ushey, A. Atkins, H. Wickham, J. Cheng, W. Chang, and R. Iannone. 2024. <a href="https://github.com/rstudio/rmarkdown"><span class="nocase">rmarkdown</span>: Dynamic documents for r</a>.
+</div>
+<div id="ref-boot2024" class="csl-entry" role="listitem">
+Angelo Canty, and B. D. Ripley. 2024. <span class="nocase">boot</span>: Bootstrap r (s-plus) functions.
+</div>
+<div id="ref-MuMIn" class="csl-entry" role="listitem">
+Bartoń, K. 2024. <a href="https://CRAN.R-project.org/package=MuMIn"><span>MuMIn</span>: Multi-model inference</a>.
+</div>
+<div id="ref-lme4" class="csl-entry" role="listitem">
+Bates, D., M. Mächler, B. Bolker, and S. Walker. 2015. <a href="https://doi.org/10.18637/jss.v067.i01">Fitting linear mixed-effects models using <span class="nocase">lme4</span></a>. Journal of Statistical Software 67:1–48.
+</div>
+<div id="ref-broommixed" class="csl-entry" role="listitem">
+Bolker, B., and D. Robinson. 2024. <a href="https://CRAN.R-project.org/package=broom.mixed"><span class="nocase">broom.mixed</span>: Tidying methods for mixed models</a>.
+</div>
+<div id="ref-brms2017" class="csl-entry" role="listitem">
+Bürkner, P.-C. 2017. <a href="https://doi.org/10.18637/jss.v080.i01"><span class="nocase">brms</span>: An <span>R</span> package for <span>Bayesian</span> multilevel models using <span>Stan</span></a>. Journal of Statistical Software 80:1–28.
+</div>
+<div id="ref-brms2018" class="csl-entry" role="listitem">
+Bürkner, P.-C. 2018. <a href="https://doi.org/10.32614/RJ-2018-017">Advanced <span>Bayesian</span> multilevel modeling with the <span>R</span> package <span class="nocase">brms</span></a>. The R Journal 10:395–411.
+</div>
+<div id="ref-brms2021" class="csl-entry" role="listitem">
+Bürkner, P.-C. 2021. <a href="https://doi.org/10.18637/jss.v100.i05">Bayesian item response modeling in <span>R</span> with <span class="nocase">brms</span> and <span>Stan</span></a>. Journal of Statistical Software 100:1–54.
+</div>
+<div id="ref-hexbin" class="csl-entry" role="listitem">
+Carr, D., ported by Nicholas Lewin-Koh, M. Maechler, and contains copies of lattice functions written by Deepayan Sarkar. 2023. <a href="https://CRAN.R-project.org/package=hexbin"><span class="nocase">hexbin</span>: Hexagonal binning routines</a>.
+</div>
+<div id="ref-pwr" class="csl-entry" role="listitem">
+Champely, S. 2020. <a href="https://CRAN.R-project.org/package=pwr"><span class="nocase">pwr</span>: Basic functions for power analysis</a>.
+</div>
+<div id="ref-shiny" class="csl-entry" role="listitem">
+Chang, W., J. Cheng, J. Allaire, C. Sievert, B. Schloerke, Y. Xie, J. Allen, J. McPherson, A. Dipert, and B. Borges. 2024. <a href="https://CRAN.R-project.org/package=shiny"><span class="nocase">shiny</span>: Web application framework for r</a>.
+</div>
+<div id="ref-digest" class="csl-entry" role="listitem">
+Eddelbuettel, D. 2024. <a href="https://CRAN.R-project.org/package=digest"><span class="nocase">digest</span>: Create compact hash digests of r objects</a>.
+</div>
+<div id="ref-effects2003" class="csl-entry" role="listitem">
+Fox, J. 2003. <a href="https://doi.org/10.18637/jss.v008.i15">Effect displays in <span>R</span> for generalised linear models</a>. Journal of Statistical Software 8:1–27.
+</div>
+<div id="ref-effects2009" class="csl-entry" role="listitem">
+Fox, J., and J. Hong. 2009. <a href="https://doi.org/10.18637/jss.v032.i01">Effect displays in <span>R</span> for multinomial and proportional-odds logit models: Extensions to the <span class="nocase">effects</span> package</a>. Journal of Statistical Software 32:1–24.
+</div>
+<div id="ref-effects2018" class="csl-entry" role="listitem">
+Fox, J., and S. Weisberg. 2018. <a href="https://doi.org/10.18637/jss.v087.i09">Visualizing fit and lack of fit in complex regression models with predictor effect plots and partial residuals</a>. Journal of Statistical Software 87:1–27.
+</div>
+<div id="ref-car" class="csl-entry" role="listitem">
+Fox, J., and S. Weisberg. 2019a. <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/">An <span>R</span> companion to applied regression</a>. Third. Sage, Thousand Oaks <span>CA</span>.
+</div>
+<div id="ref-effects2019" class="csl-entry" role="listitem">
+Fox, J., and S. Weisberg. 2019b. <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/index.html">An r companion to applied regression</a>. 3rd edition. Sage, Thousand Oaks CA.
+</div>
+<div id="ref-vcdExtra" class="csl-entry" role="listitem">
+Friendly, M. 2023. <a href="https://CRAN.R-project.org/package=vcdExtra"><span class="nocase">vcdExtra</span>: <span>“<span class="nocase">vcd</span>”</span> extensions and additions</a>.
+</div>
+<div id="ref-bayesplot2024" class="csl-entry" role="listitem">
+Gabry, J., and T. Mahr. 2024. <a href="https://mc-stan.org/bayesplot/"><span class="nocase">bayesplot</span>: Plotting for bayesian models</a>.
+</div>
+<div id="ref-bayesplot2019" class="csl-entry" role="listitem">
+Gabry, J., D. Simpson, A. Vehtari, M. Betancourt, and A. Gelman. 2019. <a href="https://doi.org/10.1111/rssa.12378">Visualization in bayesian workflow</a>. J. R. Stat. Soc. A 182:389–402.
+</div>
+<div id="ref-yaml" class="csl-entry" role="listitem">
+Garbett, S. P., J. Stephens, K. Simonov, Y. Xie, Z. Dong, H. Wickham, J. Horner, reikoch, W. Beasley, B. O’Connor, G. R. Warnes, M. Quinn, Z. N. Kamvar, and C. Gao. 2024. <a href="https://CRAN.R-project.org/package=yaml"><span class="nocase">yaml</span>: Methods to convert r data to YAML and back</a>.
+</div>
+<div id="ref-mvtnorm" class="csl-entry" role="listitem">
+Genz, A., and F. Bretz. 2009. Computation of multivariate normal and t probabilities. Springer-Verlag, Heidelberg.
+</div>
+<div id="ref-MCMCglmm" class="csl-entry" role="listitem">
+Hadfield, J. D. 2010. <a href="https://www.jstatsoft.org/v33/i02/">MCMC methods for multi-response generalized linear mixed models: The <span>MCMCglmm</span> <span>R</span> package</a>. Journal of Statistical Software 33:1–22.
+</div>
+<div id="ref-DHARMa" class="csl-entry" role="listitem">
+Hartig, F. 2022. <a href="https://CRAN.R-project.org/package=DHARMa"><span>DHARMa</span>: Residual diagnostics for hierarchical (multi-level / mixed) regression models</a>.
+</div>
+<div id="ref-brio" class="csl-entry" role="listitem">
+Hester, J., and G. Csárdi. 2024. <a href="https://CRAN.R-project.org/package=brio"><span class="nocase">brio</span>: Basic r input output</a>.
+</div>
+<div id="ref-withr" class="csl-entry" role="listitem">
+Hester, J., L. Henry, K. Müller, K. Ushey, H. Wickham, and W. Chang. 2024. <a href="https://CRAN.R-project.org/package=withr"><span class="nocase">withr</span>: Run code <span>“<span>With</span>”</span> temporarily modified global state</a>.
+</div>
+<div id="ref-ggfortify2018" class="csl-entry" role="listitem">
+Horikoshi, M., and Y. Tang. 2018. <a href="https://CRAN.R-project.org/package=ggfortify"><span class="nocase">ggfortify</span>: Data visualization tools for statistical analysis results</a>.
+</div>
+<div id="ref-palmerpenguins" class="csl-entry" role="listitem">
+Horst, A. M., A. P. Hill, and K. B. Gorman. 2020. <a href="https://doi.org/10.5281/zenodo.3960218"><span class="nocase">palmerpenguins</span>: Palmer archipelago (antarctica) penguin data</a>.
+</div>
+<div id="ref-multcomp" class="csl-entry" role="listitem">
+Hothorn, T., F. Bretz, and P. Westfall. 2008. Simultaneous inference in general parametric models. Biometrical Journal 50:346–363.
+</div>
+<div id="ref-emoji" class="csl-entry" role="listitem">
+Hvitfeldt, E. 2022. <a href="https://CRAN.R-project.org/package=emoji"><span class="nocase">emoji</span>: Data and function to work with emojis</a>.
+</div>
+<div id="ref-gt" class="csl-entry" role="listitem">
+Iannone, R., J. Cheng, B. Schloerke, E. Hughes, A. Lauer, J. Seo, K. Brevoort, and O. Roy. 2024. <a href="https://CRAN.R-project.org/package=gt"><span class="nocase">gt</span>: Easily create presentation-ready display tables</a>.
+</div>
+<div id="ref-ggpubr" class="csl-entry" role="listitem">
+Kassambara, A. 2023. <a href="https://CRAN.R-project.org/package=ggpubr"><span class="nocase">ggpubr</span>: <span>“<span class="nocase">ggplot2</span>”</span> based publication ready plots</a>.
+</div>
+<div id="ref-factoextra" class="csl-entry" role="listitem">
+Kassambara, A., and F. Mundt. 2020. <a href="https://CRAN.R-project.org/package=factoextra"><span class="nocase">factoextra</span>: Extract and visualize the results of multivariate data analyses</a>.
+</div>
+<div id="ref-quantreg" class="csl-entry" role="listitem">
+Koenker, R. 2024. <a href="https://CRAN.R-project.org/package=quantreg"><span class="nocase">quantreg</span>: Quantile regression</a>.
+</div>
+<div id="ref-lmerTest" class="csl-entry" role="listitem">
+Kuznetsova, A., P. B. Brockhoff, and R. H. B. Christensen. 2017. <a href="https://doi.org/10.18637/jss.v082.i13"><span class="nocase">lmerTest</span> package: Tests in linear mixed effects models</a>. Journal of Statistical Software 82:1–26.
+</div>
+<div id="ref-FactoMineR" class="csl-entry" role="listitem">
+Lê, S., J. Josse, and F. Husson. 2008. <a href="https://doi.org/10.18637/jss.v025.i01"><span>FactoMineR</span>: A package for multivariate analysis</a>. Journal of Statistical Software 25:1–18.
+</div>
+<div id="ref-performance" class="csl-entry" role="listitem">
+Lüdecke, D., M. S. Ben-Shachar, I. Patil, P. Waggoner, and D. Makowski. 2021. <a href="https://doi.org/10.21105/joss.03139"><span class="nocase">performance</span>: An <span>R</span> package for assessment, comparison and testing of statistical models</a>. Journal of Open Source Software 6:3139.
+</div>
+<div id="ref-vcd2006" class="csl-entry" role="listitem">
+Meyer, D., A. Zeileis, and K. Hornik. 2006. <a href="https://doi.org/10.18637/jss.v017.i03">The strucplot framework: Visualizing multi-way contingency tables with vcd</a>. Journal of Statistical Software 17:1–48.
+</div>
+<div id="ref-vcd2023" class="csl-entry" role="listitem">
+Meyer, D., A. Zeileis, K. Hornik, and M. Friendly. 2023. <a href="https://CRAN.R-project.org/package=vcd"><span class="nocase">vcd</span>: Visualizing categorical data</a>.
+</div>
+<div id="ref-patchwork" class="csl-entry" role="listitem">
+Pedersen, T. L. 2024. <a href="https://CRAN.R-project.org/package=patchwork"><span class="nocase">patchwork</span>: The composer of plots</a>.
+</div>
+<div id="ref-simpleboot" class="csl-entry" role="listitem">
+Peng, R. D. 2024. <a href="https://CRAN.R-project.org/package=simpleboot"><span class="nocase">simpleboot</span>: Simple bootstrap routines</a>.
+</div>
+<div id="ref-coda" class="csl-entry" role="listitem">
+Plummer, M., N. Best, K. Cowles, and K. Vines. 2006. <a href="https://journal.r-project.org/archive/"><span>CODA</span>: Convergence diagnosis and output analysis for MCMC</a>. R News 6:7–11.
+</div>
+<div id="ref-ggcleveland" class="csl-entry" role="listitem">
+Prunello, M., and G. Mari. 2021. <a href="https://CRAN.R-project.org/package=ggcleveland"><span class="nocase">ggcleveland</span>: Implementation of plots from cleveland’s visualizing data book</a>.
+</div>
+<div id="ref-base" class="csl-entry" role="listitem">
+R Core Team. 2024. <a href="https://www.R-project.org/"><span>R</span>: A language and environment for statistical computing</a>. R Foundation for Statistical Computing, Vienna, Austria.
+</div>
+<div id="ref-grateful" class="csl-entry" role="listitem">
+Rodriguez-Sanchez, F., and C. P. Jackson. 2023. <a href="https://pakillo.github.io/grateful/"><span class="nocase">grateful</span>: Facilitate citation of r packages</a>.
+</div>
+<div id="ref-babeldown" class="csl-entry" role="listitem">
+Salmon, M. 2024. <a href="https://github.com/ropensci-review-tools/babeldown"><span class="nocase">babeldown</span>: Helpers for automatic translation of markdown-based content</a>.
+</div>
+<div id="ref-tinkr" class="csl-entry" role="listitem">
+Salmon, M., Z. N. Kamvar, and J. Ooms. 2024. <a href="https://docs.ropensci.org/tinkr/"><span class="nocase">tinkr</span>: Cast <span>“<span>(R)Markdown</span>”</span> files to <span>“<span>XML</span>”</span> and back again</a>.
+</div>
+<div id="ref-lattice" class="csl-entry" role="listitem">
+Sarkar, D. 2008. <a href="http://lmdvr.r-forge.r-project.org"><span>Lattice</span>: Multivariate data visualization with r</a>. Springer, New York.
+</div>
+<div id="ref-GGally" class="csl-entry" role="listitem">
+Schloerke, B., D. Cook, J. Larmarange, F. Briatte, M. Marbach, E. Thoen, A. Elberg, and J. Crowley. 2024. <a href="https://CRAN.R-project.org/package=GGally"><span>GGally</span>: Extension to <span>“<span class="nocase">ggplot2</span>”</span></a>.
+</div>
+<div id="ref-rptR" class="csl-entry" role="listitem">
+Stoffel, M. A., S. Nakagawa, and H. Schielzeth. 2017. <a href="https://doi.org/10.1111/2041-210X.12797"><span class="nocase">rptR</span>: Repeatability estimation and variance decomposition by generalized linear mixed-effects models</a>. Methods in Ecology and Evolution 8:1639???1644.
+</div>
+<div id="ref-ggfortify2016" class="csl-entry" role="listitem">
+Tang, Y., M. Horikoshi, and W. Li. 2016. <a href="https://doi.org/10.32614/RJ-2016-060"><span class="nocase">ggfortify</span>: Unified interface to visualize statistical result of popular r packages</a>. The R Journal 8:474–485.
+</div>
+<div id="ref-asreml" class="csl-entry" role="listitem">
+The VSNi Team. 2023. <a href="https://www.vsni.co.uk"><span class="nocase">asreml</span>: Fits linear mixed models using REML</a>.
+</div>
+<div id="ref-MASS" class="csl-entry" role="listitem">
+Venables, W. N., and B. D. Ripley. 2002. <a href="https://www.stats.ox.ac.uk/pub/MASS4/">Modern applied statistics with s</a>. Fourth. Springer, New York.
+</div>
+<div id="ref-lmPerm" class="csl-entry" role="listitem">
+Wheeler, B., and M. Torchiano. 2016. <a href="https://CRAN.R-project.org/package=lmPerm"><span class="nocase">lmPerm</span>: Permutation tests for linear models</a>.
+</div>
+<div id="ref-reshape2" class="csl-entry" role="listitem">
+Wickham, H. 2007. <a href="http://www.jstatsoft.org/v21/i12/">Reshaping data with the <span class="nocase">reshape</span> package</a>. Journal of Statistical Software 21:1–20.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, H., M. Averick, J. Bryan, W. Chang, L. D. McGowan, R. François, G. Grolemund, A. Hayes, L. Henry, J. Hester, M. Kuhn, T. L. Pedersen, E. Miller, S. M. Bache, K. Müller, J. Ooms, D. Robinson, D. P. Seidel, V. Spinu, K. Takahashi, D. Vaughan, C. Wilke, K. Woo, and H. Yutani. 2019. <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span class="nocase">tidyverse</span></a>. Journal of Open Source Software 4:1686.
+</div>
+<div id="ref-memoise" class="csl-entry" role="listitem">
+Wickham, H., J. Hester, W. Chang, K. Müller, and D. Cook. 2021. <a href="https://CRAN.R-project.org/package=memoise"><span class="nocase">memoise</span>: <span>“<span>Memoisation</span>”</span> of functions</a>.
+</div>
+<div id="ref-nadiv" class="csl-entry" role="listitem">
+Wolak, M. E. 2012. <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.2041-210X.2012.00213.x"><span class="nocase">nadiv</span>: An <span>R</span> package to create relatedness matrices for estimating non-additive genetic variances in animal models</a>. Methods in Ecology and Evolution 3:792–796.
+</div>
+<div id="ref-knitr2014" class="csl-entry" role="listitem">
+Xie, Y. 2014. <span class="nocase">knitr</span>: A comprehensive tool for reproducible research in <span>R</span>. <em>in</em> V. Stodden, F. Leisch, and R. D. Peng, editors. Implementing reproducible computational research. Chapman; Hall/CRC.
+</div>
+<div id="ref-knitr2015" class="csl-entry" role="listitem">
+Xie, Y. 2015. <a href="https://yihui.org/knitr/">Dynamic documents with <span>R</span> and knitr</a>. 2nd edition. Chapman; Hall/CRC, Boca Raton, Florida.
+</div>
+<div id="ref-knitr2024" class="csl-entry" role="listitem">
+Xie, Y. 2024. <a href="https://yihui.org/knitr/"><span class="nocase">knitr</span>: A general-purpose package for dynamic report generation in r</a>.
+</div>
+<div id="ref-rmarkdown2018" class="csl-entry" role="listitem">
+Xie, Y., J. J. Allaire, and G. Grolemund. 2018. <a href="https://bookdown.org/yihui/rmarkdown">R markdown: The definitive guide</a>. Chapman; Hall/CRC, Boca Raton, Florida.
+</div>
+<div id="ref-rmarkdown2020" class="csl-entry" role="listitem">
+Xie, Y., C. Dervieux, and E. Riederer. 2020. <a href="https://bookdown.org/yihui/rmarkdown-cookbook">R markdown cookbook</a>. Chapman; Hall/CRC, Boca Raton, Florida.
+</div>
+<div id="ref-lmtest" class="csl-entry" role="listitem">
+Zeileis, A., and T. Hothorn. 2002. <a href="https://CRAN.R-project.org/doc/Rnews/">Diagnostic checking in regression relationships</a>. R News 2:7–10.
+</div>
+<div id="ref-vcd2007" class="csl-entry" role="listitem">
+Zeileis, A., D. Meyer, and K. Hornik. 2007. <a href="https://doi.org/10.1198/106186007X237856">Residual-based shadings for visualizing (conditional) independence</a>. Journal of Computational and Graphical Statistics 16:507–525.
+</div>
+<div id="ref-kableExtra" class="csl-entry" role="listitem">
+Zhu, H. 2024. <a href="https://CRAN.R-project.org/package=kableExtra"><span class="nocase">kableExtra</span>: Construct complex table with <span>“<span class="nocase">kable</span>”</span> and pipe syntax</a>.
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/biostats-uottawa\.github\.io\/Rway\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./82-intro_bayesian.html" class="pagination-link" aria-label="Introduction to Bayesian Inference">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Introduction to Bayesian Inference</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./902-data.html" class="pagination-link" aria-label="Data used in this book">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Data used in this book</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://biostats-uottawa.github.io/people.html">Julien Martin</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/biostats-uottawa/Rway/edit/main/901-references.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/biostats-uottawa/Rway/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Julien Martin">
+<meta name="description" content="Early version needed to be severely updated/modified">
+<title>5&nbsp; Programming – On the R-way to hell</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./06-quarto.html" rel="next">
+<link href="./04-graphics_short.html" rel="prev">
+<link href="./images/cover/book_fav.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-SLXFYRXJR4"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-SLXFYRXJR4', { 'anonymize_ip': true});
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title"><img src="images/cover/book_hex_en.png" class="img-fluid" width="50"> R Way</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-flag" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-flag" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-bi-flag">
+<li>
+    <a class="dropdown-item" href="https://biostats-uottawa.github.io/enfR">
+ <span class="dropdown-text">Français</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link active" href="./902-data.html" aria-current="page"> 
+<span class="menu-text">Data &amp; Code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/"> 
+<span class="menu-text">Biostats uOttawa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/bioXx58/"> 
+<span class="menu-text">Intro Biostats &amp; R (BioXx58)</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://biostats-uottawa.github.io/bio8940/"> 
+<span class="menu-text">Advanced Biostats (Bio8940)</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">auto</span>
+    </span>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/biostats-uottawa/Rway/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./On-the-R-way-to-hell.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./On-the-R-way-to-hell.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-start.html">Using R</a></li><li class="breadcrumb-item"><a href="./05-programming.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programming</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Using R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some R basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-graphics_short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-programming.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reproducible reports with Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Version control with Git and GitHub</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals of stats</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./31-reg_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlation and simple linear regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-t_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Two - sample comparisons</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./33-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">One-way ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./34-anova_mult.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Multiway ANOVA: factorial and nested designs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./35-reg_mult.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./36-ancova_glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ANCOVA and general linear model</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Generalized linear models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Generalized linear model, <code>glm</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-model_freq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency data and Poisson Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Mixed models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./51-lmm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Introduction to linear mixed models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./52-intro_glmm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Introduction to <code>GLMM</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./53-randreg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Random regression and character state approaches</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./54-multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Multivariate mixed models</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Generalized additive models</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Multivariate analysis</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bayesian approach</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./81-beyond_p.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P </span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./82-intro_bayesian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Introduction to Bayesian Inference</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./901-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./902-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Data used in this book</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./903-latex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Installing Quarto and LateX</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#looking-behind-the-curtain" id="toc-looking-behind-the-curtain" class="nav-link active" data-scroll-target="#looking-behind-the-curtain"><span class="header-section-number">5.1</span> Looking behind the curtain</a></li>
+  <li><a href="#functions-in-r" id="toc-functions-in-r" class="nav-link" data-scroll-target="#functions-in-r"><span class="header-section-number">5.2</span> Functions in R</a></li>
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements"><span class="header-section-number">5.3</span> Conditional statements</a></li>
+  <li><a href="#combining-logical-operators" id="toc-combining-logical-operators" class="nav-link" data-scroll-target="#combining-logical-operators"><span class="header-section-number">5.4</span> Combining logical operators</a></li>
+  <li>
+<a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops"><span class="header-section-number">5.5</span> Loops</a>
+  <ul class="collapse">
+<li><a href="#for-loop" id="toc-for-loop" class="nav-link" data-scroll-target="#for-loop"><span class="header-section-number">5.5.1</span> For loop</a></li>
+  <li><a href="#while-loop" id="toc-while-loop" class="nav-link" data-scroll-target="#while-loop"><span class="header-section-number">5.5.2</span> While loop</a></li>
+  <li><a href="#when-to-use-a-loop" id="toc-when-to-use-a-loop" class="nav-link" data-scroll-target="#when-to-use-a-loop"><span class="header-section-number">5.5.3</span> When to use a loop?</a></li>
+  <li><a href="#if-not-loops-then-what" id="toc-if-not-loops-then-what" class="nav-link" data-scroll-target="#if-not-loops-then-what"><span class="header-section-number">5.5.4</span> If not loops, then what?</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/biostats-uottawa/Rway/edit/main/05-programming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/biostats-uottawa/Rway/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-start.html">Using R</a></li><li class="breadcrumb-item"><a href="./05-programming.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programming</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-prog-r" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Programming</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>After learning the basics, programming in R is the next big step. There are already a vast number of R packages available, surely more than enough to cover everything you could possibly want to do? Why then, would you ever need to create you own R functions? Why not just stick to the functions from a package? Well, in some cases you’ll want to customise those existing functions to suit your specific needs. Or you may want to implement a new approach which means there won’t be any pre-existing packages that work for you. Both of these are not particularly common. Functions are mainly used to do one thing well in a simple manner without having to type of the code necessary to do that function each time. We can see functions as a short-cut to copy-pasting. If you have to do a similar task 4 times or more, build a function for it, and simply call that function 4 times or call it in a loop .</p>
+<section id="looking-behind-the-curtain" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="looking-behind-the-curtain">
+<span class="header-section-number">5.1</span> Looking behind the curtain</h2>
+<p>A good way to start learning to program in R is to see what others have done. We can start by briefly peeking behind the curtain. With many functions in R, if you want to have a quick glance at the machinery behind the scenes, we can simply write the function name but without the <code>()</code>.</p>
+<p>Note that to view the source code of base R packages (those that come with R) requires some additional steps which we won’t cover here (see this <a href="https://stackoverflow.com/questions/19226816/how-can-i-view-the-source-code-for-a-function">link</a> if you’re interested), but for most other packages that you install yourself, generally entering the function name without <code>()</code> will show the source code of the function.</p>
+<p>What can have a look at the function to fit a linear model <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code></p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (formula, data, subset, weights, na.action, method = "qr", 
+    model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
+    contrasts = NULL, offset, ...) 
+{
+    ret.x &lt;- x
+    ret.y &lt;- y
+    cl &lt;- match.call()
+    mf &lt;- match.call(expand.dots = FALSE)
+    m &lt;- match(c("formula", "data", "subset", "weights", "na.action", 
+        "offset"), names(mf), 0L)
+    mf &lt;- mf[c(1L, m)]
+    mf$drop.unused.levels &lt;- TRUE
+    mf[[1L]] &lt;- quote(stats::model.frame)
+    mf &lt;- eval(mf, parent.frame())
+    if (method == "model.frame") 
+        return(mf)
+    else if (method != "qr") 
+        warning(gettextf("method = '%s' is not supported. Using 'qr'", 
+            method), domain = NA)
+    mt &lt;- attr(mf, "terms")
+    y &lt;- model.response(mf, "numeric")
+    w &lt;- as.vector(model.weights(mf))
+    if (!is.null(w) &amp;&amp; !is.numeric(w)) 
+        stop("'weights' must be a numeric vector")
+    offset &lt;- model.offset(mf)
+    mlm &lt;- is.matrix(y)
+    ny &lt;- if (mlm) 
+        nrow(y)
+    else length(y)
+    if (!is.null(offset)) {
+        if (!mlm) 
+            offset &lt;- as.vector(offset)
+        if (NROW(offset) != ny) 
+            stop(gettextf("number of offsets is %d, should equal %d (number of observations)", 
+                NROW(offset), ny), domain = NA)
+    }
+    if (is.empty.model(mt)) {
+        x &lt;- NULL
+        z &lt;- list(coefficients = if (mlm) matrix(NA_real_, 0, 
+            ncol(y)) else numeric(), residuals = y, fitted.values = 0 * 
+            y, weights = w, rank = 0L, df.residual = if (!is.null(w)) sum(w != 
+            0) else ny)
+        if (!is.null(offset)) {
+            z$fitted.values &lt;- offset
+            z$residuals &lt;- y - offset
+        }
+    }
+    else {
+        x &lt;- model.matrix(mt, mf, contrasts)
+        z &lt;- if (is.null(w)) 
+            lm.fit(x, y, offset = offset, singular.ok = singular.ok, 
+                ...)
+        else lm.wfit(x, y, w, offset = offset, singular.ok = singular.ok, 
+            ...)
+    }
+    class(z) &lt;- c(if (mlm) "mlm", "lm")
+    z$na.action &lt;- attr(mf, "na.action")
+    z$offset &lt;- offset
+    z$contrasts &lt;- attr(x, "contrasts")
+    z$xlevels &lt;- .getXlevels(mt, mf)
+    z$call &lt;- cl
+    z$terms &lt;- mt
+    if (model) 
+        z$model &lt;- mf
+    if (ret.x) 
+        z$x &lt;- x
+    if (ret.y) 
+        z$y &lt;- y
+    if (!qr) 
+        z$qr &lt;- NULL
+    z
+}
+&lt;bytecode: 0x6392c6069a40&gt;
+&lt;environment: namespace:stats&gt;</code></pre>
+</div>
+</div>
+<p>What we see above is the underlying code for this particular function. We could copy and paste this into our own script and make any changes we deemed necessary, although tread carefully and test the changes you’ve made.</p>
+<p>Don’t worry overly if most of the code contained in functions doesn’t make sense immediately. This will be especially true if you are new to R, in which case it seems incredibly intimidating. Honestly, it can be intimidating even after years of R experience. To help with that, we’ll begin by making our own functions in R in the next section.</p>
+</section><section id="functions-in-r" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="functions-in-r">
+<span class="header-section-number">5.2</span> Functions in R</h2>
+<p>Functions are the bread and butter of R, the essential sustaining elements allowing you to work with R. They’re made (most of the time) with the utmost care and attention but may end up being something of a Frankenstein’s monster - with weirdly attached limbs. But no matter how convoluted they may be they will always faithfully do the same thing.</p>
+<p>This means that functions can also be very stupid.</p>
+<p>If we asked you to go to the supermarket to get us some ingredients to make <em>Balmoral chicken</em>, even if you don’t know what the heck that is, you’d be able to guess and bring at least <em>something</em> back. Or you could decide to make something else. Or you could ask a chef for help. Or you could pull out your phone and search online for what <em><a href="https://thescottishbutcher.com/recipes/chicken-balmoral-and-peppercorn-sauce/">Balmoral chicken</a></em> is. The point is, even if we didn’t give you enough information to do the task, you’re intelligent enough to, at the very least, try to find a work around.</p>
+<p>If instead, we asked a function to do the same, it would listen intently to our request, and then will simply return an error. It would then repeat this every single time we asked it to do the job when the task is not clear. The point here, is that code and functions cannot find workarounds to poorly provided information, which is great. It’s totally reliant on you, to tell it very explicitly what it needs to do step by step.</p>
+<p>Remember two things: the intelligence of code comes from the coder, not the computer and functions need exact instructions to work.</p>
+<p>To prevent functions from being <em>too</em> stupid you must provide the information the function needs in order for it to work. As with the <em>Balmoral chicken</em> example, if we’d supplied a recipe list to the function, it would have managed just fine. We call this “fulfilling an argument”. The vast majority of functions require the user to fulfill at least one argument.</p>
+<p>This can be illustrated in the pseudocode below. When we make a function we can:</p>
+<ul>
+<li>specify what arguments the user must fulfill (<em>e.g.</em> <code>arg1</code> and <code>arg2</code>)</li>
+<li>provide default values to arguments (<em>e.g.</em> <code>arg2 = TRUE</code>)</li>
+<li>define what to do with the arguments (<code>expression</code>):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">expression</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first thing to note is that we’ve used the function <code>function()</code> to create a new function called <code>my_function</code>. To walk through the above code; we’re creating a function called <code>my_function</code>. Within the round brackets we specify what information (<em>i.e.</em> arguments) the function requires to run (as many or as few as needed). These arguments are then passed to the expression part of the function. The expression can be any valid R command or set of R commands and is usually contained between a pair of braces <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code>. Once you run the above code, you can then use your new function by typing:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">my_function</span><span class="op">(</span><span class="va">arg1</span>, <span class="va">arg2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s work through an example to help clear things up.</p>
+<p>First we are going to create a data frame called <code>dishes</code>, where columns <code>lasagna</code>, <code>stovies</code>, <code>poutine</code>, and <code>tartiflette</code> are filled with 10 random values drawn from a bag (using the <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> function to draw random values from a Normal distribution with mean 0 and standard deviation of 1). We also include a “problem”, for us to solve later, by including 3 <code>NA</code> values within the <code>poutine</code> column (using <code>rep(NA, 3)</code>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dishes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  lasagna <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  stovies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  poutine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  tartiflette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s say that you want to multiply the values in the variables <code>stovies</code> and <code>lasagna</code> and create a new object called <code>stovies_lasagna</code>. We can do this “by hand” using:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_lasagna</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span> <span class="op">*</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If this was all we needed to do, we can stop here. R works with vectors, so doing these kinds of operations in R is actually much simpler than other programming languages, where this type of code might require loops (we say that R is a vectorised language). Something to keep in mind for later is that doing these kinds of operations with loops can be much slower compared to vectorisation.</p>
+<p>But what if we want to repeat this multiplication many times? Let’s say we wanted to multiply columns <code>lasagna</code> and <code>stovies</code>, <code>stovies</code> and <code>tartiflette</code>, and <code>poutine</code> and <code>tartiflette</code>. In this case we could copy and paste the code, replacing the relevant information.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span> <span class="op">*</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span></span>
+<span><span class="va">stovies_tartiflette</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span> <span class="op">*</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span></span>
+<span><span class="va">poutine_tartiflette</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">poutine</span> <span class="op">*</span> <span class="va">dishes</span><span class="op">$</span><span class="va">tartiflette</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While this approach works, it’s easy to make mistakes. In fact, here we’ve “forgotten” to change <code>stovies</code> to <code>tartiflette</code> in the second line of code when copying and pasting. This is where writing a function comes in handy. If we were to write this as a function, there is only one source of potential error (within the function itself) instead of many copy-pasted lines of code (which we also cut down on by using a function).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a rule of thumb if we have to do the same thing (by copy/paste &amp; modify) 3 times or more, we just make a function for it.</p>
+</div>
+</div>
+<p>In this case, we’re using some fairly trivial code where it’s maybe hard to make a genuine mistake. But what if we increased the complexity?</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span> <span class="op">*</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span> <span class="op">/</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span> <span class="op">+</span> <span class="op">(</span><span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span> <span class="op">*</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">-</span><span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span> <span class="op">-</span> <span class="op">(</span><span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span> <span class="op">+</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now imagine having to copy and paste this three times, and in each case having to change the <code>lasagna</code> and <code>stovies</code> variables (especially if we had to do it more than three times).</p>
+<p>What we could do instead is generalize our code for <code>x</code> and <code>y</code> columns instead of naming specific dishes. If we did this, we could recycle the <code>x * y</code> code. Whenever we wanted to multiple columns together, we assign a dishes to either <code>x</code> or <code>y</code>. We’ll assign the multiplication to the objects <code>lasagna_stovies</code> and <code>stovies_poutine</code> so we can come back to them later.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Assign x and y values</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span></span>
+<span></span>
+<span><span class="co"># Use multiplication code</span></span>
+<span><span class="va">lasagna_stovies</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="va">y</span></span>
+<span></span>
+<span><span class="co"># Assign new x and y values</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">dishes</span><span class="op">$</span><span class="va">poutine</span></span>
+<span></span>
+<span><span class="co"># Reuse multiplication code</span></span>
+<span><span class="va">stovies_poutine</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="va">y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is essentially what a function does. Let’s call our new function <code>multiply_cols()</code> and define it with two arguments, <code>x</code> and <code>y</code>. A function in R will simply return its last value. However, it is possible to force the function to return an earlier value if wanted/needed. Using the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function is not strictly necessary in this example as R will automatically return the value of the last line of code in our function. We include it here to make this explicit.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multiply_cols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">y</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we’ve defined our function we can use it. Let’s use the function to multiple the columns <code>lasagna</code> and <code>stovies</code> and assign the result to a new object called <code>lasagna_stovies_func</code></p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span>, y <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span><span class="op">)</span></span>
+<span><span class="va">lasagna_stovies_func</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0.15888066  0.07950564  0.10198302  0.17930855 -0.89100492 -2.07422678
+ [7]  0.18301854  1.36082011 -0.26397192  0.36560595</code></pre>
+</div>
+</div>
+<p>If we’re only interested in multiplying <code>dishes$lasagna</code> and <code>dishes$stovies</code>, it would be overkill to create a function to do something once. However, the benefit of creating a function is that we now have that function added to our environment which we can use as often as we like. We also have the code to create the function, meaning we can use it in completely new projects, reducing the amount of code that has to be written (and retested) from scratch each time.</p>
+<p>To satisfy ourselves that the function has worked properly, we can compare the <code>lasagna_stovies</code> variable with our new variable <code>lasagna_stovies_func</code> using the <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code> function. The <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code> function tests whether two objects are <em>exactly</em> identical and returns either a <code>TRUE</code> or <code>FALSE</code> value. Use <code><a href="https://rdrr.io/r/base/identical.html">?identical</a></code> if you want to know more about this function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">lasagna_stovies</span>, <span class="va">lasagna_stovies_func</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>And we confirm that the function has produced the same result as when we do the calculation manually. We recommend getting into a habit of checking that the function you’ve created works the way you think it has.</p>
+<p>Now let’s use our <code>multiply_cols()</code> function to multiply columns <code>stovies</code> and <code>poutine</code>. Notice now that argument <code>x</code> is given the value <code>dishes$stovies</code>and <code>y</code> the value <code>dishes$poutine</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_poutine_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span>, y <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">poutine</span><span class="op">)</span></span>
+<span><span class="va">stovies_poutine_func</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]           NA           NA           NA  0.134984249  0.991411525
+ [6] -1.138108599 -1.153075159  1.636003714  0.008278524 -0.076287115</code></pre>
+</div>
+</div>
+<p>So far so good. All we’ve really done is wrapped the code <code>x * y</code> into a function, where we ask the user to specify what their <code>x</code> and <code>y</code> variables are.</p>
+<p>Using the function is a bit long since we have to retype the name of the data frame for each variable. For a bit of fun we can modify the function so that, we can specify the data frame as an argument and the column names without quoting them (as in a tidyverse style).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>multiply_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data, x, y) {</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  temp_var <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="fu">select</span>({{ x }}, {{ y }}) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="fu">mutate</span>(<span class="at">xy =</span> <span class="fu">prod</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>    <span class="fu">pull</span>(xy)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For this new version of the function, we added we added a <code>data</code> argument on line 1. On lines 3, we select the x and y variables provided as arguments. On line 4., we create the product of the 2 selected columns and on line 5. we extract the column we juste created. We also remove the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function since it was not needed</p>
+<p>Our function is now compatible with the pipe (either native <code>|&gt;</code> or magrittr <code>%&gt;%</code>) function. However, since the function now uses the pipe from <code>magrittr</code> <span class="emoji" data-emoji="package">📦</span> and <code>dplyr</code> <span class="emoji" data-emoji="package">📦</span> functions, we need to load the tidyverse <span class="emoji" data-emoji="package">📦</span> package for it to work.</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">lasagna</span>, <span class="va">stovies</span><span class="op">)</span></span>
+<span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="va">dishes</span> <span class="op">|&gt;</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">lasagna</span>, <span class="va">stovies</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s add a little bit more complexity. If you look at the output of <code>poutine_tartiflette</code> some of the calculations have produced <code>NA</code> values. This is because of those <code>NA</code> values we included in <code>poutine</code> when we created the <code>dishes</code> data frame. Despite these <code>NA</code> values, the function appeared to have worked but it gave us no indication that there might be a problem. In such cases we may prefer if it had warned us that something was wrong. How can we get the function to let us know when <code>NA</code> values are produced? Here’s one way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>multiply_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data, x, y) {</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  temp_var <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>    <span class="fu">select</span>({{ x }}, {{ y }}) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>    <span class="fu">mutate</span>(<span class="at">xy =</span> {</span>
+<span id="cb21-5"><a href="#cb21-5"></a>      .[<span class="dv">1</span>] <span class="sc">*</span> .[<span class="dv">2</span>]</span>
+<span id="cb21-6"><a href="#cb21-6"></a>    }) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>    <span class="fu">pull</span>(xy)</span>
+<span id="cb21-8"><a href="#cb21-8"></a>  <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">is.na</span>(temp_var))) {</span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="fu">warning</span>(<span class="st">"The function has produced NAs"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10"></a>    <span class="fu">return</span>(temp_var)</span>
+<span id="cb21-11"><a href="#cb21-11"></a>  } <span class="cf">else</span> {</span>
+<span id="cb21-12"><a href="#cb21-12"></a>    <span class="fu">return</span>(temp_var)</span>
+<span id="cb21-13"><a href="#cb21-13"></a>  }</span>
+<span id="cb21-14"><a href="#cb21-14"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_poutine_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">stovies</span>, <span class="va">poutine</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in multiply_cols(dishes, stovies, poutine): The function has produced
+NAs</code></pre>
+</div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">lasagna</span>, <span class="va">stovies</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The core of our function is still the same, but we’ve now got an extra six lines of code (lines 6-11). We’ve included some conditional statements, <code>if</code> (lines 6-8) and <code>else</code> (lines 9-11), to test whether any <code>NA</code>s have been produced and if they have we display a warning message to the user. The next section of this Chapter will explain how these work and how to use them.</p>
+</section><section id="conditional-statements" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="conditional-statements">
+<span class="header-section-number">5.3</span> Conditional statements</h2>
+<p><code>x * y</code> does not apply any logic. It merely takes the value of <code>x</code> and multiplies it by the value of <code>y</code>. Conditional statements are how you inject some logic into your code. The most commonly used conditional statement is <code>if</code>. Whenever you see an <code>if</code> statement, read it as <em>‘If X is TRUE, do a thing’</em>. Including an <code>else</code> statement simply extends the logic to <em>‘If X is TRUE, do a thing, or else do something different’</em>.</p>
+<p>Both the <code>if</code> and <code>else</code> statements allow you to run sections of code, depending on a condition is either <code>TRUE</code> or <code>FALSE</code>. The pseudo-code below shows you the general form.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (condition) {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  Code executed when condition is <span class="cn">TRUE</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  Code executed when condition is <span class="cn">FALSE</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To delve into this a bit more, we can use an old programmer joke to set up a problem.</p>
+<blockquote class="blockquote">
+<p>A programmer’s partner says: <em>‘Please go to the store and buy a carton of milk and if they have eggs, get six.’</em></p>
+<p>The programmer returned with 6 cartons of milk.</p>
+<p>When the partner sees this, and exclaims <em>‘Why the heck did you buy six cartons of milk?’</em></p>
+<p>The programmer replied <em>‘They had eggs’</em></p>
+</blockquote>
+<p>At the risk of explaining a joke, the conditional statement here is whether or not the store had eggs. If coded as per the original request, the programmer should bring 6 cartons of milk if the store had eggs (condition = TRUE), or else bring 1 carton of milk if there weren’t any eggs (condition = FALSE). In R this is coded as:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eggs</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># Whether there were eggs in the store</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">eggs</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># If there are eggs</span></span>
+<span>  <span class="va">n.milk</span> <span class="op">&lt;-</span> <span class="fl">6</span> <span class="co"># Get 6 cartons of milk</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span> <span class="co"># If there are not eggs</span></span>
+<span>  <span class="va">n.milk</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># Get 1 carton of milk</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then check <code>n.milk</code> to see how many milk cartons they returned with.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n.milk</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>And just like the joke, our R code has missed that the condition was to determine whether or not to buy eggs, not more milk (this is actually a loose example of the <a href="https://en.wikipedia.org/wiki/Winograd_Schema_Challenge">Winograd Scheme</a>, designed to test the <em>intelligence</em> of artificial intelligence by whether it can reason what the intended referent of a sentence is).</p>
+<p>We could code the exact same egg-milk joke conditional statement using an <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">eggs</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span><span class="va">n.milk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">eggs</span> <span class="op">==</span> <span class="cn">TRUE</span>, yes <span class="op">=</span> <span class="fl">6</span>, no <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function is doing exactly the same as the more fleshed out version from earlier, but is now condensed down into a single line of code. It has the added benefit of working on vectors as opposed to single values (more on this later when we introduce loops). The logic is read in the same way; “If there are eggs, assign a value of 6 to <code>n.milk</code>, if there isn’t any eggs, assign the value 1 to <code>n.milk</code>”.</p>
+<p>We can check again to make sure the logic is still returning 6 cartons of milk:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n.milk</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>Currently we’d have to copy and paste code if we wanted to change if eggs were in the store or not. We learned above how to avoid lots of copy and pasting by creating a function. Just as with the simple <code>x * y</code> expression in our previous <code>multiply_cols()</code> function, the logical statements above are straightforward to code and well suited to be turned into a function. How about we do just that and wrap this logical statement up in a function?</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">milk</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">eggs</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">eggs</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fl">6</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fl">1</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ve now created a function called <code>milk()</code> where the only argument is <code>eggs</code>. The user of the function specifies if eggs is either <code>TRUE</code> or <code>FALSE</code>, and the function will then use a conditional statement to determine how many cartons of milk are returned.</p>
+<p>Let’s quickly try:</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">milk</span><span class="op">(</span>eggs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>And the joke is maintained. Notice in this case we have actually specified that we are fulfilling the <code>eggs</code> argument (<code>eggs = TRUE</code>). In some functions, as with ours here, when a function only has a single argument we can be lazy and not name which argument we are fulfilling. In reality, it’s generally viewed as better practice to explicitly state which arguments you are fulfilling to avoid potential mistakes.</p>
+<p>OK, lets go back to the <code>multiply_cols()</code> function we created above and explain how we’ve used conditional statements to warn the user if <code>NA</code> values are produced when we multiple any two columns together.</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multiply_cols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">temp_var</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, <span class="op">{</span><span class="op">{</span> <span class="va">y</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>xy <span class="op">=</span> <span class="op">{</span></span>
+<span>      <span class="va">.</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="va">.</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"The function has produced NAs"</span><span class="op">)</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this new version of the function we still use <code>x * y</code> as before but this time we’ve assigned the values from this calculation to a temporary vector called <code>temp_var</code> so we can use it in our conditional statements. Note, this <code>temp_var</code> variable is <em>local</em> to our function and will not exist outside of the function due something called <a href="https://www.r-bloggers.com/dont-run-afoul-of-scoping-rules-in-r/">R’s scoping rules</a>. We then use an <code>if</code> statement to determine whether our <code>temp_var</code> variable contains any <code>NA</code> values. The way this works is that we first use the <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> function to test whether each value in our <code>temp_var</code> variable is an <code>NA</code>. The <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> function returns <code>TRUE</code> if the value is an <code>NA</code> and <code>FALSE</code> if the value isn’t an <code>NA</code>. We then nest the <code>is.na(temp_var)</code> function inside the function <code><a href="https://rdrr.io/r/base/any.html">any()</a></code> to test whether <strong>any</strong> of the values returned by <code>is.na(temp_var)</code> are <code>TRUE</code>. If at least one value is <code>TRUE</code> the <code><a href="https://rdrr.io/r/base/any.html">any()</a></code> function will return a <code>TRUE</code>. So, if there are any <code>NA</code> values in our <code>temp_var</code> variable the condition for the <code>if()</code> function will be <code>TRUE</code> whereas if there are no <code>NA</code> values present then the condition will be <code>FALSE</code>. If the condition is <code>TRUE</code> the <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code> function generates a warning message for the user and then returns the <code>temp_var</code> variable. If the condition is <code>FALSE</code> the code below the <code>else</code> statement is executed which just returns the <code>temp_var</code> variable.</p>
+<p>So if we run our modified <code>multiple_columns()</code> function on the columns <code>dishes$stovies</code> and <code>dishes$poutine</code> (which contains <code>NA</code>s) we will receive an warning message.</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_poutine_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">stovies</span>, <span class="va">poutine</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in multiply_cols(dishes, stovies, poutine): The function has produced
+NAs</code></pre>
+</div>
+</div>
+<p>Whereas if we multiple two columns that don’t contain <code>NA</code> values we don’t receive a warning message</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">lasagna</span>, <span class="va">stovies</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="combining-logical-operators" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="combining-logical-operators">
+<span class="header-section-number">5.4</span> Combining logical operators</h2>
+<p>The functions that we’ve created so far have been perfectly suited for what we need, though they have been fairly simplistic. Let’s try creating a function that has a little more complexity to it. We’ll make a function to determine if today is going to be a good day or not based on two criteria. The first criteria will depend on the day of the week (Friday or not) and the second will be whether or not your code is working (TRUE or FALSE). To accomplish this, we’ll be using <code>if</code> and <code>else</code> statements. The complexity will come from <code>if</code> statements immediately following the relevant <code>else</code> statement. We’ll use such conditional statements four times to achieve all combinations of it being a Friday or not, and if your code is working or not.</p>
+<p>We also used the <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> function to output text formatted correctly.</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">good.day</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">code.working</span>, <span class="va">day</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">code.working</span> <span class="op">==</span> <span class="cn">TRUE</span> <span class="op">&amp;&amp;</span> <span class="va">day</span> <span class="op">==</span> <span class="st">"Friday"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span></span>
+<span>  <span class="st">"BEST.</span></span>
+<span><span class="st">  DAY.</span></span>
+<span><span class="st">    EVER.</span></span>
+<span><span class="st">      Stop while you are ahead and go to the pub!"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">code.working</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;&amp;</span> <span class="va">day</span> <span class="op">==</span> <span class="st">"Friday"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Oh well, but at least it's Friday! Pub time!"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">code.working</span> <span class="op">==</span> <span class="cn">TRUE</span> <span class="op">&amp;&amp;</span> <span class="va">day</span> <span class="op">!=</span> <span class="st">"Friday"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  So close to a good day...</span></span>
+<span><span class="st">  shame it's not a Friday"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">code.working</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;&amp;</span> <span class="va">day</span> <span class="op">!=</span> <span class="st">"Friday"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Hello darkness."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">good.day</span><span class="op">(</span>code.working <span class="op">=</span> <span class="cn">TRUE</span>, day <span class="op">=</span> <span class="st">"Friday"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BEST.
+  DAY.
+    EVER.
+      Stop while you are ahead and go to the pub!</code></pre>
+</div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">good.day</span><span class="op">(</span><span class="cn">FALSE</span>, <span class="st">"Tuesday"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello darkness.</code></pre>
+</div>
+</div>
+<p>Notice that we never specified what to do if the day was not a Friday? That’s because, for this function, the only thing that matters is whether or not it’s Friday.</p>
+<p>We’ve also been using logical operators whenever we’ve used <code>if</code> statements. Logical operators are the final piece of the logical conditions jigsaw. Below is a table which summarises operators. The first two are logical operators and the final six are relational operators. You can use any of these when you make your own functions (or loops).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 37%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">Operator</th>
+<th style="text-align: center;">Technical Description</th>
+<th style="text-align: left;">What it means</th>
+<th style="text-align: left;">Example</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>&amp;&amp;</code></td>
+<td style="text-align: center;">Logical AND</td>
+<td style="text-align: left;">Both conditions must be met</td>
+<td style="text-align: left;"><code>if(cond1 == test &amp;&amp; cond2 == test)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>||</code></td>
+<td style="text-align: center;">Logical OR</td>
+<td style="text-align: left;">Either condition must be met</td>
+<td style="text-align: left;"><code>if(cond1 == test || cond2 == test)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>&lt;</code></td>
+<td style="text-align: center;">Less than</td>
+<td style="text-align: left;">X is less than Y</td>
+<td style="text-align: left;"><code>if(X &lt; Y)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>&gt;</code></td>
+<td style="text-align: center;">Greater than</td>
+<td style="text-align: left;">X is greater than Y</td>
+<td style="text-align: left;"><code>if(X &gt; Y)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>&lt;=</code></td>
+<td style="text-align: center;">Less than or equal to</td>
+<td style="text-align: left;">X is less/equal to Y</td>
+<td style="text-align: left;"><code>if(X &lt;= Y)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>&gt;=</code></td>
+<td style="text-align: center;">Greater than or equal to</td>
+<td style="text-align: left;">X is greater/equal to Y</td>
+<td style="text-align: left;"><code>if(X &gt;= Y)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>==</code></td>
+<td style="text-align: center;">Equal to</td>
+<td style="text-align: left;">X is equal to Y</td>
+<td style="text-align: left;"><code>if(X == Y)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>!=</code></td>
+<td style="text-align: center;">Not equal to</td>
+<td style="text-align: left;">X is not equal to Y</td>
+<td style="text-align: left;"><code>if(X != Y)</code></td>
+</tr>
+</tbody>
+</table></section><section id="loops" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="loops">
+<span class="header-section-number">5.5</span> Loops</h2>
+<p>R is very good at performing repetitive tasks. If we want a set of operations to be repeated several times we use what’s known as a loop. When you create a loop, R will execute the instructions in the loop a specified number of times or until a specified condition is met. There are three main types of loop in R: the <em>for</em> loop, the <em>while</em> loop and the <em>repeat</em> loop.</p>
+<p>Loops are one of the staples of all programming languages, not just R, and can be a powerful tool (although in our opinion, used far too frequently when writing R code).</p>
+<section id="for-loop" class="level3" data-number="5.5.1"><h3 data-number="5.5.1" class="anchored" data-anchor-id="for-loop">
+<span class="header-section-number">5.5.1</span> For loop</h3>
+<p>The most commonly used loop structure when you want to repeat a task a defined number of times is the <code>for</code> loop. The most basic example of a <code>for</code> loop is:</p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+</div>
+</div>
+<p>But what’s the code actually doing? This is a dynamic bit of code were an index <code>i</code> is iteratively replaced by each value in the vector <code>1:5</code>. Let’s break it down. Because the first value in our sequence (<code>1:5</code>) is <code>1</code>, the loop starts by replacing <code>i</code> with <code>1</code> and runs everything between the <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code>. Loops conventionally use <code>i</code> as the counter, short for iteration, but you are free to use whatever you like, even your pet’s name, it really does not matter (except when using nested loops, in which case the counters must be called different things, like <code>SenorWhiskers</code> and <code>HerrFlufferkins</code>).</p>
+<p>So, if we were to do the first iteration of the loop manually</p>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Once this first iteration is complete, the for loop <em>loops</em> back to the beginning and replaces <code>i</code> with the next value in our <code>1:5</code> sequence (<code>2</code> in this case):</p>
+<div class="cell">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>This process is then repeated until the loop reaches the final value in the sequence (<code>5</code> in this example) after which point it stops.</p>
+<p>To reinforce how <code>for</code> loops work and introduce you to a valuable feature of loops, we’ll alter our counter within the loop. This can be used, for example, if we’re using a loop to iterate through a vector but want to select the next row (or any other value). To show this we’ll simply add 1 to the value of our index every time we iterate our loop.</p>
+<div class="cell">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6</code></pre>
+</div>
+</div>
+<p>As in the previous loop, the first value in our sequence is 1. The loop begins by replacing <code>i</code> with <code>1</code>, but this time we’ve specified that a value of <code>1</code> must be added to <code>i</code> in the expression resulting in a value of <code>1 + 1</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>As before, once the iteration is complete, the loop moves onto the next value in the sequence and replaces <code>i</code> with the next value (<code>2</code> in this case) so that <code>i + 1</code> becomes <code>2 + 1</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p>And so on. We think you get the idea! In essence this is all a <code>for</code> loop is doing and nothing more.</p>
+<p>Whilst above we have been using simple addition in the body of the loop, you can also combine loops with functions.</p>
+<p>Let’s go back to our data frame <code>dishes</code>. Previously in the Chapter we created a function to multiply two columns and used it to create our <code>lasagna_stovies</code>, <code>stovies_poutine</code>, and <code>poutine_tartiflette</code> objects. We could have used a loop for this. Let’s remind ourselves what our data look like and the code for the <code>multiple_columns()</code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dishes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  lasagna <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  stovies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  poutine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  tartiflette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multiply_cols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">temp_var</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, <span class="op">{</span><span class="op">{</span> <span class="va">y</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>xy <span class="op">=</span> <span class="op">{</span></span>
+<span>      <span class="va">.</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="va">.</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"The function has produced NAs"</span><span class="op">)</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp_var</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To use a list to iterate over these columns we need to first create an empty list (remember <a href="03-data.html#sec-lists" class="quarto-xref"><span>Section 3.2.3</span></a>?) which we call <code>temp</code> (short for temporary) which will be used to store the output of the <code>for</code> loop.</p>
+<div class="cell">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">temp</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in multiply_cols(dishes, x = colnames(dishes)[i], y =
+colnames(dishes)[i + : The function has produced NAs
+Warning in multiply_cols(dishes, x = colnames(dishes)[i], y =
+colnames(dishes)[i + : The function has produced NAs</code></pre>
+</div>
+</div>
+<p>When we specify our <code>for</code> loop notice how we subtracted 1 from <code>ncol(dishes)</code>. The <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code> function returns the number of columns in our <code>dishes</code> data frame which is <code>4</code> and so our loop runs from <code>i = 1</code> to <code>i = 4 - 1</code> which is <code>i = 3</code>.</p>
+<p>So in the first iteration of the loop <code>i</code> takes on the value <code>1</code>. The <code>multiply_cols()</code> function multiplies the <code>dishes[, 1]</code> (<code>lasagna</code>) and <code>dishes[, 1 + 1]</code> (<code>stovies</code>) columns and stores it in the <code>temp[[1]]</code> which is the first element of the <code>temp</code> list.</p>
+<p>The second iteration of the loop <code>i</code> takes on the value <code>2</code>. The <code>multiply_cols()</code> function multiplies the <code>dishes[, 2]</code> (<code>stovies</code>) and <code>dishes[, 2 + 1]</code> (<code>poutine</code>) columns and stores it in the <code>temp[[2]]</code> which is the second element of the <code>temp</code> list.</p>
+<p>The third and final iteration of the loop <code>i</code> takes on the value <code>3</code>. The <code>multiply_cols()</code> function multiplies the <code>dishes[, 3]</code> (<code>poutine</code>) and <code>dishes[, 3 + 1]</code> (<code>tartiflette</code>) columns and stores it in the <code>temp[[3]]</code> which is the third element of the <code>temp</code> list.</p>
+<p>Again, it’s a good idea to test that we are getting something sensible from our loop (remember, check, check and check again!). To do this we can use the <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code> function to compare the variables we created <code>by hand</code> with each iteration of the loop manually.</p>
+<div class="cell">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">lasagna</span>, <span class="va">stovies</span><span class="op">)</span></span>
+<span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span></span>
+<span>  <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  <span class="va">lasagna_stovies_func</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_poutine_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="va">stovies</span>, <span class="va">poutine</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in multiply_cols(dishes, stovies, poutine): The function has produced
+NAs</code></pre>
+</div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span></span>
+<span>  <span class="fu">multiply_cols</span><span class="op">(</span><span class="va">dishes</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dishes</span><span class="op">)</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  <span class="va">stovies_poutine_func</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in multiply_cols(dishes, colnames(dishes)[i], colnames(dishes)[i + :
+The function has produced NAs</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>If you can follow the examples above, you’ll be in a good spot to begin writing some of your own for loops. That said there are other types of loops available to you.</p>
+</section><section id="while-loop" class="level3" data-number="5.5.2"><h3 data-number="5.5.2" class="anchored" data-anchor-id="while-loop">
+<span class="header-section-number">5.5.2</span> While loop</h3>
+<p>Another type of loop that you may use (albeit less frequently) is the <code>while</code> loop. The <code>while</code> loop is used when you want to keep looping until a specific logical condition is satisfied (contrast this with the <code>for</code> loop which will always iterate through an entire sequence).</p>
+<p>The basic structure of the while loop is:</p>
+<div class="cell">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">while</span> <span class="op">(</span><span class="va">logical_condition</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">expression</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A simple example of a while loop is:</p>
+<div class="cell">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="kw">while</span> <span class="op">(</span><span class="va">i</span> <span class="op">&lt;=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+</div>
+</div>
+<p>Here the loop will only continue to pass values to the main body of the loop (the <code>expression</code> body) when <code>i</code> is less than or equal to 4 (specified using the <code>&lt;=</code> operator in this example). Once <code>i</code> is greater than 4 the loop will stop.</p>
+<p>There is another, very rarely used type of loop; the <code>repeat</code> loop. The <code>repeat</code> loop has no conditional check so can keep iterating indefinitely (meaning a break, or “stop here”, has to be coded into it). It’s worthwhile being aware of it’s existence, but for now we don’t think you need to worry about it; the <code>for</code> and <code>while</code> loops will see you through the vast majority of your looping needs.</p>
+</section><section id="when-to-use-a-loop" class="level3" data-number="5.5.3"><h3 data-number="5.5.3" class="anchored" data-anchor-id="when-to-use-a-loop">
+<span class="header-section-number">5.5.3</span> When to use a loop?</h3>
+<p>Loops are fairly commonly used, though sometimes a little overused in our opinion. Equivalent tasks can be performed with functions, which are often more efficient than loops. Though this raises the question when should you use a loop?</p>
+<p>In general loops are implemented inefficiently in R and should be avoided when better alternatives exist, especially when you’re working with large datasets. However, loop are sometimes the only way to achieve the result we want.</p>
+<p><strong>Some examples of when using loops can be appropriate:</strong></p>
+<ul>
+<li><p>Some simulations (e.g. the Ricker model can, in part, be built using loops)</p></li>
+<li><p>Recursive relationships (a relationship which depends on the value of the previous relationship [“to understand recursion, you must understand recursion”])</p></li>
+<li><p>More complex problems (e.g., how long since the last badger was seen at site <span class="math inline">\(j\)</span>, given a pine marten was seen at time <span class="math inline">\(t\)</span>, at the same location <span class="math inline">\(j\)</span> as the badger, where the pine marten was detected in a specific 6 hour period, but exclude badgers seen 30 minutes before the pine marten arrival, repeated for all pine marten detections)</p></li>
+<li><p>While loops (keep jumping until you’ve reached the moon)</p></li>
+</ul></section><section id="if-not-loops-then-what" class="level3" data-number="5.5.4"><h3 data-number="5.5.4" class="anchored" data-anchor-id="if-not-loops-then-what">
+<span class="header-section-number">5.5.4</span> If not loops, then what?</h3>
+<p>In short, use the apply family of functions; <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>, <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>, <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code>, <code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code>, and <code><a href="https://rdrr.io/r/base/mapply.html">mapply()</a></code>. The apply functions can often do the tasks of most “home-brewed” loops, sometimes faster (though that won’t really be an issue for most people) but more importantly with a much lower risk of error. A strategy to have in the back of your mind which may be useful is; for every loop you make, try to remake it using an apply function (often <code>lapply</code> or <code>sapply</code> will work). If you can, use the apply version. There’s nothing worse than realizing there was a small, tiny, seemingly meaningless mistake in a loop which weeks, months or years down the line has propagated into a huge mess. We strongly recommend trying to use the apply functions whenever possible.</p>
+<section id="lapply" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="lapply">lapply</h4>
+<p>Your go to apply function will often be <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> at least in the beginning. The way that <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> works, and the reason it is often a good alternative to for loops, is that it will go through each element in a list and perform a task (<em>i.e.</em> run a function). It has the added benefit that it will output the results as a list - something you’d have to otherwise code yourself into a loop.</p>
+<p>An <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> has the following structure:</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">FUN</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here <code>X</code> is the vector which we want to do <em>something</em> to. <code>FUN</code> stands for how much fun this is (just kidding!). It’s also short for “function”.</p>
+<p>Let’s start with a simple demonstration first. Let’s use the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function create a sequence from 1 to 5 and add 1 to each observation (just like we did when we used a for loop):</p>
+<div class="cell">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">a</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 2
+
+[[3]]
+[1] 3
+
+[[4]]
+[1] 4
+
+[[5]]
+[1] 5</code></pre>
+</div>
+</div>
+<p>Notice that we need to specify our sequence as <code>0:4</code> to get the output <code>1 ,2 ,3 ,4 , 5</code> as we are adding <code>1</code> to each element of the sequence. See what happens if you use <code>1:5</code> instead.</p>
+<p>Equivalently, we could have defined the function first and then used the function in <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code></p>
+<div class="cell">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">add_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">a</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span>, <span class="va">add_fun</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 2
+
+[[3]]
+[1] 3
+
+[[4]]
+[1] 4
+
+[[5]]
+[1] 5</code></pre>
+</div>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> function does the same thing as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> but instead of storing the results as a list, it stores them as a vector.</p>
+<div class="cell">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">a</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>As you can see, in both cases, we get exactly the same results as when we used the for loop.</p>
+<!--course website Links-->
+<!--cran Links-->
+<!--RStudio-->
+<!--style guides-->
+<!--Package Links-->
+<!--Editors-->
+<!--Bioconductor Links-->
+<!--GitHub Links-->
+<!--R markdown Links-->
+<!--ggplot Links-->
+<!--Basics links-->
+<!--Data links-->
+<!--Resource Links-->
+<!--Misc Links-->
+
+
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/biostats-uottawa\.github\.io\/Rway\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./04-graphics_short.html" class="pagination-link" aria-label="Figures">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Figures</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./06-quarto.html" class="pagination-link" aria-label="Reproducible reports with Quarto">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reproducible reports with Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://biostats-uottawa.github.io/people.html">Julien Martin</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/biostats-uottawa/Rway/edit/main/05-programming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/biostats-uottawa/Rway/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+</body></html>
