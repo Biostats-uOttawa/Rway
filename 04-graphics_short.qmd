@@ -40,7 +40,7 @@ We'll see a couple of examples of these types of plots later in the Chapter.
    
 
 `ggplot2` was based on a book called *Grammar of Graphics* by @wilkinson2005.
-For an interesting summary of Wilkinson's book [here][leland-summary]. (I think this is supposed to be a link but I don't know how to fix it.
+For an interesting summary of Wilkinson's book [here][leland-summary].
 The *Grammar of Graphics* approach breaks figures down into their various components (e.g.
 the underlying statistics, the geometric arrangement, the theme, see @fig-ggplot-str).
 Users are thus able to manipulate each of these components (i.e.
@@ -338,7 +338,7 @@ The reason we love them is their ease of interpretation, transparency and relati
 they convey lots of information efficiently).
 We suggest that you try to use boxplots as much as possible when exploring your data and avoid the temptation to use the more ubiquitous bar plot (even with standard error or 95% confidence intervals bars).
 The problem with bar plots (aka dynamite plots) is that they hide important information from the reader such as the distribution of the data and assume that the error bars (or confidence intervals) are symmetric around the mean.
-Of course, it's up to you what you do but if you're tempted to use bar plots just search for 'dynamite plots are evil' or see [here][dynamite-plot1] or [here][dynamite-plot2] (Are these supposed to be links? I'm not sure so I just call attention to them) for a fuller discussion.
+Of course, it's up to you what you do but if you're tempted to use bar plots just search for 'dynamite plots are evil' or see [here][dynamite-plot1] or [here][dynamite-plot2] for a fuller discussion.
 
 To create a boxplot in R we use the `boxplot()` function.
 For example, let's create a boxplot of the variable `weight` from our `unicorns` data frame.
