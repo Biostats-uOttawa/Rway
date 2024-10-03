@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-758c5ce73771950a3d9b163c2677d9fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -649,12 +649,12 @@ ageclass female  male
 </table></section><section id="graphs-for-contingency-tables-and-testing-for-independence" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="graphs-for-contingency-tables-and-testing-for-independence">
 <span class="header-section-number">16.3</span> Graphs for contingency tables and testing for independence</h2>
 <p>Contingency tables can be used to test for independence. By this we mean to answer the question: Is the classification of observations according to one variable (say, sex) independent from the classification by another variable (say, ageclass). In other words, is the proportion of males and females independent of age, or does it vary among age classes?</p>
-<p>The <code>vcd</code> 📦 includes a <code>mosaic()</code> function useful to graphically display contingency tables:</p>
+<p>The <code>vcd</code> 📦 includes a <code><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic()</a></code> function useful to graphically display contingency tables:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">vcd</span><span class="op">)</span></span>
 <span><span class="va">USTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="va">frequency</span> <span class="op">~</span> <span class="va">ageclass</span> <span class="op">+</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">USPopSurvey</span><span class="op">)</span> <span class="co"># save the table form as USTable dataframe</span></span>
 <span><span class="co"># Mosaic plot of the contingency table</span></span>
-<span><span class="fu">mosaic</span><span class="op">(</span><span class="va">USTable</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">USTable</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="42-model_freq_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
@@ -679,7 +679,7 @@ X-squared = 1162.6, df = 8, p-value &lt; 2.2e-16</code></pre>
 <p>The mosaic plot from the <code>vcd</code> 📦 can be shaded to show the categories that contribute most to the lack of independence:</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Mosaic plot of the contingency table with shading</span></span>
-<span><span class="fu">mosaic</span><span class="op">(</span><span class="va">USTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">USTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="42-model_freq_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
@@ -850,7 +850,7 @@ X-squared = 0.088758, df = 1, p-value = 0.7658</code></pre>
 <span><span class="co"># Convert from frequency form to table form for mosaic plot</span></span>
 <span><span class="va">loglinTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="va">frequency</span> <span class="op">~</span> <span class="va">temperature</span> <span class="op">+</span> <span class="va">light</span> <span class="op">+</span> <span class="va">infected</span>, data <span class="op">=</span> <span class="va">loglin</span><span class="op">)</span></span>
 <span><span class="co"># Create mosaic plot to look at data</span></span>
-<span><span class="fu">mosaic</span><span class="op">(</span><span class="va">loglinTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">loglinTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="42-model_freq_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
@@ -866,7 +866,7 @@ X-squared = 0.088758, df = 1, p-value = 0.7658</code></pre>
 <span><span class="va">loglinTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html">xtabs</a></span><span class="op">(</span><span class="va">frequency</span> <span class="op">~</span> <span class="va">temperature</span> <span class="op">+</span> <span class="va">light</span> <span class="op">+</span> <span class="va">infected</span>, data <span class="op">=</span> <span class="va">loglin</span><span class="op">)</span></span>
 <span><span class="co"># Create mosaic plot to look at data</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">vcd</span><span class="op">)</span></span>
-<span><span class="fu">mosaic</span><span class="op">(</span><span class="va">loglinTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">loglinTable</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="42-model_freq_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
@@ -963,7 +963,7 @@ sex            1978 1979 1980
 </div>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Look at the data as mosaic plot</span></span>
 <span><span class="co"># mosaic using the table created above</span></span>
-<span><span class="fu">mosaic</span><span class="op">(</span><span class="va">sturgdat.table</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="va">sturgdat.table</span>, shade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="42-model_freq_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
