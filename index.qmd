@@ -1,9 +1,6 @@
 # Preface {.unnumbered}
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}
 
 ::: callout-warning
 Book in development. Several sections not developed yet

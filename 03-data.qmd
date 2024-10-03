@@ -1423,8 +1423,4 @@ write_csv(unicorns_df2, path = "data/unicorns_04_12.csv")
 ```
 
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
-
+{{< include images/_links.md >}}

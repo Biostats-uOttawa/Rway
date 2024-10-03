@@ -730,8 +730,5 @@ sapply(0:4, function(a) {
 
 As you can see, in both cases, we get exactly the same results as when we used the for loop.
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}
 

@@ -1134,10 +1134,7 @@ Another useful and concise Quarto reference guide can be found [here][rmd-ref]
 
 A quick and easy R Markdown [cheatsheet][rmd-cheat]
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}
   
 
 ## Practical

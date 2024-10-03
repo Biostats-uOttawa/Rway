@@ -1,5 +1,7 @@
 # Figures {#sec-graphics-r}
 
+{{< include images/_links.md >}}
+
 <!-- need to
 add info about ggplot
 redo diagram with mermaid

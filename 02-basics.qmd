@@ -986,7 +986,4 @@ remotes::install_github("tidyverse/dplyr")
 
 The safest way (that we know of) to update a package installed from GitHub is to just reinstall it using the above command.
  
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}

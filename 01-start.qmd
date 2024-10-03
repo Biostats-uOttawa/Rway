@@ -1027,7 +1027,4 @@ as well as creating either a sentence or a table citing all packages
 used. This should become the standard in any manuscript honestly. See
 @tbl-r-lib for an example output produced with grateful.
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}

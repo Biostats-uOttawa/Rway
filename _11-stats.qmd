@@ -347,10 +347,7 @@ A table of some of the more common statistical functions is given below to get y
 | `kruskal.test()`     | Performs a Kruskal-Wallis rank sum test                                |
 | `friedman.test()`    | Performs a Friedman’s test                                             |
 
-```{r}
-#| label: links
-#| child: images/_links.md
-```
+{{< include images/_links.md >}}
 
 
 
