@@ -40,7 +40,7 @@ We'll see a couple of examples of these types of plots later in the Chapter.
    
 
 `ggplot2` was based on a book called *Grammar of Graphics* by @wilkinson2005.
-For an interesting summary of Wilkinson's book [here][leland-summary].
+For an interesting summary of Wilkinson's book [here][leland-summary]. (I think this is supposed to be a link but I don't know how to fix it.
 The *Grammar of Graphics* approach breaks figures down into their various components (e.g.
 the underlying statistics, the geometric arrangement, the theme, see @fig-ggplot-str).
 Users are thus able to manipulate each of these components (i.e.
@@ -215,7 +215,7 @@ Here are the code to do it using base R (@fig-plot5)
 #| eval: false
 ```
 
-One gig advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `stat_smooth()`function to add a statistic layer to the plot.
+One big advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `stat_smooth()`function to add a statistic layer to the plot.
 
 ```{r}
 #| label: plot5-gg-line
@@ -301,7 +301,7 @@ ggplot(unicorns, aes(x = height)) +
 ```
 
 An alternative to plotting just a straight up histogram is to add a [kernel density][kernel-dens] curve to the plot.
-In base R, you first need to compute the kernel density estimates using the `density()` and then ad the estimates to plot as a line using the `lines()` function.
+In base R, you first need to compute the kernel density estimates using the `density()` and then add the estimates to plot as a line using the `lines()` function.
 
 
 ```{r}
@@ -338,7 +338,7 @@ The reason we love them is their ease of interpretation, transparency and relati
 they convey lots of information efficiently).
 We suggest that you try to use boxplots as much as possible when exploring your data and avoid the temptation to use the more ubiquitous bar plot (even with standard error or 95% confidence intervals bars).
 The problem with bar plots (aka dynamite plots) is that they hide important information from the reader such as the distribution of the data and assume that the error bars (or confidence intervals) are symmetric around the mean.
-Of course, it's up to you what you do but if you're tempted to use bar plots just search for 'dynamite plots are evil' or see [here][dynamite-plot1] or [here][dynamite-plot2] for a fuller discussion.
+Of course, it's up to you what you do but if you're tempted to use bar plots just search for 'dynamite plots are evil' or see [here][dynamite-plot1] or [here][dynamite-plot2] (Are these supposed to be links? I'm not sure so I just call attention to them) for a fuller discussion.
 
 To create a boxplot in R we use the `boxplot()` function.
 For example, let's create a boxplot of the variable `weight` from our `unicorns` data frame.
@@ -563,8 +563,8 @@ pairs(unicorns[, c(
 
 Interpretation of the pairs plot takes a bit of getting used to.
 The panels on the diagonal give the variable names.
-The first row of plots displays the `height` variable on the y axis and the variables `weight`, `mane_size`, `fluffyness` and `unicorns` on the x axis for each of the four plots respectively.
-The next row of plots have `weight` on the y axis and `height`, `mane_size`, `fluffyness` and `unicorns` on the x axis.
+The first row of plots displays the `height` variable on the y axis and the variables `weight`, `mane_size`, `fluffyness` and `horn_rings` on the x axis for each of the four plots respectively.
+The next row of plots have `weight` on the y axis and `height`, `mane_size`, `fluffyness` and `horn_rings` on the x axis.
 We interpret the rest of the rows in the same way with the last row displaying the `unicorns` variable on the y axis and the other variables on the x axis.
 Hopefully you'll notice that the plots below the diagonal are the same plots as those above the diagonal just with the axis reversed.
 
@@ -581,7 +581,7 @@ ggpairs(unicorns[, c(
 ```
 
 The `pairs()` function can be tweak to do similar things and more but is more involved.
-Have a lok at the great help file for the `pairs()` function (`?pairs`)which provide all the details to do something like the plot below.
+Have a look at the great help file for the `pairs()` function (`?pairs`)which provide all the details to do something like the plot below.
 
 ```{r}
 #| label: plot22
