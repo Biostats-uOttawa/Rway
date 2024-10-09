@@ -26,7 +26,7 @@ zip("data/Rway_enfR_data_code.zip", c(datf$link, code$link))
 
 ## All in one zip file
 
-Tous les fichiers de données et de code dans un [**fichier zip**](./data/Rway_enfR_data_code.zip)
+All the data, code, and r-objects used in the book in a [**zip file**](./data/Rway_enfR_data_code.zip)
 
 ## All the data files
 
