@@ -144,7 +144,7 @@ t.test(
 
 ```{r}
 #| label: t-5
-# test non paramétrique
+# non-parametric test
 wilcox.test(
   fklngth ~ location,
   data = sturgeon,
