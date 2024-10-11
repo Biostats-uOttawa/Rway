@@ -1331,14 +1331,14 @@ knitr::include_graphics(path = "images/plot/statistics.png")
 ```
 
 ```{r}
-#| label: stat_smooth-lm
+#| label: geom_smooth-lm
 #| message: false
 #| out-width: 75%
 #| fig-align: center
 ggplot(aes(x = weight, y = shootarea), data = flower) +
   geom_point() +
-  # using stat_smooth instead of geom_smooth
-  stat_smooth(geom = "smooth", method = "lm", se = FALSE)
+  # using geom_smooth instead of geom_smooth
+  geom_smooth(geom = "smooth", method = "lm", se = FALSE)
 ```
 
 

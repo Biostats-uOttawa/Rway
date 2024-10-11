@@ -82,8 +82,8 @@ mygraph <- ggplot(
 )
 # plot data points, regression, loess trace
 mygraph <- mygraph +
-  stat_smooth(method = lm, se = FALSE, color = "green") + # add linear regression, but no SE shading
-  stat_smooth(color = "red", se = FALSE) + # add loess
+  geom_smooth(method = lm, se = FALSE, color = "green") + # add linear regression, but no SE shading
+  geom_smooth(color = "red", se = FALSE) + # add loess
   geom_point() # add data points
 
 mygraph # display graph
@@ -263,8 +263,8 @@ mygraph <- ggplot(
 ) # aesthetics: y=fklngth, x=rdwght
 # plot data points, regression, loess trace
 mygraph <- mygraph +
-  stat_smooth(method = lm, se = FALSE, color = "green") + # add linear regression, but no SE shading
-  stat_smooth(color = "red") + # add loess
+  geom_smooth(method = lm, se = FALSE, color = "green") + # add linear regression, but no SE shading
+  geom_smooth(color = "red") + # add loess
   geom_point() # add data points
 mygraph # display graph
 ```

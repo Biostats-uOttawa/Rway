@@ -209,7 +209,7 @@ Here are the code to do it using base R (@fig-plot5)
 #| eval: false
 ```
 
-One gig advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `stat_smooth()`function to add a statistic layer to the plot.
+One gig advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `geom_smooth()`function to add a statistic layer to the plot.
 
 ```{r}
 #| label: plot5-gg-line
@@ -221,7 +221,7 @@ ggplot(
   mapping = aes(x = weight, y = shootarea)
 ) +
   geom_point() +
-  stat_smooth()
+  geom_smooth()
 ```
 
 ### Histograms
@@ -745,14 +745,14 @@ knitr::include_graphics(path = "images/plot/statistics.png")
 ```
 
 ```{r}
-#| label: stat_smooth-lm
+#| label: geom_smooth-lm
 #| message: false
 #| out-width: 75%
 #| fig-align: center
 ggplot(aes(x = weight, y = shootarea), data = flowers) +
   geom_point() +
-  # using stat_smooth instead of geom_smooth
-  stat_smooth(geom = "smooth", method = "lm", se = FALSE)
+  # using geom_smooth instead of geom_smooth
+  geom_smooth(geom = "smooth", method = "lm", se = FALSE)
 ```
 
 
