@@ -53,7 +53,6 @@ book:
 #          - text: Chemin de l'enf-R
 #            href: https://biostats-uottawa.github.io/enfR
 
-      - auto
   cover-image: images/cover/cover_en.png
   chapters:
     - index.qmd
