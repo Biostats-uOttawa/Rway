@@ -24,6 +24,7 @@ For this lab you need:
 library(ggplot2)
 library(car)
 library(lmtest)
+library(vcd)
 library(vcdExtra)
 ```
 

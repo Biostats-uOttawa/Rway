@@ -379,7 +379,7 @@ There are a couple of things to bear in mind when saving files to import into R 
 Keep your column headings (if you have them) short and informative.
 Also avoid spaces in your column headings by replacing them with an underscore or a dot (i.e.
 replace `mane size` with `mane size` or `mane.size`) and avoid using special characters (i.e.
-`leaf area (mm^2)` or uppercase to simpy your life).
+`leaf area (mm^2)` or uppercase to simply your life).
 Remember, if you have missing data in your data frame (empty cells) you should use an `NA` to represent these missing values or have an empty cell.
 This will keep the data frame tidy.
 

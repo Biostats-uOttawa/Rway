@@ -644,7 +644,7 @@ gg_coplot(unicorns,
 
 It takes a little practice to interpret coplots.
 The number of horn rings is plotted on the y axis and the weight of unicorns on the x axis.
-The six plots show the relationship between these two variables for different ranges of leaf area.
+The six plots show the relationship between these two variables for different ranges of mane size.
 The bar plot at the top indicates the range of mane size values for each of the plots.
 The panels are read from bottom left to top right along each row.
 For example, the bottom left panel shows the relationship between number of horn rings and weight for unicorns with the lowest range of mane size (approximately 5 - 11 cm).
