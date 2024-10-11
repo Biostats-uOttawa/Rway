@@ -94,7 +94,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-758c5ce73771950a3d9b163c2677d9fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -197,11 +197,6 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="https://biostats-uottawa.github.io/bio8940/"> 
 <span class="menu-text">Advanced Biostats (Bio8940)</span></a>
-  </li>  
-  <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">auto</span>
-    </span>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -773,7 +768,7 @@ Sample size per chain = 2500
 <span><span class="va">mer_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.065   0.000   0.065 </code></pre>
+  0.047   0.000   0.047 </code></pre>
 </div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_mer</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -901,7 +896,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mcglm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.400   0.001   1.411 </code></pre>
+  1.058   0.001   1.059 </code></pre>
 </div>
 </div>
 <p>Model is slow and not good. We need more iteration and maybe even a longer burnin, and honestly maybe better priors.</p>
@@ -999,7 +994,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mcglm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 55.712   0.001  55.793 </code></pre>
+ 55.513   0.002  55.569 </code></pre>
 </div>
 </div>
 <p>evaluate model here</p>
@@ -1106,7 +1101,7 @@ attr(,"Probability")
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">brm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 94.069   4.522  83.025 </code></pre>
+ 83.111   4.528  75.310 </code></pre>
 </div>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_brm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1120,19 +1115,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.02     0.27 1.00      967      792
+sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.93     9.07 1.00      897      932
-opp_size         1.05      0.04     0.97     1.13 1.00      952      939
-body_size_sc     0.03      0.04    -0.05     0.11 1.00      879      994
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00      867      925
-block           -0.02      0.07    -0.15     0.12 1.00     1025      995
+Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
+opp_size         1.05      0.04     0.97     1.14 1.00      855      819
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
+assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
+block           -0.02      0.07    -0.14     0.12 1.01      999      973
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.76      0.03     0.71     0.82 1.00     1018     1046
+sigma     0.77      0.03     0.72     0.83 1.01     1039      950
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1246,19 +1241,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.02     0.27 1.00      967      792
+sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.93     9.07 1.00      897      932
-opp_size         1.05      0.04     0.97     1.13 1.00      952      939
-body_size_sc     0.03      0.04    -0.05     0.11 1.00      879      994
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00      867      925
-block           -0.02      0.07    -0.15     0.12 1.00     1025      995
+Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
+opp_size         1.05      0.04     0.97     1.14 1.00      855      819
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
+assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
+block           -0.02      0.07    -0.14     0.12 1.01      999      973
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.76      0.03     0.71     0.82 1.00     1018     1046
+sigma     0.77      0.03     0.72     0.83 1.01     1039      950
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1287,19 +1282,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.02     0.27 1.00      967      792
+sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.93     9.07 1.00      897      932
-opp_size         1.05      0.04     0.97     1.13 1.00      952      939
-body_size_sc     0.03      0.04    -0.05     0.11 1.00      879      994
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00      867      925
-block           -0.02      0.07    -0.15     0.12 1.00     1025      995
+Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
+opp_size         1.05      0.04     0.97     1.14 1.00      855      819
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
+assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
+block           -0.02      0.07    -0.14     0.12 1.01      999      973
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.76      0.03     0.71     0.82 1.00     1018     1046
+sigma     0.77      0.03     0.72     0.83 1.01     1039      950
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
