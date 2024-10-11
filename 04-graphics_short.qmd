@@ -30,7 +30,7 @@ The flip side to this flexibility is that you'll often need to make many decisio
 Having said that, it's generally very quick and easy to generate simple exploratory plots with base R graphics.
 
 
-The lattice system is implemented in the `lattice()` package that comes pre-installed with the standard installation of R.
+The lattice system is implemented in the `lattice` :package: package that comes pre-installed with the standard installation of R.
 However, it won't be loaded by default so you'll first need to use `library(lattice)` to access all the plotting functions.
 Unlike base R graphics, lattice plots are mostly generated all in one go using a single function so there's no need to use high and low level plotting functions to customise the look of a plot.
 This can be a real advantage as things like margin sizes and plot spacing are adjusted automatically.
@@ -49,7 +49,7 @@ layers) and produce a tailor-made figure fit for their specific needs.
 ![The Grammar of Graphics. Visual by Thomas de Beus](images/plot/graph-grammar.png){fig-align="center" #fig-ggplot-str}
 
 Each of these systems have their strengths and weaknesses and we often use them interchangeably.
-In this Chapter we'll introduce you to the both base R plotting function and the`ggplot2` package.
+In this Chapter we'll introduce you to the both base R plotting function and the`ggplot2` :package: package.
 It's important to note that `ggplot2` is not **required** to make "fancy" and informative figures in R.
 If you prefer using base R graphics then feel free to continue as almost all `ggplot2` type figures can be created using base R (we often use either approach depending on what we're doing).
 The difference between`ggplot2` and base R is how you *get* to the end product rather than any substantial differences in the end product itself.
@@ -215,7 +215,7 @@ Here are the code to do it using base R (@fig-plot5)
 #| eval: false
 ```
 
-One big advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `stat_smooth()`function to add a statistic layer to the plot.
+One big advantage of `ggplot` for simple scatterplot is the ease with which we can add a regression, smoother (loes or gam) line to the plot using `geom_smooth()`function to add a statistic layer to the plot.
 
 ```{r}
 #| label: plot5-gg-line
@@ -227,7 +227,7 @@ ggplot(
   mapping = aes(x = weight, y = fluffyness)
 ) +
   geom_point() +
-  stat_smooth()
+  geom_smooth()
 ```
 
 ### Histograms
@@ -451,7 +451,7 @@ This plot looks much better in ggplot with the use of facet_grid allowing to mak
 ### Violin plots
 
 Violin plots are like a combination of a boxplot and a kernel density plot (you saw an example of a kernel density plot in the histogram section above) all rolled into one figure.
-We can create a violin plot in R using the `vioplot()` function from the `vioplot` package.
+We can create a violin plot in R using the `vioplot()` function from the `vioplot` :package: package.
 You'll need to first install this package using `install.packages('vioplot')` function as usual.
 The nice thing about the `vioplot()` function is that you use it in pretty much the same way you would use the `boxplot()` function.
 We'll also use the argument `col = "lightblue"` to change the fill colour to light blue.
@@ -569,7 +569,7 @@ We interpret the rest of the rows in the same way with the last row displaying t
 Hopefully you'll notice that the plots below the diagonal are the same plots as those above the diagonal just with the axis reversed.
 
 
-To do pairs plot with ggplot, you nee the `ggpairs()`function from `GGally`package.
+To do pairs plot with ggplot, you nee the `ggpairs()`function from `GGally` :package: package.
 The output is quite similar but you have only the lower part of the matrix of plots, you get a density plot on the diagonal and the correlations on the upper part of the plot.
 
 
@@ -624,7 +624,7 @@ When examining the relationship between two numeric variables, it is often usefu
 A really handy plot to use in these situations is a conditioning plot (also known as conditional scatterplot plot) which we can create in R by using the `coplot()` function.
 The `coplot()` function plots two variables but each plot is conditioned (`|`) by a third variable.
 This third variable can be either numeric or a factor.
-As an example, let's look at how the relationship between the number of unicorns (`unicorns` variable) and the `weight` of unicorns changes dependent on `mane_size`.
+As an example, let's look at how the relationship between the number of horn rings (`horn_rings` variable) and the `weight` of unicorns changes dependent on `mane_size`.
 Note the `coplot()` function has a `data =` argument so no need to use the `$` notation.
 
 ```{r}
@@ -643,21 +643,21 @@ gg_coplot(unicorns,
 ```
 
 It takes a little practice to interpret coplots.
-The number of unicorns is plotted on the y axis and the weight of unicorns on the x axis.
+The number of horn rings is plotted on the y axis and the weight of unicorns on the x axis.
 The six plots show the relationship between these two variables for different ranges of leaf area.
-The bar plot at the top indicates the range of leaf area values for each of the plots.
+The bar plot at the top indicates the range of mane size values for each of the plots.
 The panels are read from bottom left to top right along each row.
-For example, the bottom left panel shows the relationship between number of unicorns and weight for unicorns with the lowest range of leaf area values (approximately 5 - 11 cm^2^).
-The top right plot shows the relationship between unicorns and weight for unicorns with a leaf area ranging from approximately 16 - 50 cm^2^.
-Notice that the range of values for leaf area differs between panels and that the ranges overlap from panel to panel.
+For example, the bottom left panel shows the relationship between number of horn rings and weight for unicorns with the lowest range of mane size (approximately 5 - 11 cm).
+The top right plot shows the relationship between horn ring and weight for unicorns with a mane size ranging from approximately 16 - 50 cm.
+Notice that the range of values for mane size differs between panels and that the ranges overlap from panel to panel.
 The `coplot()` function does it's best to split the data up to ensure there are an adequate number of data points in each panel.
 If you don't want to produce plots with overlapping data in the panel you can set the `overlap =` argument to `overlap = 0` 
 
 
 You can also use the `coplot()` function with factor conditioning variables.
 With `gg_coplot()` you need to first set the factor as numeric before plotting and specify `overlap=0`.
-For example, we can examine the relationship between `unicorns` and `weight` variables conditioned on the factor `food`.
-The bottom left plot is the relationship between `unicorns` and `weight` for those unicorns in the `low` food treatment.
+For example, we can examine the relationship between `horn_rings` and `weight` variables conditioned on the factor `food`.
+The bottom left plot is the relationship between `horn_rings` and `weight` for those unicorns in the `low` food treatment.
 The top left plot shows the same relationship but for unicorns in the `high` food treatment.
 
 ```{r}
@@ -721,7 +721,7 @@ Once you've finished making your plots don't forget to reset your plotting devic
 
 ### ggplot
 Using ggplot in addition to the facet_grid() and facet_wrap functions allowing to easily repeat and organise multiple plots as a function of specific variables, there are multiple way of organising multiple ggplot together.
-The approach we recommend is using the package `patchwork`.
+The approach we recommend is using the `patchwork` :package: package.
 
 First you will need to install (if you don't have it yet) and make the `patchwork` :package: package available.
 
@@ -743,7 +743,7 @@ library(patchwork)
 ```
 
 An important note: For those who have used base R to produce their figures and are familiar with using `par(mfrow = c(2,2))` (which allows plotting of four figures in two rows and two columns) be aware that this does not work for `ggplot2` objects.
-Instead you will need to use either the `patchwork` package or alternative packages such as `gridArrange` or `cowplot` or covert the `ggplot2` objects to grobs.
+Instead you will need to use either the `patchwork` :package: package or alternative packages such as `gridArrange` :package: or `cowplot` :package: or covert the `ggplot2` objects to grobs.
 
 To plot both of the plots together we need to assign each figure to a separate object and then use these objects when we use `patchwork`.
 
