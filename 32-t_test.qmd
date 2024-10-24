@@ -12,7 +12,7 @@ samples.
 
 For this la b you need:
 
-* R packages:
+* R :package:
   * car
   * lmtest
   * boot
@@ -20,6 +20,7 @@ For this la b you need:
   * ggplot2
   * performance
   * lmPerm
+  * pwr
 * data:
   * sturgeon.csv
   * skulldat_2020.csv
@@ -372,16 +373,15 @@ Note that instead of rerunning the t-test specifying a one-tailed test, you can:
 
 :::
 
-To estimate the power of a paired t-test in R, we can use the function `power.t.test()`as for other t-tests but we need to specify the argument `type = "paired"`.
-You need to specify the mean diference within the pairs as the `delta`and standard deviance of difference within pairs as `sd`.
+To estimate the power of a paired t-test in R, we can use the function `pwr.t.test()`as for other t-tests but we need to specify the argument `type = "paired"`.
+To calculate cohen's d for a paired t-test you need to use the formula $d = mean(\text{difference}) / sd(\text{difference})$ 
 
 ```{r}
 #| label: tpaired-pow
 skull_w$diff <- skull_w$width6 - skull_w$width5
-power.t.test(
+pwr.t.test(
   n = 15,
-  delta = mean(skull_w$diff),
-  sd = sd(skull_w$diff),
+  d = mean(skull_w$diff) / sd(skull_w$diff),
   type = "paired")
 ```
 
