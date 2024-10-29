@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.9">
+<meta name="generator" content="quarto-1.6.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Julien Martin">
 <meta name="description" content="Early version needed to be severely updated/modified">
@@ -90,11 +90,11 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -768,7 +768,7 @@ Sample size per chain = 2500
 <span><span class="va">mer_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.047   0.000   0.047 </code></pre>
+  0.054   0.000   0.054 </code></pre>
 </div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_mer</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -896,7 +896,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mcglm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.058   0.001   1.059 </code></pre>
+  1.482   0.000   1.487 </code></pre>
 </div>
 </div>
 <p>Model is slow and not good. We need more iteration and maybe even a longer burnin, and honestly maybe better priors.</p>
@@ -994,7 +994,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mcglm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 55.513   0.002  55.569 </code></pre>
+ 55.684   0.005  55.837 </code></pre>
 </div>
 </div>
 <p>evaluate model here</p>
@@ -1101,7 +1101,7 @@ attr(,"Probability")
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">brm_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 83.111   4.528  75.310 </code></pre>
+ 99.880   4.935  86.859 </code></pre>
 </div>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_brm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1115,19 +1115,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
+sd(Intercept)     0.14      0.07     0.01     0.27 1.00      984      914
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
-opp_size         1.05      0.04     0.97     1.14 1.00      855      819
-body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
-block           -0.02      0.07    -0.14     0.12 1.01      999      973
+Intercept        9.00      0.04     8.93     9.07 1.00      953      954
+opp_size         1.05      0.04     0.96     1.14 1.00      967      993
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      982      933
+assay_rep_sc    -0.06      0.04    -0.15     0.02 1.00      884      991
+block           -0.02      0.07    -0.16     0.12 1.00     1083      912
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.77      0.03     0.72     0.83 1.01     1039      950
+sigma     0.77      0.03     0.72     0.82 1.00      862      937
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1241,19 +1241,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
+sd(Intercept)     0.14      0.07     0.01     0.27 1.00      984      914
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
-opp_size         1.05      0.04     0.97     1.14 1.00      855      819
-body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
-block           -0.02      0.07    -0.14     0.12 1.01      999      973
+Intercept        9.00      0.04     8.93     9.07 1.00      953      954
+opp_size         1.05      0.04     0.96     1.14 1.00      967      993
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      982      933
+assay_rep_sc    -0.06      0.04    -0.15     0.02 1.00      884      991
+block           -0.02      0.07    -0.16     0.12 1.00     1083      912
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.77      0.03     0.72     0.83 1.01     1039      950
+sigma     0.77      0.03     0.72     0.82 1.00      862      937
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1282,19 +1282,19 @@ Formula: aggression ~ opp_size + body_size_sc + assay_rep_sc + block + (1 | ID)
 Multilevel Hyperparameters:
 ~ID (Number of levels: 80) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.14      0.07     0.01     0.28 1.00     1037      973
+sd(Intercept)     0.14      0.07     0.01     0.27 1.00      984      914
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        9.00      0.04     8.92     9.08 1.00     1005     1024
-opp_size         1.05      0.04     0.97     1.14 1.00      855      819
-body_size_sc     0.03      0.04    -0.04     0.11 1.00      957      938
-assay_rep_sc    -0.06      0.05    -0.15     0.03 1.00     1047     1038
-block           -0.02      0.07    -0.14     0.12 1.01      999      973
+Intercept        9.00      0.04     8.93     9.07 1.00      953      954
+opp_size         1.05      0.04     0.96     1.14 1.00      967      993
+body_size_sc     0.03      0.04    -0.04     0.11 1.00      982      933
+assay_rep_sc    -0.06      0.04    -0.15     0.02 1.00      884      991
+block           -0.02      0.07    -0.16     0.12 1.00     1083      912
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.77      0.03     0.72     0.83 1.01     1039      950
+sigma     0.77      0.03     0.72     0.82 1.00      862      937
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential

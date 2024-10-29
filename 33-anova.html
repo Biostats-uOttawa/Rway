@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.9">
+<meta name="generator" content="quarto-1.6.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Julien Martin">
 <meta name="description" content="Early version needed to be severely updated/modified">
@@ -70,11 +70,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-37bb72f48501692975d9c066fdeb097b.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1ff0208b9405ab0ff3a2d5e39eb7a7a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -472,7 +472,7 @@ window.Quarto = {
   <li>
 <a href="#one-way-anova-with-multiple-comparisons" id="toc-one-way-anova-with-multiple-comparisons" class="nav-link" data-scroll-target="#one-way-anova-with-multiple-comparisons"><span class="header-section-number">11.2</span> One-way ANOVA with multiple comparisons</a>
   <ul class="collapse">
-<li><a href="#visualiser-les-donn%C3%A9es" id="toc-visualiser-les-données" class="nav-link" data-scroll-target="#visualiser-les-donn%C3%A9es"><span class="header-section-number">11.2.1</span> Visualiser les données</a></li>
+<li><a href="#visualize-data" id="toc-visualize-data" class="nav-link" data-scroll-target="#visualize-data"><span class="header-section-number">11.2.1</span> Visualize data</a></li>
   <li><a href="#testing-the-assumptions-of-a-parametric-anova" id="toc-testing-the-assumptions-of-a-parametric-anova" class="nav-link" data-scroll-target="#testing-the-assumptions-of-a-parametric-anova"><span class="header-section-number">11.2.2</span> Testing the assumptions of a parametric ANOVA</a></li>
   <li><a href="#performing-the-anova" id="toc-performing-the-anova" class="nav-link" data-scroll-target="#performing-the-anova"><span class="header-section-number">11.2.3</span> Performing the ANOVA</a></li>
   <li><a href="#performing-multiple-comparisons-of-means-test" id="toc-performing-multiple-comparisons-of-means-test" class="nav-link" data-scroll-target="#performing-multiple-comparisons-of-means-test"><span class="header-section-number">11.2.4</span> Performing multiple comparisons of means test</a></li>
@@ -558,8 +558,8 @@ Attaching package: 'TH.data'</code></pre>
 <span class="header-section-number">11.2</span> One-way ANOVA with multiple comparisons</h2>
 <p>The one-way ANOVA is the multi-group analog of the <em>t</em>-test, which is used to compare two groups/levels. It makes essentially the same assumptions, and in the case of two groups/levels, is in fact mathematically equivalent to the <em>t</em>-test.</p>
 <p>In 1960-1962, the Grand Rapids Dam was built on the Saskatchewan River upstream of Cumberland House. There are anecdotal reports that during dam construction, a number of large sturgeon were stranded and died in shallow pools. Surveys of sturgeon were carried out in 1954, 1958, 1965 and 1966 with fork length (<code>fklngth</code>) and round weight (<code>rdwght</code>) being recorded (not necessarily both measurements for each individual). These data are in the data file <code>Dam10dat.csv</code>.</p>
-<section id="visualiser-les-données" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="visualiser-les-données">
-<span class="header-section-number">11.2.1</span> Visualiser les données</h3>
+<section id="visualize-data" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="visualize-data">
+<span class="header-section-number">11.2.1</span> Visualize data</h3>
 <ul>
 <li>Using <code>Dam10dat.csv</code>, you must first change the data type of the numerical variable year , so that R recognizes that we wish to treat this variable as a factor variable and not a continuous variable.</li>
 </ul>
@@ -690,7 +690,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Double check that the independent variable is a <strong>factor</strong>. If the dependent variable is a <strong>character</strong>, then you will obtain only 3 graphs and an error message like:</p>
+<p>Double check that the independent variable is a <strong>factor</strong>. If the independent variable is a <strong>character</strong>, then you will obtain only 3 graphs and an error message like:</p>
 <p>`hat values (leverages) are all = 0.1</p>
 <p>and there are no factor predictors; no plot no. 5`</p>
 </div>
@@ -914,18 +914,18 @@ Multiple Comparisons of Means: Tukey Contrasts
 
 Fit: aov(formula = fklngth ~ myyear, data = dam10dat)
 
-Quantile = 2.5928
+Quantile = 2.5938
 95% family-wise confidence level
  
 
 Linear Hypotheses:
                    Estimate lwr      upr     
-m1958 - m1954 == 0   0.1872  -3.2703   3.6447
-m1965 - m1954 == 0  -5.5077  -9.9960  -1.0194
-m1966 - m1954 == 0  -3.3127  -6.3423  -0.2831
-m1965 - m1958 == 0  -5.6949 -10.4100  -0.9798
-m1966 - m1958 == 0  -3.4999  -6.8564  -0.1435
-m1966 - m1965 == 0   2.1950  -2.2160   6.6059</code></pre>
+m1958 - m1954 == 0   0.1872  -3.2715   3.6459
+m1965 - m1954 == 0  -5.5077  -9.9975  -1.0178
+m1966 - m1954 == 0  -3.3127  -6.3434  -0.2820
+m1965 - m1958 == 0  -5.6949 -10.4116  -0.9781
+m1966 - m1958 == 0  -3.4999  -6.8575  -0.1423
+m1966 - m1965 == 0   2.1950  -2.2175   6.6075</code></pre>
 </div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">meandiff</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
