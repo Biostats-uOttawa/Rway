@@ -30,7 +30,7 @@ The one-way ANOVA is the multi-group analog of the *t*-test, which is used to co
 
 In 1960-1962, the Grand Rapids Dam was built on the Saskatchewan River upstream of Cumberland House. There are anecdotal reports that during dam construction, a number of large sturgeon were stranded and died in shallow pools. Surveys of sturgeon were carried out in 1954, 1958, 1965 and 1966 with fork length (`fklngth`) and round weight (`rdwght`) being recorded (not necessarily both measurements for each individual). These data are in the data file `Dam10dat.csv`.
 
-### Visualiser les données
+### Visualize data
 - Using `Dam10dat.csv`, you must first change the data type of the
 numerical variable year , so that R recognizes that we wish to treat this
 variable as a factor variable and not a continuous variable.
@@ -110,7 +110,7 @@ plot(anova.model1)
 ```
 
 ::: callout-warning
-Double check that the independent variable is a **factor**. If the dependent variable is a **character**, then you will obtain only 3 graphs and an error message like:
+Double check that the independent variable is a **factor**. If the independent variable is a **character**, then you will obtain only 3 graphs and an error message like:
 
 `hat values (leverages) are all = 0.1
 
