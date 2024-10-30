@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45a233fa884ab858008a68e9e702a3fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -695,7 +695,7 @@ Warning
 <p>and there are no factor predictors; no plot no. 5`</p>
 </div>
 </div>
-<p>D’après les graphiques, on peut douter de la normalité et de l’homogénéité des variances. Judging from the plots, it looks as though there may be problems with both normality and variance heterogeneity. Note that there is one point (case 59) with large expected values and a large residual that appear to lie well off the line: this is the outlier we noted earlier. This point might be expected to inflate the variance for the group it belongs to. Formal tests may also provide some insight as to whether we should be concerned about normality and variance heterogeneity.</p>
+<p>Judging from the plots, it looks as though there may be problems with both normality and variance heterogeneity. Note that there is one point (case 59) with large expected values and a large residual that appear to lie well off the line: this is the outlier we noted earlier. This point might be expected to inflate the variance for the group it belongs to. Formal tests may also provide some insight as to whether we should be concerned about normality and variance heterogeneity.</p>
 <ul>
 <li>Perform a normality test on the residuals from the ANOVA.</li>
 </ul>
@@ -914,18 +914,18 @@ Multiple Comparisons of Means: Tukey Contrasts
 
 Fit: aov(formula = fklngth ~ myyear, data = dam10dat)
 
-Quantile = 2.5938
+Quantile = 2.5939
 95% family-wise confidence level
  
 
 Linear Hypotheses:
                    Estimate lwr      upr     
-m1958 - m1954 == 0   0.1872  -3.2715   3.6459
-m1965 - m1954 == 0  -5.5077  -9.9975  -1.0178
-m1966 - m1954 == 0  -3.3127  -6.3434  -0.2820
-m1965 - m1958 == 0  -5.6949 -10.4116  -0.9781
-m1966 - m1958 == 0  -3.4999  -6.8575  -0.1423
-m1966 - m1965 == 0   2.1950  -2.2175   6.6075</code></pre>
+m1958 - m1954 == 0   0.1872  -3.2717   3.6461
+m1965 - m1954 == 0  -5.5077  -9.9978  -1.0175
+m1966 - m1954 == 0  -3.3127  -6.3435  -0.2819
+m1965 - m1958 == 0  -5.6949 -10.4119  -0.9779
+m1966 - m1958 == 0  -3.4999  -6.8577  -0.1421
+m1966 - m1965 == 0   2.1950  -2.2178   6.6077</code></pre>
 </div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">meandiff</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -936,7 +936,7 @@ m1966 - m1965 == 0   2.1950  -2.2175   6.6075</code></pre>
 </div>
 </div>
 </div>
-<p>This is better. Also useful is a plot the means and their confidence intervals with the Tukey groupings shown as letters above:</p>
+<p>This is better. Also useful is to plot the means and their confidence intervals with the Tukey groupings shown as letters above:</p>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute and plot means and Tukey CI</span></span>
 <span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/multcomp/man/glht.html">glht</a></span><span class="op">(</span></span>
@@ -1105,7 +1105,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span><span class="op">)</span></span>
 <span><span class="co"># end of code chunk for permutation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Version <code>lmPerm</code> du test de permutation.</p>
+<p>Version <code>lmPerm</code> for permutation test.</p>
 <div class="cell">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## lmPerm version of permutation test</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtorchiano/lmPerm">lmPerm</a></span><span class="op">)</span></span>

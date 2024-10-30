@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45a233fa884ab858008a68e9e702a3fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -720,14 +720,14 @@ block        0.000  0.000  0.002  0.000</code></pre>
 <span>  maxiter <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:26:10
+<pre><code>ASReml Version 4.2 11/10/2024 13:35:50
           LogLik        Sigma2     DF     wall
-  1     -109.4261     0.4632316    475   11:26:10
-  2     -105.0501     0.4545934    475   11:26:10
-  3     -101.8142     0.4436619    475   11:26:10
-  4     -100.8141     0.4338731    475   11:26:10
-  5     -100.6827     0.4285963    475   11:26:10
-  6     -100.6821     0.4281695    475   11:26:10</code></pre>
+  1     -109.4261     0.4632316    475   13:35:50
+  2     -105.0501     0.4545934    475   13:35:50
+  3     -101.8142     0.4436619    475   13:35:50
+  4     -100.8141     0.4338731    475   13:35:50
+  5     -100.6827     0.4285963    475   13:35:50
+  6     -100.6821     0.4281695    475   13:35:50</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -751,10 +751,10 @@ block        -0.02168725 0.05973354  -0.3630665</code></pre>
 </div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/asreml/man/wald.html">wald</a></span><span class="op">(</span><span class="va">rr_asr</span>, ssType <span class="op">=</span> <span class="st">"conditional"</span>, denDF <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:26:11
+<pre><code>ASReml Version 4.2 11/10/2024 13:35:51
           LogLik        Sigma2     DF     wall
-  1     -100.6821     0.4281680    475   11:26:11
-  2     -100.6821     0.4281680    475   11:26:11</code></pre>
+  1     -100.6821     0.4281680    475   13:35:51
+  2     -100.6821     0.4281680    475   13:35:51</code></pre>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">wa</span><span class="op">$</span><span class="va">Wald</span>, <span class="st">"heading"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">wa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -805,13 +805,13 @@ units!R                  0.42816954 0.03395320 12.610582     P   0</code></pre>
 <span>  maxiter <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:26:11
+<pre><code>ASReml Version 4.2 11/10/2024 13:35:51
           LogLik        Sigma2     DF     wall
-  1     -132.6114     0.5603527    475   11:26:11
-  2     -132.1061     0.5670427    475   11:26:11
-  3     -131.7956     0.5751571    475   11:26:11
-  4     -131.7426     0.5807624    475   11:26:11
-  5     -131.7425     0.5804802    475   11:26:11</code></pre>
+  1     -132.6114     0.5603527    475   13:35:51
+  2     -132.1061     0.5670427    475   13:35:51
+  3     -131.7956     0.5751571    475   13:35:51
+  4     -131.7426     0.5807624    475   13:35:51
+  5     -131.7425     0.5804802    475   13:35:51</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -838,11 +838,11 @@ cor_is 0.9620736 0.1773965</code></pre>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">pvals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:26:11
+<pre><code>ASReml Version 4.2 11/10/2024 13:35:51
           LogLik        Sigma2     DF     wall
-  1     -100.6821     0.4281680    475   11:26:11
-  2     -100.6821     0.4281680    475   11:26:11
- 3     -100.6821     0.4281680    475   11:26:11</code></pre>
+  1     -100.6821     0.4281680    475   13:35:51
+  2     -100.6821     0.4281680    475   13:35:51
+ 3     -100.6821     0.4281680    475   13:35:51</code></pre>
 </div>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_rr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pred_rr_asr</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">opp_size</span>,</span>
@@ -927,13 +927,13 @@ cor_is 0.9620736 0.1773965</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MCMCglmm/man/posterior.mode.html">posterior.mode</a></span><span class="op">(</span><span class="va">rr_mcmc</span><span class="op">$</span><span class="va">VCV</span><span class="op">[</span>, <span class="st">"opp_size:opp_size.ID"</span><span class="op">]</span><span class="op">)</span> <span class="co"># mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    var1 
-0.184799 </code></pre>
+<pre><code>     var1 
+0.2048307 </code></pre>
 </div>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/coda/man/HPDinterval.html">HPDinterval</a></span><span class="op">(</span><span class="va">rr_mcmc</span><span class="op">$</span><span class="va">VCV</span><span class="op">[</span>, <span class="st">"opp_size:opp_size.ID"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         lower     upper
-var1 0.1148471 0.3068515
+var1 0.1086923 0.2981537
 attr(,"Probability")
 [1] 0.95</code></pre>
 </div>
@@ -945,12 +945,12 @@ attr(,"Probability")
 <span><span class="fu"><a href="https://rdrr.io/pkg/MCMCglmm/man/posterior.mode.html">posterior.mode</a></span><span class="op">(</span><span class="va">rr_cor_mcmc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     var1 
-0.8041845 </code></pre>
+0.8012485 </code></pre>
 </div>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/coda/man/HPDinterval.html">HPDinterval</a></span><span class="op">(</span><span class="va">rr_cor_mcmc</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         lower     upper
-var1 0.5219897 0.9901927
+var1 0.5049909 0.9740276
 attr(,"Probability")
 [1] 0.95</code></pre>
 </div>
@@ -1014,10 +1014,10 @@ argument.</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">MCMCglmm</td>
-<td style="text-align: right;">0.0427603</td>
-<td style="text-align: right;">0.0795246</td>
-<td style="text-align: right;">0.1847990</td>
-<td style="text-align: right;">0.4184368</td>
+<td style="text-align: right;">0.0469764</td>
+<td style="text-align: right;">0.0770914</td>
+<td style="text-align: right;">0.2048307</td>
+<td style="text-align: right;">0.4097766</td>
 </tr>
 </tbody>
 </table>
@@ -1080,15 +1080,15 @@ argument.</code></pre>
 <span>  maxiter <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:28:36
+<pre><code>ASReml Version 4.2 11/10/2024 13:38:14
           LogLik        Sigma2     DF     wall
-  1     -150.1721           1.0    456   11:28:36
-  2     -129.6584           1.0    456   11:28:36
-  3     -110.4540           1.0    456   11:28:36
-  4     -101.8792           1.0    456   11:28:36
-  5     -100.0917           1.0    456   11:28:36
-  6     -100.0545           1.0    456   11:28:36
-  7     -100.0544           1.0    456   11:28:36</code></pre>
+  1     -150.1721           1.0    456   13:38:14
+  2     -129.6584           1.0    456   13:38:14
+  3     -110.4540           1.0    456   13:38:14
+  4     -101.8792           1.0    456   13:38:14
+  5     -100.0917           1.0    456   13:38:14
+  6     -100.0545           1.0    456   13:38:14
+  7     -100.0544           1.0    456   13:38:14</code></pre>
 </div>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">cs_asr</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">cs_asr</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1120,10 +1120,10 @@ argument.</code></pre>
 </div>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/asreml/man/wald.html">wald</a></span><span class="op">(</span><span class="va">cs_asr</span>, ssType <span class="op">=</span> <span class="st">"conditional"</span>, denDF <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:28:37
+<pre><code>ASReml Version 4.2 11/10/2024 13:38:14
           LogLik        Sigma2     DF     wall
-  1     -100.0544           1.0    456   11:28:37
-  2     -100.0544           1.0    456   11:28:37</code></pre>
+  1     -100.0544           1.0    456   13:38:15
+  2     -100.0544           1.0    456   13:38:15</code></pre>
 </div>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">wa</span><span class="op">$</span><span class="va">Wald</span>, <span class="st">"heading"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">wa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1170,15 +1170,15 @@ units:trait!trait_agg_l:agg_l  0.405942147 0.06679700</code></pre>
 <span>  maxiter <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:28:37
+<pre><code>ASReml Version 4.2 11/10/2024 13:38:15
           LogLik        Sigma2     DF     wall
-  1     -147.0682           1.0    456   11:28:37
-  2     -131.2680           1.0    456   11:28:37
-  3     -116.9080           1.0    456   11:28:37
-  4     -110.9955           1.0    456   11:28:37
-  5     -109.9048           1.0    456   11:28:37
-  6     -109.8659           1.0    456   11:28:37
-  7     -109.8626           1.0    456   11:28:37</code></pre>
+  1     -147.0682           1.0    456   13:38:15
+  2     -131.2680           1.0    456   13:38:15
+  3     -116.9080           1.0    456   13:38:15
+  4     -110.9955           1.0    456   13:38:15
+  5     -109.9048           1.0    456   13:38:15
+  6     -109.8659           1.0    456   13:38:15
+  7     -109.8626           1.0    456   13:38:15</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1244,34 +1244,34 @@ prop_L 0.4350067 0.09498512</code></pre>
 <span>maxiter <span class="op">=</span> <span class="fl">500</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:28:37
+<pre><code>ASReml Version 4.2 11/10/2024 13:38:15
           LogLik        Sigma2     DF     wall
-  1     -228.0158           1.0    456   11:28:37  (  3 restrained)
-  2     -150.0138           1.0    456   11:28:37
-  3     -129.5803           1.0    456   11:28:37
-  4     -119.9924           1.0    456   11:28:37  (  1 restrained)
-  5     -116.9067           1.0    456   11:28:37  (  1 restrained)
-  6     -115.7721           1.0    456   11:28:37
-  7     -115.6466           1.0    456   11:28:37
-  8     -115.5882           1.0    456   11:28:37
-  9     -115.5334           1.0    456   11:28:37
- 10     -115.4795           1.0    456   11:28:37
- 11     -115.4273           1.0    456   11:28:37
- 12     -115.3777           1.0    456   11:28:37
- 13     -115.3314           1.0    456   11:28:37
- 14     -115.2892           1.0    456   11:28:37
- 15     -115.2511           1.0    456   11:28:37
- 16     -115.2174           1.0    456   11:28:37
- 17     -115.1879           1.0    456   11:28:37
- 18     -115.1624           1.0    456   11:28:37
- 19     -115.1406           1.0    456   11:28:37
- 20     -115.1221           1.0    456   11:28:37
- 21     -115.1065           1.0    456   11:28:37
- 22     -115.0934           1.0    456   11:28:37
- 23     -115.0825           1.0    456   11:28:37
- 24     -115.0731           1.0    456   11:28:37  (  1 restrained)
- 25     -115.0640           1.0    456   11:28:37
- 26     -115.0637           1.0    456   11:28:37</code></pre>
+  1     -228.0158           1.0    456   13:38:15  (  3 restrained)
+  2     -150.0138           1.0    456   13:38:15
+  3     -129.5803           1.0    456   13:38:15
+  4     -119.9924           1.0    456   13:38:15  (  1 restrained)
+  5     -116.9067           1.0    456   13:38:15  (  1 restrained)
+  6     -115.7721           1.0    456   13:38:15
+  7     -115.6466           1.0    456   13:38:15
+  8     -115.5882           1.0    456   13:38:15
+  9     -115.5334           1.0    456   13:38:15
+ 10     -115.4795           1.0    456   13:38:15
+ 11     -115.4273           1.0    456   13:38:15
+ 12     -115.3777           1.0    456   13:38:15
+ 13     -115.3314           1.0    456   13:38:15
+ 14     -115.2892           1.0    456   13:38:15
+ 15     -115.2511           1.0    456   13:38:15
+ 16     -115.2174           1.0    456   13:38:15
+ 17     -115.1879           1.0    456   13:38:15
+ 18     -115.1624           1.0    456   13:38:15
+ 19     -115.1406           1.0    456   13:38:15
+ 20     -115.1221           1.0    456   13:38:15
+ 21     -115.1065           1.0    456   13:38:15
+ 22     -115.0934           1.0    456   13:38:15
+ 23     -115.0825           1.0    456   13:38:15
+ 24     -115.0731           1.0    456   13:38:15  (  1 restrained)
+ 25     -115.0640           1.0    456   13:38:15
+ 26     -115.0637           1.0    456   13:38:15</code></pre>
 </div>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">cs_asr</span><span class="op">$</span><span class="va">loglik</span> <span class="op">-</span> <span class="va">cs_asr_cor1_tri</span><span class="op">$</span><span class="va">loglik</span><span class="op">)</span>,</span>
 <span>  <span class="fl">3</span>,</span>
@@ -1286,11 +1286,11 @@ prop_L 0.4350067 0.09498512</code></pre>
 <span>  classify <span class="op">=</span> <span class="st">"trait:ID"</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">pvals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ASReml Version 4.2 29/10/2024 11:28:37
+<pre><code>ASReml Version 4.2 11/10/2024 13:38:15
           LogLik        Sigma2     DF     wall
-  1     -100.0544           1.0    456   11:28:37
-  2     -100.0544           1.0    456   11:28:37
- 3     -100.0544           1.0    456   11:28:37</code></pre>
+  1     -100.0544           1.0    456   13:38:15
+  2     -100.0544           1.0    456   13:38:15
+ 3     -100.0544           1.0    456   13:38:15</code></pre>
 </div>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Add numeric variable for easier plotting</span></span>
 <span><span class="co"># of opponent size</span></span>

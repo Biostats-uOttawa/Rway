@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45a233fa884ab858008a68e9e702a3fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -1763,15 +1763,15 @@ logarea:swamp  -0.0030067733  0.0038991294</code></pre>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.01</span>, <span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="fl">0.975</span>, <span class="fl">0.99</span>, <span class="fl">0.995</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">tmyresults</span>, <span class="fl">2</span>, <span class="va">quantile</span>, <span class="va">p</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      (Intercept)   logarea       thtden      swamp    I(swamp^2)
-0.5%  -0.71934900 0.1342833 -0.046811367 0.01622961 -0.0003432001
-1%    -0.70344650 0.1502626 -0.045329024 0.01762139 -0.0003377163
-2.5%  -0.66853722 0.1578516 -0.042024805 0.01941346 -0.0003273277
-5%    -0.61855763 0.1681211 -0.038906808 0.02138489 -0.0003148452
-95%   -0.07379090 0.2852363 -0.011863890 0.03770818 -0.0001831807
-97.5% -0.02675252 0.2954280 -0.008388822 0.03912383 -0.0001694356
-99%    0.04112806 0.3031855 -0.006218956 0.04050573 -0.0001573933
-99.5%  0.06539798 0.3094900 -0.004222033 0.04142727 -0.0001380675</code></pre>
+<pre><code>       (Intercept)   logarea       thtden      swamp    I(swamp^2)
+0.5%  -0.703337469 0.1372880 -0.045562085 0.01704499 -0.0003491593
+1%    -0.682330238 0.1437596 -0.044178131 0.01765760 -0.0003417409
+2.5%  -0.634774104 0.1552722 -0.040448896 0.01992423 -0.0003262314
+5%    -0.598948564 0.1692405 -0.038330203 0.02156104 -0.0003135141
+95%   -0.097107227 0.2829351 -0.011854745 0.03770433 -0.0001839501
+97.5% -0.064126662 0.2931585 -0.010018307 0.03946455 -0.0001712404
+99%   -0.007850978 0.3021190 -0.007672276 0.04064188 -0.0001547049
+99.5%  0.031935680 0.3061687 -0.004818113 0.04145426 -0.0001500559</code></pre>
 </div>
 </div>
 <p>These confidence limits are not reliable when the distribution of the bootstrap estimates deviate from Gaussian. If they do,, then it is preferable to compute so-called bias-corrected accelerated (BCa) confidence limits. The following code does just that:</p>
@@ -1821,7 +1821,7 @@ boot.ci(boot.out = results, type = "bca", index = 2)
 
 Intervals : 
 Level       BCa          
-95%   ( 0.1146,  0.3253 )  
+95%   ( 0.1185,  0.3176 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 <div class="cell-output-display">

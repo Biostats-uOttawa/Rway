@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45a233fa884ab858008a68e9e702a3fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -1389,9 +1389,9 @@ boot(data = sturgeon.male, statistic = bs, R = 1000, formula = log10(fklngth) ~
 
 
 Bootstrap Statistics :
-     original       bias    std. error
-t1* 1.1919926  0.001552823  0.03331517
-t2* 0.3408557 -0.001123269  0.02628598</code></pre>
+     original        bias    std. error
+t1* 1.1919926  1.654955e-04  0.03309166
+t2* 0.3408557 -3.930302e-06  0.02623126</code></pre>
 </div>
 </div>
 <p>For each parameter in the model (here the intercept is labeled <code>t1\*</code> and the slope of the regression line is labeled <code>t2\*</code>) , you obtain:</p>
@@ -1446,10 +1446,10 @@ boot.ci(boot.out = results, type = "all", index = 1)
 
 Intervals : 
 Level      Normal              Basic         
-95%   ( 1.125,  1.256 )   ( 1.124,  1.255 )  
+95%   ( 1.127,  1.257 )   ( 1.127,  1.258 )  
 
 Level     Percentile            BCa          
-95%   ( 1.129,  1.260 )   ( 1.115,  1.250 )  
+95%   ( 1.126,  1.257 )   ( 1.115,  1.249 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -1469,10 +1469,10 @@ boot.ci(boot.out = results, type = "all", index = 2)
 
 Intervals : 
 Level      Normal              Basic         
-95%   ( 0.2905,  0.3935 )   ( 0.2911,  0.3945 )  
+95%   ( 0.2894,  0.3923 )   ( 0.2881,  0.3928 )  
 
 Level     Percentile            BCa          
-95%   ( 0.2872,  0.3906 )   ( 0.2943,  0.3996 )  
+95%   ( 0.2889,  0.3936 )   ( 0.2948,  0.3999 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>

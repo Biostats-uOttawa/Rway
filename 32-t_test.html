@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c0dc7ac2c5723ded4848ec98b3ba37c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45a233fa884ab858008a68e9e702a3fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -676,7 +676,7 @@ mean in group CUMBERLAND    mean in group THE_PAS
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># test non paramétrique</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># non-parametric test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span></span>
 <span>  <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
@@ -784,9 +784,9 @@ boot(data = sturgeon, statistic = bs, R = 1000, formula = fklngth ~
 
 
 Bootstrap Statistics :
-     original      bias    std. error
-t1* 45.084391 -0.01982541   0.4236442
-t2* -1.714546  0.02922569   0.7776647</code></pre>
+     original     bias    std. error
+t1* 45.084391 0.02873041   0.4171107
+t2* -1.714546 0.01729415   0.7842493</code></pre>
 </div>
 </div>
 <p>So we get the original estimates for the two coefficients in this model: the mean at the first (alphabetical) location, Cumberland, and the difference in means between Cumberland and The Pas ). It is the second parameter, the difference between means, which is of interest here.</p>
@@ -811,7 +811,7 @@ boot.ci(boot.out = results, type = "bca", index = 2)
 
 Intervals : 
 Level       BCa          
-95%   (-3.436, -0.315 )  
+95%   (-3.372, -0.246 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -843,7 +843,7 @@ Residuals:
 
 Coefficients:
           Estimate Iter Pr(Prob)  
-location1   0.8573 2825   0.0343 *
+location1   0.8573 5000   0.0128 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -854,9 +854,9 @@ F-statistic: 4.562 on 1 and 184 DF,  p-value: 0.03401 </code></pre>
 </div>
 <ol type="1">
 <li>
-<code>Iter</code> coefficient: the Prob stopping rule stopped after 2825 iterations. Note that this number will vary each time you run this snippet of code. These are random permutation results, so expect variability.</li>
+<code>Iter</code> coefficient: the Prob stopping rule stopped after 5000 iterations. Note that this number will vary each time you run this snippet of code. These are random permutation results, so expect variability.</li>
 <li>
-<code>Pr(Prob)</code> coefficient: The estimated probability associated to H0 is 0.0343 . The observed difference in fklngth between the two locations was larger than the permuted differences in about (1 - 0.0343= about 96.6%) of the 2825 cases. Mind you, 2825 permutations is not a large number, so small p values can’t be expected to be very precise. If it is critical that you get more precise p values, more permutations would be needed. Two parameters can be tweaked: maxIter, the maximum number of iterations (default=5000), and Ca, that stops iterations when estimated standard error of the estimated p is less than Ca*p.&nbsp;Default 0.1.</li>
+<code>Pr(Prob)</code> coefficient: The estimated probability associated to H0 is 0.0128 . The observed difference in fklngth between the two locations was larger than the permuted differences in about (1 - 0.0128= about 98.7%) of the 5000 cases. Mind you, 5000 permutations is not a large number, so small p values can’t be expected to be very precise. If it is critical that you get more precise p values, more permutations would be needed. Two parameters can be tweaked: maxIter, the maximum number of iterations (default=5000), and Ca, that stops iterations when estimated standard error of the estimated p is less than Ca*p.&nbsp;Default 0.1.</li>
 <li>
 <code>F-statistic</code>: The rest is the standard output for the model fitted to the data, with the standard parametric test. Here the p-value, assuming all assumptions are met, is 0.034.</li>
 </ol></section></section><section id="comparing-the-means-of-paired-samples" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="comparing-the-means-of-paired-samples">
