@@ -117,7 +117,7 @@ Double check that the independent variable is a **factor**. If the independent v
  and there are no factor predictors; no plot no. 5`
 :::
 
-D’après les graphiques, on peut douter de la normalité et de l’homogénéité des variances. Judging from the plots, it looks as though there may be problems with both normality and variance heterogeneity. Note that there is one point (case 59) with large expected values and a large residual that appear to lie well off the line: this is the outlier we noted earlier. This point might be expected to inflate the variance for the group it belongs to. Formal tests may also provide some insight as to whether we should be concerned about normality and variance heterogeneity. 
+ Judging from the plots, it looks as though there may be problems with both normality and variance heterogeneity. Note that there is one point (case 59) with large expected values and a large residual that appear to lie well off the line: this is the outlier we noted earlier. This point might be expected to inflate the variance for the group it belongs to. Formal tests may also provide some insight as to whether we should be concerned about normality and variance heterogeneity. 
 
 - Perform a normality test on the residuals from the ANOVA.
 
@@ -235,7 +235,7 @@ par(mar = c(5, 7, 2, 1))
 plot(meandiff)
 ```
 
-This is better. Also useful is a plot the means and their confidence intervals with the Tukey groupings shown as letters above:
+This is better. Also useful is to plot the means and their confidence intervals with the Tukey groupings shown as letters above:
 
 ```{r}
 #| label: ano-15
@@ -381,7 +381,7 @@ cat(
 # end of code chunk for permutation
 ```
 
-Version `lmPerm` du test de permutation.
+Version `lmPerm` for permutation test.
 
 ```{r}
 #| label: ano-24
