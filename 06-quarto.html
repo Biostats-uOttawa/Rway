@@ -832,7 +832,7 @@ Figure&nbsp;6.4: A new Quarto document
 </div>
 </div>
 <p>Once you’ve created your Quarto document it’s good practice to save this file somewhere convenient (<a href="01-start.html#sec-dir-struc" class="quarto-xref"><span>Section 1.4</span></a> and <a href="01-start.html#fig-dir-struc" class="quarto-xref">Figure&nbsp;<span>1.11</span></a>). You can do this by selecting <code>File</code> -&gt; <code>Save</code> from RStudio menu (or use the keyboard shortcut ctrl + s on Windows or cmd + s on a Mac) and enter an appropriate file name (maybe call it <code>my_first_quarto</code>). Notice the file extension of your new Quarto file is <code>.qmd</code>.</p>
-<p>Now, to convert your <code>.qmd</code> file to a HTML document click on the little black triangle next to the <code>Knit</code> icon at the top of the source window and select <code>render to HTML</code></p>
+<p>Now, to convert your <code>.qmd</code> file to a HTML document click on the little black triangle next to the <code>Render</code> icon at the top of the source window and select <code>render to HTML</code></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-knit-qmd" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -859,7 +859,7 @@ Figure&nbsp;6.6: A my first rendered html
 </div>
 </div>
 </div>
-<p>Great, you’ve just rendered your first Quarto document. If you want to render your <code>.qmd</code> file to a pdf document then all you need to do is choose <code>render to PDF</code> instead of <code>render to HTML</code> when you click on the <code>knit</code> icon. This will create a file called <code>my_first_quarto.pdf</code> which you can double click to open. Give it a go!</p>
+<p>Great, you’ve just rendered your first Quarto document. If you want to render your <code>.qmd</code> file to a pdf document then all you need to do is choose <code>render to PDF</code> instead of <code>render to HTML</code> when you click on the <code>Render</code> icon. This will create a file called <code>my_first_quarto.pdf</code> which you can double click to open. Give it a go!</p>
 <p>You can also render a <code>.qmd</code> file using the command line in the console rather than by clicking on the render icon. To do this, just use the <code><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_render.html">quarto_render()</a></code> function from the <code>quarto</code> <span class="emoji" data-emoji="package">📦</span> package as shown below. Again, you can change the output format using the <code>output_format =</code> argument as well as many other options.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r">quarto</a></span><span class="op">)</span></span>
 <span></span>
