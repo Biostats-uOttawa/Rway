@@ -706,7 +706,7 @@ knitr::include_graphics(path = "images/github/mod1.png")
 ```
 
 
-Now save these changes and then click the `knit` button to render to pdf.
+Now save these changes and then click the `Render` button to render to pdf.
 A new pdf file named `first_doc.pdf` will be created which you can view by clicking on the file name in the `Files` tab in RStudio.
  
 

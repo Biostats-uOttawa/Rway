@@ -19,3 +19,5 @@ book_plan.html
 
 /.luarc.json
 node_modules/
+
+**/*.quarto_ipynb

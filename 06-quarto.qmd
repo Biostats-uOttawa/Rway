@@ -167,7 +167,7 @@ You can do this by selecting `File` -> `Save` from RStudio menu (or use the keyb
 Notice the file extension of your new Quarto file is `.qmd`.
  
 
-Now, to convert your `.qmd` file to a HTML document click on the little black triangle next to the `Knit` icon at the top of the source window and select `render to HTML`  
+Now, to convert your `.qmd` file to a HTML document click on the little black triangle next to the `Render` icon at the top of the source window and select `render to HTML`  
 
  
 
@@ -203,7 +203,7 @@ include_graphics("images/markdown/html_rendered.png")
  
 
 Great, you've just rendered your first Quarto document.
-If you want to render your `.qmd` file to a pdf document then all you need to do is choose `render to PDF` instead of `render to HTML` when you click on the `knit` icon.
+If you want to render your `.qmd` file to a pdf document then all you need to do is choose `render to PDF` instead of `render to HTML` when you click on the `Render` icon.
 This will create a file called `my_first_quarto.pdf` which you can double click to open.
 Give it a go!
 
