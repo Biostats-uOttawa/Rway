@@ -1231,7 +1231,7 @@ usethis::git_vaccinate()
 
 **6)** Create a new commit including the new file and push it to github (Check on github that it works).
 
-**7)** Edit the file. Delete everything after line 12. Add a new section title, simple text and text in bold font. Then knit and compile.
+**7)** Edit the file. Delete everything after line 12. Add a new section title, simple text and text in bold font. Then render and compile.
 
 **8)** Make a new commit (with a meaningful message), and push to github.
 

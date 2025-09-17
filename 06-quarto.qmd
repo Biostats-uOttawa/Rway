@@ -167,7 +167,7 @@ You can do this by selecting `File` -> `Save` from RStudio menu (or use the keyb
 Notice the file extension of your new Quarto file is `.qmd`.
  
 
-Now, to convert your `.qmd` file to a HTML document click on the little black triangle next to the `Knit` icon at the top of the source window and select `knit to HTML`  
+Now, to convert your `.qmd` file to a HTML document click on the little black triangle next to the `Knit` icon at the top of the source window and select `render to HTML`  
 
  
 
@@ -203,11 +203,11 @@ include_graphics("images/markdown/html_rendered.png")
  
 
 Great, you've just rendered your first Quarto document.
-If you want to knit your `.qmd` file to a pdf document then all you need to do is choose `knit to PDF` instead of `knit to HTML` when you click on the `knit` icon.
+If you want to render your `.qmd` file to a pdf document then all you need to do is choose `render to PDF` instead of `render to HTML` when you click on the `knit` icon.
 This will create a file called `my_first_quarto.pdf` which you can double click to open.
 Give it a go!
 
-You can also knit an `.qmd` file using the command line in the console rather than by clicking on the knit icon.
+You can also render a `.qmd` file using the command line in the console rather than by clicking on the render icon.
 To do this, just use the `quarto_render()` function from the  `quarto` :package: package as shown below.
 Again, you can change the output format using the `output_format =` argument as well as many other options.
 
@@ -543,7 +543,7 @@ summary(dataf)
 ggplot(dataf, aes(x = x, y = y)) + geom_point()
 ```
 
-When using chunk names make sure that you don't have duplicate chunk names in your Quarto document and avoid spaces and full stops as this will cause problems when you come to knit your document (We use a `-` to separate words in our chunk names).
+When using chunk names make sure that you don't have duplicate chunk names in your Quarto document and avoid spaces and full stops as this will cause problems when you come to render your document (We use a `-` to separate words in our chunk names).
 
 If we wanted to only display the output of our R code (just the summary statistics for example) and not the code itself in our final document we can use the chunk option `echo=FALSE`
 
