@@ -22,7 +22,7 @@ analysis using G\*Power
 
 ## R packages and data {#set-lm}
 
-For this la b you need:
+For this lab you need:
 
 * R packages:
   * car
