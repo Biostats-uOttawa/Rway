@@ -40,10 +40,10 @@ Anyway, the main point is that R markdown is very easy to learn (much, much easi
 Quarto is a multi-language, next generation version of R Markdown from Posit, with many new features and capabilities and is compatible not only with R but also with other language like Python and Julia.
 Like R Markdown, Quarto uses `knitr` :package: package to execute R code, and is therefore able to render most existing **.Rmd** files without modification.
 However, it also comes with a plethora of new functionalities.
-More importantly, it makes it much easier to create different type of output since the coding is homogenize for specific format without having to rely on different r packages each with there own specificity (*e.g* bookdown, hugodown, blogdown, thesisdown, rticles, xaringan, ...).
+More importantly, it makes it much easier to create different type of output since the coding is homogenized for a specific format without having to rely on different r packages, each with there own specificity (*e.g.,* bookdown, hugodown, blogdown, thesisdown, rticles, xaringan, ...).
 
 In the rest of this chapter, we will talk about Quarto but a lot can be done with R markdown.
-Quarto uses `.qmd` files while R markdown works with `.Rmd` but Quarto can render `.Rmd` files too.
+Quarto uses `.qmd` files while R markdown works with `.Rmd`, but Quarto can render `.Rmd` files too.
 
 ## Why use Quarto?
 
@@ -51,7 +51,7 @@ During the previous Chapters we talked a lot about conducting your research in a
 In a nutshell, open science is about doing all we can to make our data, methods, results and inferences transparent and available to everyone.
 Some of the main tenets of open science are described [here][open-sci2] and include:
 
-- Transparency in experimental methodology, observation, collection of data and analytical methods.
+- Transparency in experimental methodology, observation, collection of data and analytical methods
 - Public availability and re-usability of scientific data
 - Public accessibility and transparency of scientific communication
 - Using web-based tools to facilitate scientific collaboration
@@ -70,13 +70,13 @@ include_graphics("images/markdown/workflow1.png")
 ```
 
 Your data is imported from your favourite spreadsheet software into R, you write your R code to explore and analyse your data, you save plots as external files, copy tables of analysis output and then manually combine all of this and your written prose into a single MS Word document (maybe for a paper or thesis chapter).
-Whilst there is nothing particularly wrong with this approach (and it's certainly better than using point and click software to analyse your data) there are some limitations:
+Whilst there is nothing particularly wrong with this approach (and it's certainly better than using point and click software to analyse your data), there are some limitations:
 
 - It's not particularly reproducible.
 Because this workflow separates your R code from the final document there are multiple opportunities for undocumented decisions to be made (which plots did you use? what analysis did/didn't you include? etc).
 
 - It's inefficient.
-If you need to go back and change something (create a new plot or update your analysis etc) you will need to create or amend multiple documents increasing the risk of mistakes creeping into your workflow.
+If you need to go back and change something (create a new plot or update your analysis etc) you will need to create or amend multiple documents, increasing the risk of mistakes creeping into your workflow.
 
 - It's difficult to maintain.
 If your analysis changes you again need to update multiple files and documents.
@@ -97,16 +97,16 @@ include_graphics("images/markdown/workflow2.png")
 ```
 
 
-Your data is imported into R as before but this time all of the R code you used to analyse your data, produce your plots and your written text (Introduction, Materials and Methods, Discussion etc) is contained within a single Quarto document which is then used (along with your data) to automatically create your final document.
+Your data is imported into R, as before, but this time all of the R code you used to analyse your data, and to produce your plots and your written text (Introduction, Materials and Methods, Discussion etc) is contained within a single Quarto document which is then used (along with your data) to automatically create your final document.
 This is exactly what Quarto allows you to do.
 
 Some of the advantages of using Quarto include: 
 
-- Explicitly links your data with your R code and output creating a fully reproducible workflow.
+- Explicitly links your data with your R code and output, creating a fully reproducible workflow.
 **ALL** of the R code used to explore, summarise and analyse your data can be included in a single easy to read document.
 You can decide what to include in your final document (as you will learn below) but all of your R code can be included in the Quarto document.
 
-- You can create a wide variety of output formats (pdf, html web pages, MS Word and many others) from a single Quarto document which enhances both collaboration and communication.
+- You can create a wide variety of output formats (pdf, html web pages, MS Word and many others) from a single Quarto document, enhancing both collaboration and communication.
 
 - Enhances transparency of your research.
 Your data and Quarto file can be included with your publication or thesis chapter as supplementary material or hosted on a GitHub repository (see @sec-github-r).
@@ -116,7 +116,7 @@ If you need to modify or extend your current analysis you just need to update yo
 
 ## Get started with Quarto
 
-Quarto integrates really well with [R Studio](https://quarto.org/docs/tools/rstudio.html) and [VS Code](https://quarto.org/docs/tools/vscode.html), and provide both a source editor as well as a visual editor providing an experience close to your classic WYSIWYG (what you see is what you write) writing software (e.g. Microsoft Word or LibreOffice writer)
+Quarto integrates really well with [R Studio](https://quarto.org/docs/tools/rstudio.html) and [VS Code](https://quarto.org/docs/tools/vscode.html), and provide both a source editor as well as a visual editor providing an experience close to your classic WYSIWYG (what you see is what you get) writing software (e.g. Microsoft Word or LibreOffice writer).
 
 ### Installation
 
