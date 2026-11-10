@@ -208,6 +208,7 @@ Here are the code to do it using base R (@fig-plot5)
 ```{r}
 #| label: fig-plot5
 #| eval: false
+
 ```
  or ggplot (@fig-plot5-gg)
 ```{r}
@@ -635,6 +636,7 @@ Note the `coplot()` function has a `data =` argument so no need to use the `$` n
 coplot(horn_rings ~ weight | mane_size, data = unicorns)
 ```
 
+`gg_coplot()` is a ggplot2 version of the base R `coplot()` function and is available in the `ggcleveland` :package: package.
 ```{r}
 gg_coplot(unicorns,
   x = weight, y = horn_rings,
