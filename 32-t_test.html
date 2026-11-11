@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.23">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Julien Martin">
 <meta name="description" content="Early version needed to be severely updated/modified">
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d665c71109b9b1a3700d90ae233c5463.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ffef8105c9e073a0d9f20bc6e446f4b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -593,7 +593,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./81-beyond_p.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P </span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P &lt; 0.05*</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -703,32 +703,6 @@ window.Quarto = {
 </ul>
 </li>
 </ul>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: zoo</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'zoo'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'boot'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:car':
-
-    logit</code></pre>
-</div>
-</div>
 <p>You need to load the packages in R with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> and if need needed install them first with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> For the data, load them using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function.</p>
 </section><section id="visual-examination-of-sample-data" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="visual-examination-of-sample-data">
 <span class="header-section-number">10.2</span> Visual examination of sample data</h2>
@@ -743,7 +717,7 @@ Attaching package: 'boot'</code></pre>
 <li>Using the data file <code>sturgeon.csv</code> , generate histograms for <code>fklngth</code> data at The Pas and Cumberland House.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># use "sturgeon" dataframe to make plot called mygraph</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># use "sturgeon" dataframe to make plot called mygraph</span></span>
 <span><span class="co"># and define x axis as representing fklngth</span></span>
 <span><span class="va">mygraph</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
@@ -782,7 +756,7 @@ Attaching package: 'boot'</code></pre>
 <li>Generate a box plot of <code>fklngth</code> grouped by <code>location</code> . What do you conclude about differences in size among the two locations?</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sturgeon</span>, <span class="fu">aes</span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sturgeon</span>, <span class="fu">aes</span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">location</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">fklngth</span></span>
 <span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -805,7 +779,7 @@ Attaching package: 'boot'</code></pre>
 </ol>
 <p>What do you conclude?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># t-test assuming equal variances</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># t-test assuming equal variances</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span></span>
 <span>  <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
@@ -827,7 +801,7 @@ mean in group CUMBERLAND    mean in group THE_PAS
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># t-test assuming unequal variances</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># t-test assuming unequal variances</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span></span>
 <span>  <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
@@ -849,7 +823,7 @@ mean in group CUMBERLAND    mean in group THE_PAS
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># non-parametric test</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># non-parametric test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span></span>
 <span>  <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
@@ -868,7 +842,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Note that using the Wilcoxon rank sum test, we do not reject the null hypothesis. The two different tests therefore give us two different results. The significant difference obtained using the t-test may, at least in part, be due to deviations from normality or homoscedasticity; on the other hand, the non-significant difference obtained using the U -statistic may be due to the fact that for fixed sample size, the power of a non-parametric test is lower than the corresponding parametric test. Given the p values obtained from both tests, and the fact that for samples of this size (84 and 101), the t-test is comparatively robust with respect to non-normality, I would be inclined to reject the null hypothesis. In practice to avoid P-hacking, you should decide which test is appropriate first and then apply and interpret it, or if you decide to do all you should present results of all and interpret accordingly.</p>
 <p>Before accepting the results of the parametric t-test and rejecting the null hypothesis that there is no difference in size between the two locations, one should do some sort of assessment to determine if the model fits the assumption of normally distributed residuals and equal variances. Preliminary examination of the raw data suggested the data appeared roughly normal but there might be problems with variances (since the spread of data for The_Pas was much greater than for Cumberland). We can examine this more closely by looking at the residuals. An easy way to do so, is to fit a linear model and use the residual diagnostic plots:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>, data <span class="op">=</span> <span class="va">sturgeon</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>, data <span class="op">=</span> <span class="va">sturgeon</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -881,7 +855,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>The first plot above shows the spread of the residuals around the estimated values for the two groups and allows us to get a feel for whether there are problems with the assumption of homogeneity of variances. If the variances were equal, the vertical spread of the two clusters of points should be about the same. The above plot shows that the vertical spread of the group with the smaller mean is greater than it is for the larger mean, suggesting again that there are problems with the variances. We can test this formally by examining the mean differences in the absolute value of the residuals.</p>
 <p>The second graph above is a normal QQ plot (or probability plot) of the residuals of the model. Note that these generally fall on a straight line, suggesting there is no real problem with normality. We can do a formal test for normality on the residuals using the Shapiro-Wilk test.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -893,7 +867,7 @@ W = 0.97469, p-value = 0.001857</code></pre>
 <p>Hummm. The test indicates that the residuals are not normal. But, given that (a) the distribution is not very far (at least visually) from normal, and that (b) the number of observations in each location is reasonably large (i.e.&nbsp;&gt;30), we do not need to be overly concerned with this violation of the normality assumption.</p>
 <p>How about equality of variance?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bprice2652/car_repo">car</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in leveneTest.default(y = y, group = group, ...): group coerced to
@@ -909,7 +883,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bptest</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bptest</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
@@ -926,11 +900,11 @@ BP = 8.8015, df = 1, p-value = 0.00301</code></pre>
 <span class="header-section-number">10.4.1</span> Bootstrap</h3>
 <p>Bootstrap and permutation tests can be used to compare means (or other statistics) between pairs of samples. The general idea is simple, and it can be implemented in more ways than I can count. Here, I use existing tools and the fact that a comparison of means can be construed as a test of a linear model. We will be able to use similar code later on when we fit more complex (but fun!) models.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">boot</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">boot</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The first section defines the function that I called bs that simply extracts coefficients from a fitted model:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># function to obtain model coefficients for each iteration</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># function to obtain model coefficients for each iteration</span></span>
 <span><span class="va">bs</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">indices</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">d</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">indices</span>, <span class="op">]</span></span>
 <span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">formula</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
@@ -939,7 +913,7 @@ BP = 8.8015, df = 1, p-value = 0.00301</code></pre>
 </div>
 <p>The second section with the <code><a href="https://rdrr.io/pkg/boot/man/boot.html">boot()</a></code> command is where the real work is done: take data in sturgeon, bootstrap <span class="math inline">\(R = 1000\)</span> times, each time fit the model <code>fklngth</code> vs <code>location</code>, and keep the values calculated by the <code>bs()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># bootstrapping with 1000 replications</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># bootstrapping with 1000 replications</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/boot/man/boot.html">boot</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>, statistic <span class="op">=</span> <span class="va">bs</span>, R <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  formula <span class="op">=</span> <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span></span>
@@ -957,14 +931,14 @@ boot(data = sturgeon, statistic = bs, R = 1000, formula = fklngth ~
 
 
 Bootstrap Statistics :
-     original     bias    std. error
-t1* 45.084391 0.02873041   0.4171107
-t2* -1.714546 0.01729415   0.7842493</code></pre>
+     original      bias    std. error
+t1* 45.084391 -0.01772110   0.4507265
+t2* -1.714546  0.02330894   0.7907416</code></pre>
 </div>
 </div>
 <p>So we get the original estimates for the two coefficients in this model: the mean at the first (alphabetical) location, Cumberland, and the difference in means between Cumberland and The Pas ). It is the second parameter, the difference between means, which is of interest here.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">results</span>, index <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">results</span>, index <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="32-t_test_files/figure-html/tb-3-1.png" class="img-fluid figure-img" width="672"></p>
@@ -973,7 +947,7 @@ t2* -1.714546 0.01729415   0.7842493</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># get 95% confidence intervals</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># get 95% confidence intervals</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/boot.ci.html">boot.ci</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"bca"</span>, index <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
@@ -984,7 +958,7 @@ boot.ci(boot.out = results, type = "bca", index = 2)
 
 Intervals : 
 Level       BCa          
-95%   (-3.372, -0.246 )  
+95%   (-3.261, -0.192 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -993,7 +967,7 @@ Calculations and Intervals on Original Scale</code></pre>
 <span class="header-section-number">10.4.2</span> Permutation</h3>
 <p>Permutation tests for linear models can easily be done using the <code>lmPerm</code> package 📦.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1Perm</span> <span class="op">&lt;-</span> <span class="fu">lmp</span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1Perm</span> <span class="op">&lt;-</span> <span class="fu">lmp</span><span class="op">(</span></span>
 <span>  <span class="va">fklngth</span> <span class="op">~</span> <span class="va">location</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">sturgeon</span>,</span>
 <span>  perm <span class="op">=</span> <span class="st">"Prob"</span></span>
@@ -1004,7 +978,7 @@ Calculations and Intervals on Original Scale</code></pre>
 </div>
 <p>The <code>lmp()</code> function does all the work for us. Here it is run with the option perm to control the stopping rule used. Option Prob stops the sampling when the estimated standard deviation of the p-value falls below some fraction of the estimated. It is one of many stopping rules that one could use to do permutations on a subset of all the possibilities (because it would take foreeeever to do them all, even on your fast machine).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m1Perm</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m1Perm</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1016,7 +990,7 @@ Residuals:
 
 Coefficients:
           Estimate Iter Pr(Prob)  
-location1   0.8573 5000   0.0128 *
+location1   0.8573 3307   0.0296 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1027,9 +1001,9 @@ F-statistic: 4.562 on 1 and 184 DF,  p-value: 0.03401 </code></pre>
 </div>
 <ol type="1">
 <li>
-<code>Iter</code> coefficient: the Prob stopping rule stopped after 5000 iterations. Note that this number will vary each time you run this snippet of code. These are random permutation results, so expect variability.</li>
+<code>Iter</code> coefficient: the Prob stopping rule stopped after 3307 iterations. Note that this number will vary each time you run this snippet of code. These are random permutation results, so expect variability.</li>
 <li>
-<code>Pr(Prob)</code> coefficient: The estimated probability associated to H0 is 0.0128 . The observed difference in fklngth between the two locations was larger than the permuted differences in about (1 - 0.0128= about 98.7%) of the 5000 cases. Mind you, 5000 permutations is not a large number, so small p values can’t be expected to be very precise. If it is critical that you get more precise p values, more permutations would be needed. Two parameters can be tweaked: maxIter, the maximum number of iterations (default=5000), and Ca, that stops iterations when estimated standard error of the estimated p is less than Ca*p.&nbsp;Default 0.1.</li>
+<code>Pr(Prob)</code> coefficient: The estimated probability associated to H0 is 0.0296 . The observed difference in fklngth between the two locations was larger than the permuted differences in about (1 - 0.0296= about 97%) of the 3307 cases. Mind you, 3307 permutations is not a large number, so small p values can’t be expected to be very precise. If it is critical that you get more precise p values, more permutations would be needed. Two parameters can be tweaked: maxIter, the maximum number of iterations (default=5000), and Ca, that stops iterations when estimated standard error of the estimated p is less than Ca*p.&nbsp;Default 0.1.</li>
 <li>
 <code>F-statistic</code>: The rest is the standard output for the model fitted to the data, with the standard parametric test. Here the p-value, assuming all assumptions are met, is 0.034.</li>
 </ol></section></section><section id="comparing-the-means-of-paired-samples" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="comparing-the-means-of-paired-samples">
@@ -1040,7 +1014,7 @@ F-statistic: 4.562 on 1 and 184 DF,  p-value: 0.03401 </code></pre>
 <li>Let’s first run a standard t-test comparing the face width at age 5 and 6, not taking into account that the data are not independent and that they are consecutive measurements on the same individuals.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/skulldat_2020.csv"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/skulldat_2020.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">width</span> <span class="op">~</span> <span class="va">age</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">skull</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span></span>
@@ -1069,7 +1043,7 @@ mean in group 5 mean in group 6
 <code>id</code>: person identity</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">skull</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">skull</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  width age id
 1  7.33   5  1
@@ -1082,7 +1056,7 @@ mean in group 5 mean in group 6
 </div>
 <p>When data are paired, we need to indicate how they are paired. In the <code>skull</code>data, samples are paired by an individual identity, <code>id</code>, with mearurement taken at different ages. However, the function <code>t.test</code> does not cope well with this data structure. We need to transpose the data from a <em>long</em> to a <em>wide</em> format where we have a column per group, with the data of a given individual on the same line. Here is how we can do it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">skull</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">skull</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span> <span class="op">&lt;-</span> <span class="va">skull</span><span class="op">$</span><span class="va">width</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">id</span>, <span class="va">skull</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">skull</span><span class="op">$</span><span class="va">age</span> <span class="op">==</span> <span class="fl">5</span><span class="op">]</span></span>
 <span><span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span> <span class="op">&lt;-</span> <span class="va">skull</span><span class="op">$</span><span class="va">width</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">id</span>, <span class="va">skull</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">skull</span><span class="op">$</span><span class="va">age</span> <span class="op">==</span> <span class="fl">6</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1098,7 +1072,7 @@ mean in group 5 mean in group 6
 </div>
 <p>Now, let’s run the appropriate paired t-test. What do you conclude? Compare this with the previous result and explain any differences.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1119,7 +1093,7 @@ mean difference
 <p>The first analysis above assumes that the two samples of girls at age 5 and 6 are independent samples, whereas the second analysis assumes that the same girl is measured twice, once at age 5 and once at age 6 years.</p>
 <p>Note that in the former case, we accept the null based on <span class="math inline">\(p = 0.05\)</span>, but in the latter we reject the null. In other words, the appropriate (paired sample) test shows a very significant effect of age, whereas the inappropriate one does not. The reason is because there is a strong correlation between face width at age 5 and face width at age 6:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graphskull</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">skull_w</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">width5</span>, y <span class="op">=</span> <span class="va">width6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">graphskull</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">skull_w</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">width5</span>, y <span class="op">=</span> <span class="va">width6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Skull width at age 5"</span>, y <span class="op">=</span> <span class="st">"Skull width at age 6"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_smooth</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1137,27 +1111,23 @@ mean difference
 <li>Repeat the above procedure with the nonparametric alternative, the Wilcoxon signed-rank test. What do you conclude?</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wilcox.test.default(skull_w$width5, skull_w$width6, alternative =
-"two.sided", : cannot compute exact p-value with ties</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Wilcoxon signed rank test with continuity correction
+    Wilcoxon signed rank exact test
 
 data:  skull_w$width5 and skull_w$width6
-V = 0, p-value = 0.0007193
+V = 0, p-value = 6.104e-05
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
 <p>So, we reach the same conclusion as we did using the paired sample t-test and conclude there are significant differences in skull sizes of girls aged 5 and 6 (what a surprise!).</p>
 <p>But, wait a minute. We have used two-tailed tests here. But, given what we know about how children grow, a one-tail hypothesis would be preferable. This can be done by changing the alternative option. One uses the alternative hypothesis to decide if it is “less” or greater”. Here, we expect that if there is an effect (i.e the alternative hypothesis), width5 will be less than width6</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"less"</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1174,20 +1144,16 @@ sample estimates:
 mean difference 
            -0.2 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span>, <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"less"</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wilcox.test.default(skull_w$width5, skull_w$width6, alternative =
-"less", : cannot compute exact p-value with ties</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Wilcoxon signed rank test with continuity correction
+    Wilcoxon signed rank exact test
 
 data:  skull_w$width5 and skull_w$width6
-V = 0, p-value = 0.0003597
+V = 0, p-value = 3.052e-05
 alternative hypothesis: true location shift is less than 0</code></pre>
 </div>
 </div>
@@ -1211,7 +1177,7 @@ Note
 </div>
 <p>To estimate the power of a paired t-test in R, we can use the function <code>pwr.t.test()</code>as for other t-tests but we need to specify the argument <code>type = "paired"</code>. To calculate cohen’s d for a paired t-test you need to use the formula <span class="math inline">\(d = mean(\text{difference}) / sd(\text{difference})\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull_w</span><span class="op">$</span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span> <span class="op">-</span> <span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skull_w</span><span class="op">$</span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="va">skull_w</span><span class="op">$</span><span class="va">width6</span> <span class="op">-</span> <span class="va">skull_w</span><span class="op">$</span><span class="va">width5</span></span>
 <span><span class="fu">pwr.t.test</span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">diff</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">skull_w</span><span class="op">$</span><span class="va">diff</span><span class="op">)</span>,</span>

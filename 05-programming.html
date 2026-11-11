@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.23">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Julien Martin">
 <meta name="description" content="Early version needed to be severely updated/modified">
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d665c71109b9b1a3700d90ae233c5463.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ffef8105c9e073a0d9f20bc6e446f4b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -593,7 +593,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./81-beyond_p.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P </span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P &lt; 0.05*</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -753,7 +753,7 @@ window.Quarto = {
         z$qr &lt;- NULL
     z
 }
-&lt;bytecode: 0x6392c6069a40&gt;
+&lt;bytecode: 0x5bcd3d851a40&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 </div>
@@ -850,8 +850,8 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasagna_stovies_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">lasagna</span>, y <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span><span class="op">)</span></span>
 <span><span class="va">lasagna_stovies_func</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0.15888066  0.07950564  0.10198302  0.17930855 -0.89100492 -2.07422678
- [7]  0.18301854  1.36082011 -0.26397192  0.36560595</code></pre>
+<pre><code> [1]  0.192579002 -2.399466165  0.004024108 -0.221480256 -1.522205529
+ [6]  1.305086374 -0.362979793 -0.300986834 -1.119183470  1.668672057</code></pre>
 </div>
 </div>
 <p>If we’re only interested in multiplying <code>dishes$lasagna</code> and <code>dishes$stovies</code>, it would be overkill to create a function to do something once. However, the benefit of creating a function is that we now have that function added to our environment which we can use as often as we like. We also have the code to create the function, meaning we can use it in completely new projects, reducing the amount of code that has to be written (and retested) from scratch each time.</p>
@@ -868,8 +868,8 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stovies_poutine_func</span> <span class="op">&lt;-</span> <span class="fu">multiply_cols</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">stovies</span>, y <span class="op">=</span> <span class="va">dishes</span><span class="op">$</span><span class="va">poutine</span><span class="op">)</span></span>
 <span><span class="va">stovies_poutine_func</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]           NA           NA           NA  0.134984249  0.991411525
- [6] -1.138108599 -1.153075159  1.636003714  0.008278524 -0.076287115</code></pre>
+<pre><code> [1]          NA          NA          NA  0.45306262  0.68541241 -0.09245008
+ [7]  0.36751642 -0.02961984  0.85199256 -1.26933984</code></pre>
 </div>
 </div>
 <p>So far so good. All we’ve really done is wrapped the code <code>x * y</code> into a function, where we ask the user to specify what their <code>x</code> and <code>y</code> variables are.</p>

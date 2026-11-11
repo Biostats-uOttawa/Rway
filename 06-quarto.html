@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.23">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Julien Martin">
 <meta name="description" content="Early version needed to be severely updated/modified">
@@ -93,14 +93,14 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6f6599830d51be977da3b6af758f8eff.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d665c71109b9b1a3700d90ae233c5463.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-76ccbc88140827d560836bb2fce7bc5a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ffef8105c9e073a0d9f20bc6e446f4b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-94d8ce77412a9a6bcc26e445088cda98.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -613,7 +613,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./81-beyond_p.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P </span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Beyond *P &lt; 0.05*</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -745,13 +745,13 @@ Warning
 <p>Technically, R markdown is a combination of three languages, R, Markdown and YAML (yet another markup language). Both Markdown and YAML are a type of ‘markup’ language. A markup language simply provides a way of creating an easy to read plain text file which can incorporate formatted text, images, headers and links to other documents. If you’re interested you can find more information about markup languages <a href="https://en.wikipedia.org/wiki/Markup_language">here</a>. Actually, you are exposed to a markup language on a daily basis, as most of the internet content you digest every day is underpinned by a markup language called HTML (<strong>H</strong>yper<strong>t</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage). Anyway, the main point is that R markdown is very easy to learn (much, much easier than HTML) and when used with a good IDE (RStudio or VS Code) it’s ridiculously easy to integrate into your workflow to produce feature rich content (so why wouldn’t you?!).</p>
 </section><section id="quarto" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="quarto">
 <span class="header-section-number">6.1.2</span> Quarto?</h3>
-<p>Quarto is a multi-language, next generation version of R Markdown from Posit, with many new features and capabilities and is compatible not only with R but also with other language like Python and Julia. Like R Markdown, Quarto uses <code>knitr</code> <span class="emoji" data-emoji="package">📦</span> package to execute R code, and is therefore able to render most existing <strong>.Rmd</strong> files without modification. However, it also comes with a plethora of new functionalities. More importantly, it makes it much easier to create different type of output since the coding is homogenize for specific format without having to rely on different r packages each with there own specificity (<em>e.g</em> bookdown, hugodown, blogdown, thesisdown, rticles, xaringan, …).</p>
-<p>In the rest of this chapter, we will talk about Quarto but a lot can be done with R markdown. Quarto uses <code>.qmd</code> files while R markdown works with <code>.Rmd</code> but Quarto can render <code>.Rmd</code> files too.</p>
+<p>Quarto is a multi-language, next generation version of R Markdown from Posit, with many new features and capabilities and is compatible not only with R but also with other language like Python and Julia. Like R Markdown, Quarto uses <code>knitr</code> <span class="emoji" data-emoji="package">📦</span> package to execute R code, and is therefore able to render most existing <strong>.Rmd</strong> files without modification. However, it also comes with a plethora of new functionalities. More importantly, it makes it much easier to create different type of output since the coding is homogenized for a specific format without having to rely on different r packages, each with there own specificity (<em>e.g.,</em> bookdown, hugodown, blogdown, thesisdown, rticles, xaringan, …).</p>
+<p>In the rest of this chapter, we will talk about Quarto but a lot can be done with R markdown. Quarto uses <code>.qmd</code> files while R markdown works with <code>.Rmd</code>, but Quarto can render <code>.Rmd</code> files too.</p>
 </section></section><section id="why-use-quarto" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="why-use-quarto">
 <span class="header-section-number">6.2</span> Why use Quarto?</h2>
 <p>During the previous Chapters we talked a lot about conducting your research in a robust and reproducible manner to facilitate open science. In a nutshell, open science is about doing all we can to make our data, methods, results and inferences transparent and available to everyone. Some of the main tenets of open science are described <a href="http://openscience.org/what-exactly-is-open-science/">here</a> and include:</p>
 <ul>
-<li>Transparency in experimental methodology, observation, collection of data and analytical methods.</li>
+<li>Transparency in experimental methodology, observation, collection of data and analytical methods</li>
 <li>Public availability and re-usability of scientific data</li>
 <li>Public accessibility and transparency of scientific communication</li>
 <li>Using web-based tools to facilitate scientific collaboration</li>
@@ -769,10 +769,10 @@ Figure&nbsp;6.1: Non-reproducible workflow
 </div>
 </div>
 </div>
-<p>Your data is imported from your favourite spreadsheet software into R, you write your R code to explore and analyse your data, you save plots as external files, copy tables of analysis output and then manually combine all of this and your written prose into a single MS Word document (maybe for a paper or thesis chapter). Whilst there is nothing particularly wrong with this approach (and it’s certainly better than using point and click software to analyse your data) there are some limitations:</p>
+<p>Your data is imported from your favourite spreadsheet software into R, you write your R code to explore and analyse your data, you save plots as external files, copy tables of analysis output and then manually combine all of this and your written prose into a single MS Word document (maybe for a paper or thesis chapter). Whilst there is nothing particularly wrong with this approach (and it’s certainly better than using point and click software to analyse your data), there are some limitations:</p>
 <ul>
 <li><p>It’s not particularly reproducible. Because this workflow separates your R code from the final document there are multiple opportunities for undocumented decisions to be made (which plots did you use? what analysis did/didn’t you include? etc).</p></li>
-<li><p>It’s inefficient. If you need to go back and change something (create a new plot or update your analysis etc) you will need to create or amend multiple documents increasing the risk of mistakes creeping into your workflow.</p></li>
+<li><p>It’s inefficient. If you need to go back and change something (create a new plot or update your analysis etc) you will need to create or amend multiple documents, increasing the risk of mistakes creeping into your workflow.</p></li>
 <li><p>It’s difficult to maintain. If your analysis changes you again need to update multiple files and documents.</p></li>
 <li><p>It can be difficult to decide what to share with others. Do you share all of your code (initial data exploration, model validation etc) or just the code specific to your final document? It’s quite a common (and bad!) practice for researchers to maintain two R scripts, one used for the actual analysis and one to share with the final paper or thesis chapter. This can be both time consuming and confusing and should be avoided.</p></li>
 </ul>
@@ -789,16 +789,16 @@ Figure&nbsp;6.2: A-reproducible (and more fficient) workflow
 </div>
 </div>
 </div>
-<p>Your data is imported into R as before but this time all of the R code you used to analyse your data, produce your plots and your written text (Introduction, Materials and Methods, Discussion etc) is contained within a single Quarto document which is then used (along with your data) to automatically create your final document. This is exactly what Quarto allows you to do.</p>
+<p>Your data is imported into R, as before, but this time all of the R code you used to analyse your data, and to produce your plots and your written text (Introduction, Materials and Methods, Discussion etc) is contained within a single Quarto document which is then used (along with your data) to automatically create your final document. This is exactly what Quarto allows you to do.</p>
 <p>Some of the advantages of using Quarto include:</p>
 <ul>
-<li><p>Explicitly links your data with your R code and output creating a fully reproducible workflow. <strong>ALL</strong> of the R code used to explore, summarise and analyse your data can be included in a single easy to read document. You can decide what to include in your final document (as you will learn below) but all of your R code can be included in the Quarto document.</p></li>
-<li><p>You can create a wide variety of output formats (pdf, html web pages, MS Word and many others) from a single Quarto document which enhances both collaboration and communication.</p></li>
+<li><p>Explicitly links your data with your R code and output, creating a fully reproducible workflow. <strong>ALL</strong> of the R code used to explore, summarise and analyse your data can be included in a single easy to read document. You can decide what to include in your final document (as you will learn below) but all of your R code can be included in the Quarto document.</p></li>
+<li><p>You can create a wide variety of output formats (pdf, html web pages, MS Word and many others) from a single Quarto document, enhancing both collaboration and communication.</p></li>
 <li><p>Enhances transparency of your research. Your data and Quarto file can be included with your publication or thesis chapter as supplementary material or hosted on a GitHub repository (see <a href="07-github.html" class="quarto-xref"><span>Chapter 7</span></a>).</p></li>
 <li><p>Increases the efficiency of your workflow. If you need to modify or extend your current analysis you just need to update your Quarto document and these changes will automatically be included in your final document.</p></li>
 </ul></section><section id="get-started-with-quarto" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="get-started-with-quarto">
 <span class="header-section-number">6.3</span> Get started with Quarto</h2>
-<p>Quarto integrates really well with <a href="https://quarto.org/docs/tools/rstudio.html">R Studio</a> and <a href="https://quarto.org/docs/tools/vscode.html">VS Code</a>, and provide both a source editor as well as a visual editor providing an experience close to your classic WYSIWYG (what you see is what you write) writing software (e.g.&nbsp;Microsoft Word or LibreOffice writer)</p>
+<p>Quarto integrates really well with <a href="https://quarto.org/docs/tools/rstudio.html">R Studio</a> and <a href="https://quarto.org/docs/tools/vscode.html">VS Code</a>, and provide both a source editor as well as a visual editor providing an experience close to your classic WYSIWYG (what you see is what you get) writing software (e.g.&nbsp;Microsoft Word or LibreOffice writer).</p>
 <section id="installation" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="installation">
 <span class="header-section-number">6.3.1</span> Installation</h3>
 <p>To use Quarto you will first need to install the <code>Quarto</code> software and the <code>quarto</code> <span class="emoji" data-emoji="package">📦</span> package (with its dependencies). You can find instructions on how to do this in <a href="01-start.html#sec-install-r" class="quarto-xref"><span>Section 1.1.1</span></a> and on the <a href="https://quarto.org/docs/get-started/">Quarto website</a>. If you would like to create pdf documents (or MS Word documents) from your Quarto file you will also need to install a version of <span class="math inline">\(\LaTeX\)</span> on your computer. If you’ve not installed <span class="math inline">\(\LaTeX\)</span> before, we recommend that you install <a href="https://yihui.name/tinytex/">TinyTeX</a>. Again, instructions on how to do this can be found at <a href="01-start.html#sec-install-r" class="quarto-xref"><span>Section 1.1.1</span></a>.</p>
@@ -1552,23 +1552,23 @@ Table&nbsp;6.3: A nicer kable table
 Table&nbsp;6.4: A nice gt table
 </figcaption><div aria-describedby="tbl-gt-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="benehzkszv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#benehzkszv table {
+<div id="ymkpewdcgd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ymkpewdcgd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#benehzkszv thead, #benehzkszv tbody, #benehzkszv tfoot, #benehzkszv tr, #benehzkszv td, #benehzkszv th {
+#ymkpewdcgd thead, #ymkpewdcgd tbody, #ymkpewdcgd tfoot, #ymkpewdcgd tr, #ymkpewdcgd td, #ymkpewdcgd th {
   border-style: none;
 }
 
-#benehzkszv p {
+#ymkpewdcgd p {
   margin: 0;
   padding: 0;
 }
 
-#benehzkszv .gt_table {
+#ymkpewdcgd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1594,12 +1594,12 @@ Table&nbsp;6.4: A nice gt table
   border-left-color: #D3D3D3;
 }
 
-#benehzkszv .gt_caption {
+#ymkpewdcgd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#benehzkszv .gt_title {
+#ymkpewdcgd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1611,7 +1611,7 @@ Table&nbsp;6.4: A nice gt table
   border-bottom-width: 0;
 }
 
-#benehzkszv .gt_subtitle {
+#ymkpewdcgd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1623,7 +1623,7 @@ Table&nbsp;6.4: A nice gt table
   border-top-width: 0;
 }
 
-#benehzkszv .gt_heading {
+#ymkpewdcgd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1635,13 +1635,13 @@ Table&nbsp;6.4: A nice gt table
   border-right-color: #D3D3D3;
 }
 
-#benehzkszv .gt_bottom_border {
+#ymkpewdcgd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#benehzkszv .gt_col_headings {
+#ymkpewdcgd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1656,7 +1656,7 @@ Table&nbsp;6.4: A nice gt table
   border-right-color: #D3D3D3;
 }
 
-#benehzkszv .gt_col_heading {
+#ymkpewdcgd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1676,7 +1676,7 @@ Table&nbsp;6.4: A nice gt table
   overflow-x: hidden;
 }
 
-#benehzkszv .gt_column_spanner_outer {
+#ymkpewdcgd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1688,15 +1688,15 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 4px;
 }
 
-#benehzkszv .gt_column_spanner_outer:first-child {
+#ymkpewdcgd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#benehzkszv .gt_column_spanner_outer:last-child {
+#ymkpewdcgd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#benehzkszv .gt_column_spanner {
+#ymkpewdcgd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1708,11 +1708,11 @@ Table&nbsp;6.4: A nice gt table
   width: 100%;
 }
 
-#benehzkszv .gt_spanner_row {
+#ymkpewdcgd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#benehzkszv .gt_group_heading {
+#ymkpewdcgd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1738,7 +1738,7 @@ Table&nbsp;6.4: A nice gt table
   text-align: left;
 }
 
-#benehzkszv .gt_empty_group_heading {
+#ymkpewdcgd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1753,15 +1753,15 @@ Table&nbsp;6.4: A nice gt table
   vertical-align: middle;
 }
 
-#benehzkszv .gt_from_md > :first-child {
+#ymkpewdcgd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#benehzkszv .gt_from_md > :last-child {
+#ymkpewdcgd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#benehzkszv .gt_row {
+#ymkpewdcgd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1780,7 +1780,7 @@ Table&nbsp;6.4: A nice gt table
   overflow-x: hidden;
 }
 
-#benehzkszv .gt_stub {
+#ymkpewdcgd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1793,7 +1793,7 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 5px;
 }
 
-#benehzkszv .gt_stub_row_group {
+#ymkpewdcgd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1807,15 +1807,15 @@ Table&nbsp;6.4: A nice gt table
   vertical-align: top;
 }
 
-#benehzkszv .gt_row_group_first td {
+#ymkpewdcgd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#benehzkszv .gt_row_group_first th {
+#ymkpewdcgd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#benehzkszv .gt_summary_row {
+#ymkpewdcgd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1825,16 +1825,16 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 5px;
 }
 
-#benehzkszv .gt_first_summary_row {
+#ymkpewdcgd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#benehzkszv .gt_first_summary_row.thick {
+#ymkpewdcgd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#benehzkszv .gt_last_summary_row {
+#ymkpewdcgd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1844,7 +1844,7 @@ Table&nbsp;6.4: A nice gt table
   border-bottom-color: #D3D3D3;
 }
 
-#benehzkszv .gt_grand_summary_row {
+#ymkpewdcgd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1854,7 +1854,7 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 5px;
 }
 
-#benehzkszv .gt_first_grand_summary_row {
+#ymkpewdcgd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1864,7 +1864,7 @@ Table&nbsp;6.4: A nice gt table
   border-top-color: #D3D3D3;
 }
 
-#benehzkszv .gt_last_grand_summary_row_top {
+#ymkpewdcgd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1874,11 +1874,11 @@ Table&nbsp;6.4: A nice gt table
   border-bottom-color: #D3D3D3;
 }
 
-#benehzkszv .gt_striped {
+#ymkpewdcgd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#benehzkszv .gt_table_body {
+#ymkpewdcgd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1887,7 +1887,7 @@ Table&nbsp;6.4: A nice gt table
   border-bottom-color: #D3D3D3;
 }
 
-#benehzkszv .gt_footnotes {
+#ymkpewdcgd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1901,7 +1901,7 @@ Table&nbsp;6.4: A nice gt table
   border-right-color: #D3D3D3;
 }
 
-#benehzkszv .gt_footnote {
+#ymkpewdcgd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1910,7 +1910,7 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 5px;
 }
 
-#benehzkszv .gt_sourcenotes {
+#ymkpewdcgd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1924,7 +1924,7 @@ Table&nbsp;6.4: A nice gt table
   border-right-color: #D3D3D3;
 }
 
-#benehzkszv .gt_sourcenote {
+#ymkpewdcgd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1932,72 +1932,72 @@ Table&nbsp;6.4: A nice gt table
   padding-right: 5px;
 }
 
-#benehzkszv .gt_left {
+#ymkpewdcgd .gt_left {
   text-align: left;
 }
 
-#benehzkszv .gt_center {
+#ymkpewdcgd .gt_center {
   text-align: center;
 }
 
-#benehzkszv .gt_right {
+#ymkpewdcgd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#benehzkszv .gt_font_normal {
+#ymkpewdcgd .gt_font_normal {
   font-weight: normal;
 }
 
-#benehzkszv .gt_font_bold {
+#ymkpewdcgd .gt_font_bold {
   font-weight: bold;
 }
 
-#benehzkszv .gt_font_italic {
+#ymkpewdcgd .gt_font_italic {
   font-style: italic;
 }
 
-#benehzkszv .gt_super {
+#ymkpewdcgd .gt_super {
   font-size: 65%;
 }
 
-#benehzkszv .gt_footnote_marks {
+#ymkpewdcgd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#benehzkszv .gt_asterisk {
+#ymkpewdcgd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#benehzkszv .gt_indent_1 {
+#ymkpewdcgd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#benehzkszv .gt_indent_2 {
+#ymkpewdcgd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#benehzkszv .gt_indent_3 {
+#ymkpewdcgd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#benehzkszv .gt_indent_4 {
+#ymkpewdcgd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#benehzkszv .gt_indent_5 {
+#ymkpewdcgd .gt_indent_5 {
   text-indent: 25px;
 }
 
-#benehzkszv .katex-display {
+#ymkpewdcgd .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#benehzkszv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ymkpewdcgd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2013,46 +2013,46 @@ Table&nbsp;6.4: A nice gt table
 <th colspan="4" id="setosa" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">setosa</th>
 </tr>
 <tr class="gt_row_group_first even">
-<td class="gt_row gt_right" headers="setosa  Sepal Length">5.1</td>
-<td class="gt_row gt_right" headers="setosa  Sepal Width">3.5</td>
-<td class="gt_row gt_right" headers="setosa  Petal Length">1.4</td>
-<td class="gt_row gt_right" headers="setosa  Petal Width">0.2</td>
+<td class="gt_row gt_right" headers="setosa  Sepal-Length">5.1</td>
+<td class="gt_row gt_right" headers="setosa  Sepal-Width">3.5</td>
+<td class="gt_row gt_right" headers="setosa  Petal-Length">1.4</td>
+<td class="gt_row gt_right" headers="setosa  Petal-Width">0.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="setosa  Sepal Length">4.9</td>
-<td class="gt_row gt_right" headers="setosa  Sepal Width">3.0</td>
-<td class="gt_row gt_right" headers="setosa  Petal Length">1.4</td>
-<td class="gt_row gt_right" headers="setosa  Petal Width">0.2</td>
+<td class="gt_row gt_right" headers="setosa  Sepal-Length">4.9</td>
+<td class="gt_row gt_right" headers="setosa  Sepal-Width">3.0</td>
+<td class="gt_row gt_right" headers="setosa  Petal-Length">1.4</td>
+<td class="gt_row gt_right" headers="setosa  Petal-Width">0.2</td>
 </tr>
 <tr class="gt_group_heading_row even">
 <th colspan="4" id="versicolor" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">versicolor</th>
 </tr>
 <tr class="gt_row_group_first odd">
-<td class="gt_row gt_right" headers="versicolor  Sepal Length">7.0</td>
-<td class="gt_row gt_right" headers="versicolor  Sepal Width">3.2</td>
-<td class="gt_row gt_right" headers="versicolor  Petal Length">4.7</td>
-<td class="gt_row gt_right" headers="versicolor  Petal Width">1.4</td>
+<td class="gt_row gt_right" headers="versicolor  Sepal-Length">7.0</td>
+<td class="gt_row gt_right" headers="versicolor  Sepal-Width">3.2</td>
+<td class="gt_row gt_right" headers="versicolor  Petal-Length">4.7</td>
+<td class="gt_row gt_right" headers="versicolor  Petal-Width">1.4</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="versicolor  Sepal Length">6.4</td>
-<td class="gt_row gt_right" headers="versicolor  Sepal Width">3.2</td>
-<td class="gt_row gt_right" headers="versicolor  Petal Length">4.5</td>
-<td class="gt_row gt_right" headers="versicolor  Petal Width">1.5</td>
+<td class="gt_row gt_right" headers="versicolor  Sepal-Length">6.4</td>
+<td class="gt_row gt_right" headers="versicolor  Sepal-Width">3.2</td>
+<td class="gt_row gt_right" headers="versicolor  Petal-Length">4.5</td>
+<td class="gt_row gt_right" headers="versicolor  Petal-Width">1.5</td>
 </tr>
 <tr class="gt_group_heading_row odd">
 <th colspan="4" id="virginica" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">virginica</th>
 </tr>
 <tr class="gt_row_group_first even">
-<td class="gt_row gt_right" headers="virginica  Sepal Length">6.3</td>
-<td class="gt_row gt_right" headers="virginica  Sepal Width">3.3</td>
-<td class="gt_row gt_right" headers="virginica  Petal Length">6.0</td>
-<td class="gt_row gt_right" headers="virginica  Petal Width">2.5</td>
+<td class="gt_row gt_right" headers="virginica  Sepal-Length">6.3</td>
+<td class="gt_row gt_right" headers="virginica  Sepal-Width">3.3</td>
+<td class="gt_row gt_right" headers="virginica  Petal-Length">6.0</td>
+<td class="gt_row gt_right" headers="virginica  Petal-Width">2.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="virginica  Sepal Length">5.8</td>
-<td class="gt_row gt_right" headers="virginica  Sepal Width">2.7</td>
-<td class="gt_row gt_right" headers="virginica  Petal Length">5.1</td>
-<td class="gt_row gt_right" headers="virginica  Petal Width">1.9</td>
+<td class="gt_row gt_right" headers="virginica  Sepal-Length">5.8</td>
+<td class="gt_row gt_right" headers="virginica  Sepal-Width">2.7</td>
+<td class="gt_row gt_right" headers="virginica  Petal-Length">5.1</td>
+<td class="gt_row gt_right" headers="virginica  Petal-Width">1.9</td>
 </tr>
 </tbody>
 </table>
@@ -2355,17 +2355,8 @@ Table&nbsp;6.5: A nice table
 </ul>
 <p>For this exercise, we’re gonna use the <code>penguins</code> dataset.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'palmerpenguins'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:datasets':
-
-    penguins, penguins_raw</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -2395,7 +2386,7 @@ Attaching package: 'palmerpenguins'</code></pre>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"palmerpenguins"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"palmerpenguins"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2424,12 +2415,12 @@ Attaching package: 'palmerpenguins'</code></pre>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message:false</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message:false</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2446,11 +2437,11 @@ Attaching package: 'palmerpenguins'</code></pre>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2467,20 +2458,20 @@ Attaching package: 'palmerpenguins'</code></pre>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Numerical exploration</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>There are <span class="in">`r nrow(penguins)`</span> penguins in the dataset,</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>and <span class="in">`r length(unique(penguins$species))`</span> different species.</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>The data were collected in <span class="in">`r length(unique(penguins$island))`</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>islands of the Palmer archipelago in Antarctica.</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>The mean of all traits that were measured on the penguins are:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Numerical exploration</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>There are <span class="in">`r nrow(penguins)`</span> penguins in the dataset,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>and <span class="in">`r length(unique(penguins$species))`</span> different species.</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>The data were collected in <span class="in">`r length(unique(penguins$island))`</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>islands of the Palmer archipelago in Antarctica.</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>The mean of all traits that were measured on the penguins are:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2497,31 +2488,31 @@ Attaching package: 'palmerpenguins'</code></pre>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Graphical exploration</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>A histogram of body mass per species:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Distribution of body mass by species of penguins</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g) <span class="sc">+</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species),</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (g)"</span>,</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Penguin body mass"</span>)</span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Graphical exploration</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>A histogram of body mass per species:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Distribution of body mass by species of penguins</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species),</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Penguin body mass"</span>)</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p><strong>7)</strong> In another section, entitled <em>Linear regression</em>, fit a model of bill length as a function of body size (flipper length), body mass and sex. Obtain the output and graphically evaluate the assumptions of the model. As reminder here is how you fit a linear regression.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span>  X1 <span class="sc">+</span> X2, <span class="at">data =</span> data)</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span>  X1 <span class="sc">+</span> X2, <span class="at">data =</span> data)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2534,16 +2525,16 @@ Attaching package: 'palmerpenguins'</code></pre>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear regression</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>And here is a nice model with graphical output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Checking assumptions of the model"</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bill_length_mm <span class="sc">~</span>  flipper_length_mm <span class="sc">+</span> body_mass_g <span class="sc">+</span> sex, <span class="at">data =</span> penguins)</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear regression</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>And here is a nice model with graphical output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Checking assumptions of the model"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bill_length_mm <span class="sc">~</span>  flipper_length_mm <span class="sc">+</span> body_mass_g <span class="sc">+</span> sex, <span class="at">data =</span> penguins)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(m1)</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -2780,9 +2771,6 @@ Florida.
 Meyer, D., A. Zeileis, and K. Hornik. 2006. <a href="https://doi.org/10.18637/jss.v017.i03">The strucplot framework:
 Visualizing multi-way contingency tables with vcd</a>. Journal of
 Statistical Software 17:1–48.
-</div>
-<div id="ref-vcd2024" class="csl-entry" role="listitem">
-Meyer, D., A. Zeileis, K. Hornik, and M. Friendly. 2024. <a href="https://CRAN.R-project.org/package=vcd"><span class="nocase">vcd</span>: Visualizing categorical data</a>.
 </div>
 <div id="ref-patchwork" class="csl-entry" role="listitem">
 Pedersen, T. L. 2024. <a href="https://CRAN.R-project.org/package=patchwork"><span class="nocase">patchwork</span>: The composer of plots</a>.
