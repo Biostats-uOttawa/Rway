@@ -117,13 +117,20 @@ points(x[o],ypredit[o], col="red", type="l", lwd=2)
 ```
 
 ```{r}
-m2 <- glm(reproduction ~ age + mass_sept + as.factor(sex_lamb) + mass_gain + density + temp,
+m2 <- glm(
+    reproduction ~ age +
+        mass_sept +
+        as.factor(sex_lamb) +
+        mass_gain +
+        density +
+        temp,
     data = mouflon,
-    family = binomial)
+    family = binomial
+)
 
 summary(m2)
 
-check_model(m2)
+plot(check_model(m2, panel = FALSE))
 
 simulationOutput <- simulateResiduals(m2)
 plot(simulationOutput)

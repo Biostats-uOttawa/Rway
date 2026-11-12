@@ -218,7 +218,7 @@ This practical is intended to get you started fitting some simple mixed models w
  * Finally, as a lead in why you really should learn about multivariate models after this, we will highlight how character state views of plasticity are really just approximations of multivariate 'character state' approaches. This is a bit mind blowing at first, but once you understand you will start to see just how far the rabbit hole goes...
  -->
 
-We are going to use the `r emoji::emoji("package")` `lme4` [@lme4] which is widely used and great for simple mixed models. However, since, for philosophical reasons, `lme4` does not provide any p-values for either fixed or random effects, we are going to use the `r emoji::emoji("package")` `lmerTest` [@lmerTest], which add a bunch a nice goodies to `lme4`  For slightly more complex models, including multivariate ones, generalised models, and random effects of things like shared space, pedigree, phylogeny I tend to use different `r emoji::emoji("package")` like `MCMCglmm` [@MCMCglmm] (which is Bayesian, look at Jarrod Hadfield's excellent course notes [@MCMCglmm]) or ASReml-R [@asreml] (which is likelihood based/frequentist but sadly is not free).
+We are going to use the :package: `lme4` [@lme4] which is widely used and great for simple mixed models. However, since, for philosophical reasons, `lme4` does not provide any p-values for either fixed or random effects, we are going to use the :package: `lmerTest` [@lmerTest], which add a bunch a nice goodies to `lme4`  For slightly more complex models, including multivariate ones, generalised models, and random effects of things like shared space, pedigree, phylogeny I tend to use different :package: like `MCMCglmm` [@MCMCglmm] (which is Bayesian, look at Jarrod Hadfield's excellent course notes [@MCMCglmm]) or ASReml-R [@asreml] (which is likelihood based/frequentist but sadly is not free).
 
 
 <!-- Further data sets and tutorials written by Tom can be found at [https://tomhouslay.com/tutorials/](https://tomhouslay.com/tutorials/). -->
@@ -315,7 +315,7 @@ Why, so simple? Because we simply want to partition variance around the mean int
 
 ::: callout-important
 
-We are going to use the function `lmer()` from the  `r emoji::emoji("package")` `lme4` package. The notation of the model formula is similar as the notation for a linear model but now we also add random effects using the notation `(1 | r_effect)` which indicates that we want to fit the variable `r_effect` as a random effect for the intercept. Thus, in lmer notation a simploe model would be :
+We are going to use the function `lmer()` from the  :package: `lme4` package. The notation of the model formula is similar as the notation for a linear model but now we also add random effects using the notation `(1 | r_effect)` which indicates that we want to fit the variable `r_effect` as a random effect for the intercept. Thus, in lmer notation a simploe model would be :
 
 `lmer(Y ~ x1 + x2 + (1 | r_effect), data = data)`
 
@@ -412,7 +412,7 @@ For instance, we can (and should have started with) an initial plot of the pheno
 
 # Solution
 
-The code below uses the excellent `r emoji::emoji("package")` `ggplot2` but the same figure can be done using base R code.
+The code below uses the excellent :package: `ggplot2` but the same figure can be done using base R code.
 
 ```{r}
 #| label: plot_aggr
@@ -583,11 +583,12 @@ Here is a great magic trick `r emoji::emoji("sparkler")` because 3-5 and more ca
 ::: {.callout-tip collapse='true'}
 
 # Solution
-You need to use the function `check_model()` from the `r emoji::emoji("package")` performance package.
+You need to use the function `check_model()` from the `performance` :package: package.
+
 ```{r}
 #| fig-cap: Graphical check of model assumptions
 #| fig-asp: 2
-check_model(m_2)
+plot(check_model(m_2, panel = FALSE))
 ```
 :::
 
@@ -672,9 +673,9 @@ It also means that decisions about which fixed effects to include in your model 
 
 ### A quick note on uncertainty
 
-Using `lmer` in the `r emoji::emoji("package")` `lme4` `r emoji::emoji("package")` there isn't a really simple way to put some measure of uncertainty (SE or CI) on derived parameters like repeatabilities. This is a bit annoying. Such things are more easily done with other mixed model `r emoji::emoji("package")` like `MCMCglmm` and `asreml` which are a bit more specialist. If you are using `lmer` for models you want to publish then you could look into the `r emoji::emoji("package")` `rptR` [@rptR]. This  acts as a 'wrapper' for `lmer` models and adds some nice functionality including options to boostrap confidence intervals. Regardless, of how you do it, if you want to put a repeatability in one of your papers as a key result - it really should be accompanied by a measure of uncertainty just like any other effect size estimate.
+Using `lmer` in the :package: `lme4` :package: there isn't a really simple way to put some measure of uncertainty (SE or CI) on derived parameters like repeatabilities. This is a bit annoying. Such things are more easily done with other mixed model :package: like `MCMCglmm` and `asreml` which are a bit more specialist. If you are using `lmer` for models you want to publish then you could look into the :package: `rptR` [@rptR]. This  acts as a 'wrapper' for `lmer` models and adds some nice functionality including options to boostrap confidence intervals. Regardless, of how you do it, if you want to put a repeatability in one of your papers as a key result - it really should be accompanied by a measure of uncertainty just like any other effect size estimate.
 
-Here I am estimating the repeatability and using bootstrap to estimate a confidence interval and a probability associated with the repeatability with the `rptR` `r emoji::emoji("package")`. For more information about the use of the package and the theory behind it suggest the excellent paper associated with the package [@rptR]
+Here I am estimating the repeatability and using bootstrap to estimate a confidence interval and a probability associated with the repeatability with the `rptR` :package:. For more information about the use of the package and the theory behind it suggest the excellent paper associated with the package [@rptR]
 
 ```{r}
 #| echo: true

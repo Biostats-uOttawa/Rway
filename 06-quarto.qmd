@@ -501,7 +501,7 @@ or they can be written using a YAML notation within the code chunk using `#|` no
 We are using the YAML notation for code chunk options since we find it much easier to read when you have multiple options of long captions.
 
 You can also specify an optional code chunk name (or label)  which can be useful when trying to debug problems and when performing advanced document rendering.
-In the following block, we name the code chunk `summary-stats`, load the package `ggplot2` `r emoji::emoji("package")`, create a dataframe (`dataf`) with two variables `x` and `y`, use the `summary()` function to display some summary statistics and plot a scatterplot of the data with `ggplot()`.
+In the following block, we name the code chunk `summary-stats`, load the package `ggplot2` :package:, create a dataframe (`dataf`) with two variables `x` and `y`, use the `summary()` function to display some summary statistics and plot a scatterplot of the data with `ggplot()`.
 When we run the code chunk both the R code and the resulting output are displayed in the final document.
 
 ````md
@@ -887,7 +887,7 @@ iris %>%
 You can further enhance the look of your `kable` tables using the `kableExtra` :package: package (don't forget to install the package first!).
 See [here][kableExtra] for more details and a helpful tutorial.
 
-If you want even more control and customisation options for your tables take a look at the `gt` `r emoji::emoji("package")` [package][gt].
+If you want even more control and customisation options for your tables take a look at the `gt` :package: [package][gt].
 `gt` is an acronym for **g**rammar of **t**ables and is based on similar principle for tables that are used for plots in ggplot.
 
 ```{r}

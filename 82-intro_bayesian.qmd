@@ -307,7 +307,7 @@ In this practical, we will revisit our analysis on unicorn aggressivity.
 Honestly, we can use any other data with repeated measures for this exercise
 but I just love unicorns `r emoji::emoji("heart")`.
 However, instead of fittng the model using `lmer()` from the `lmerTest` 
-`r emoji::emoji("package")` [@lmerTest], we will refit the model using 2 excellent 
+:package: [@lmerTest], we will refit the model using 2 excellent 
 softwares fitting models with a Bayesian approach: `MCMCglmm` [@MCMCglmm] and
 `brms` [@brms2021].
 

@@ -240,7 +240,7 @@ Multicollinearity is the presence of correlations among independent variables. I
 When collinearity is not perfect, it reduces your ability to test for the effect of individual variables, but does not affect the ability of the model to predict.
 :::
 
- The help file for the `HH`  `r emoji::emoji("package")`package contains this clear passage about one of the indices of multicollinearity, the variance inflation factors:
+ The help file for the `HH`  :package:package contains this clear passage about one of the indices of multicollinearity, the variance inflation factors:
 
 > A simple diagnostic of collinearity is the variance inflation factor, VIF one for each regression coefficient (other than the intercept). Since the condition of collinearity involves the predictors but not the response, this measure is a function of the X's but not of Y. The VIF for predictor i is
 $$1/(1-R_i^2)$$
@@ -380,7 +380,7 @@ VIF for the two swamp terms are much higher than the standard threshold of 5. Ho
 
 All the model selection techniques or the manual model crafting assumes that the standard assumptions (independence, normality, homoscedasticity, linearity) are met. Given that a large number of models can be fitted, it may seem that testing the assumptions at each step would be an herculean task. However, it is generally sufficient to examine the residuals of the full (saturated) model and of the final model. Terms not contributing significantly to the fit do not affect residuals much, and therefore, the residuals to the full model, or the residuals to the final model, are generally sufficient.
 
-Let’s have a look at the diagnostic plots for the final model. Here we use the `check_model()` function from the `performance` `r emoji::emoji("package")`.
+Let’s have a look at the diagnostic plots for the final model. Here we use the `check_model()` function from the `performance` :package: package.
 
 ::: callout-tip
 # Solution
@@ -388,7 +388,7 @@ Let’s have a look at the diagnostic plots for the final model. Here we use the
 ```{r}
 #| fig-cap: Conditions d'application du modèle `model_poly2`
 library(performance)
-check_model(model_poly2)
+plot(check_model(model_poly2, panel = FALSE))
 ```
 :::
 
@@ -586,7 +586,7 @@ coefficient of 0.
 
 When data do not meet the assumptions of normality and homoscedasticity and it is not possible to transform the data to meet the assumptions, bootstraping can be used to compute confidence intervals for coefficients. If the distribution of the bootstrapped coefficients is symmetrical and approximately Gaussian, then empirical percentiles can be used to estimate the confidence limits.
 
-The following code, using the `simpleboot` `r emoji::emoji("package")` has been designed to be easily modifiable and will compute CI using empirical percentiles. Following this is an easier approach using the library boot that will calculate several different bootstrap confidence limits.
+The following code, using the `simpleboot` :package: has been designed to be easily modifiable and will compute CI using empirical percentiles. Following this is an easier approach using the library boot that will calculate several different bootstrap confidence limits.
 
 ```{r}
 ############################################################

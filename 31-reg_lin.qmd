@@ -133,7 +133,7 @@ par(mfrow = c(1, 1)) # redefine plotting area to 1 plot
 None of these distributions are perfectly normal, but deviations are mostly minor.
 
 
-- To generate a scatterplot matrix of all pairs of variables, with linear regression and lowess traces, you can use `scatterplotMatrix` from `car` `r emoji::emoji("package")`.
+- To generate a scatterplot matrix of all pairs of variables, with linear regression and lowess traces, you can use `scatterplotMatrix` from `car` :package:.
 
 ```{r}
 #| label: fig-stur-scatmat
@@ -347,11 +347,11 @@ plot(RegModel.1)
 Note that R automatically labels the most extreme cases on each of these 4 plots. It does not mean that these cases are outliers, or that you necessarily need be concerned with them. In any data set, there will always be a minimum and a maximum residual.
 :::
 
-The R package `performance` offers a new and updated version of those graphs with colours and more plots to help visually assess the assumptions with the function `model_check()`
+The `performance` :package: package offers a new and updated version of those graphs with colours and more plots to help visually assess the assumptions with the function `check_model()`. Here I am using the `panel = FALSE` option to get a single plot per diagnostic which is easier to visualize.
 
 ```{r}
 #| label: fig-check
-check_model(RegModel.1)
+plot(check_model(RegModel.1, panel = FALSE))
 ```
 
 So, what is the verdict about the linear regression between `fklngth` and `age` ? It fails the linearity, possibly fails the normality, passes homoscedasticity, and this does not seem to be too strongly affected by some bizarre points.
@@ -436,7 +436,7 @@ Note that by using the log transformed data, the proportion of variation explain
 #| label: fig-sturtr-3
 par(mfrow = c(2, 2), las = 1)
 plot(RegModel.2)
-check_model(RegModel.2)
+plot(check_model(RegModel.2, panel = FALSE))
 ```
 
 So things appear a little better than before, although still not ideal. For example, the Residual vs fitted plot still suggests a potential nonlinearity. The QQ plot is nicer than before, indicating that residuals are more normally distributed after the log-log transformation. There is no indication of heteroscedasticity. And, although there are still a few points with somewhat high leverage, none have a Cook’s distance above 0.5. It thus seems that transforming data improved things: more linear, more normal, less dependence on extreme data. Do the formal tests support this visual assessment?
@@ -631,6 +631,7 @@ The distribution of the bootstrapped estimates is rather Gaussian, with only sma
 # interval de confiance pour l'ordonnée à l'origine
 boot.ci(results, type = "all", index = 1)
 ```
+
 ```{r}
 #| label: lm-boot-4
 # intervalle de confiance pour la pente

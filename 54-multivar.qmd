@@ -19,8 +19,8 @@ add a comparison of lrt
 
 In this practical, we have collected data on the amazing blue dragon of the East that roam the sky at night.
 
-We will use two different `r emoji::emoji("package")` to fit more complex models that are not possible with  `lmer()` from `lme4` 
-`r emoji::emoji("package")` [@lme4]. We will use:
+We will use two different :package: to fit more complex models that are not possible with  `lmer()` from `lme4` 
+:package: [@lme4]. We will use:
 
 - `asreml-R` which is a commercial software developed by VSNi [@asreml]. `ASReml` fit models using a maximum likelihood approach, is quite flexible and fast.
 - `MCMCglmm` which is free and open-source and fit model using a Bayesian approach [@MCMCglmm]. It is super flexible and allow to fit a wide diversity of distribution.
@@ -45,7 +45,7 @@ First we load required libraries
 
 library(lmerTest)
 library(tidyverse)
-library(asreml)
+#library(asreml)
 library(MCMCglmm)
 library(nadiv)
 ```
@@ -93,7 +93,7 @@ df_dragons <- df_dragons %>%
 
 ### Multiple univariate models
 
-We first use the `lme4` `r emoji::emoji("package")` to determine the proportion of phenotypic variation (adjusted for fixed effects) that is due to differences among individuals, separately for each trait with repeated measures. 
+We first use the `lme4` :package: to determine the proportion of phenotypic variation (adjusted for fixed effects) that is due to differences among individuals, separately for each trait with repeated measures. 
 
 #### Flying speed
 
@@ -240,21 +240,24 @@ We set up our model using the `asreml` function call, with our bivariate respons
 `asreml` can be a bit specific sometime and random effects should absolutely be `factor` and not `character` or `integer`
 
 ```{r}
-#| warning: false
 df_dragons <- df_dragons %>%
-  mutate(
-    ID = as.factor(ID),
-    speed_sc = scale(max_speed),
-    exploration_sc = scale(exploration)
-  )
-
+    mutate(
+        ID = as.factor(ID),
+        speed_sc = scale(max_speed),
+        exploration_sc = scale(exploration)
+    )
+```
+```{r}
+#| warning: false
+#| eval: false
 asr_us <- asreml(
-  cbind(speed_sc, exploration_sc) ~ trait +
-    trait:assay_rep_sc + trait:body_size_sc,
-  random = ~ ID:us(trait),
-  residual = ~ units:us(trait),
-  data = df_dragons,
-  maxiter = 100
+    cbind(speed_sc, exploration_sc) ~ trait +
+        trait:assay_rep_sc +
+        trait:body_size_sc,
+    random = ~ ID:us(trait),
+    residual = ~ units:us(trait),
+    data = df_dragons,
+    maxiter = 100
 )
 ```
 
@@ -267,6 +270,7 @@ After the model has been fit by ASReml, we can check the fit using the same type
 
 ```{r}
 #| fig-cap: Checking assumptions of model asr_us
+#| eval: false
 par(mfrow = c(1, 3))
 plot(residuals(asr_us) ~ fitted(asr_us))
 qqnorm(residuals(asr_us))
@@ -277,6 +281,7 @@ hist(residuals(asr_us))
 The summary part of the ASReml model fit contains a large amount of information, so it is best to look only at certain parts of it at a single time. While we are not particularly interested in the fixed effects for current purposes, you can inspect these using the following code to check whether there were any large effects of `assay repeat` or `body size` on either trait:
 
 ```{r}
+#| eval: false
 summary(asr_us, coef = TRUE)$coef.fixed
 wa <- wald(asr_us, ssType = "conditional", denDF = "numeric")
 attr(wa$Wald, "heading") <- NULL
@@ -286,6 +291,7 @@ wa
 We can see that there is a separate intercept for both personality traits (no surprise that these are very close to zero, given that we mean-centred and scaled each trait before fitting the model), and an estimate of the effect of assay repeat and body size on both traits. None of these appear to be large effects, so let’s move on to the more interesting parts — the random effects estimates:
 
 ```{r}
+#| eval: false
 summary(asr_us)$varcomp
 ```
 
@@ -296,6 +302,7 @@ standard error for each trait, conditional on the effects of assay repeat and bo
 For this function, we provide the name of the model object, followed by a name that we want to give the estimate being returned, and a formula for the calculation. Each ‘V’ term in the formula refers to a variance component, using its position in the model summary shown above.
 
 ```{r}
+#| eval: false
 vpredict(asr_us, rep_speed ~ V1 / (V1 + V5))
 vpredict(asr_us, rep_expl ~ V3 / (V3 + V7))
 ```
@@ -303,11 +310,12 @@ vpredict(asr_us, rep_expl ~ V3 / (V3 + V7))
 We can also use this function to calculate the estimate and standard error of the correlation from our model (co)variances. We do this by specifying the formula for the correlation:
 
 ```{r}
+#| eval: false
 (cor_fe <- vpredict(asr_us, cor_expl_speed ~ V2 / (sqrt(V1 * V3))))
 ```
 
 In this case, the estimate is similar (here, slightly lower) than our correlation estimate using BLUPs.
-However, if we consider confidence intervals as *+/- 1.96 SE* around the estimate, the lower bound of the confidence interval would actually be `r format(cor_fe[1] - cor_fe[2]*1.96, digits = 3)`.
+However, if we consider confidence intervals as *+/- 1.96 SE* around the estimate, the lower bound of the confidence interval would actually be negative <!-- r format(cor_fe[1] - cor_fe[2]*1.96, digits = 3)-->.
 With confidence intervals straddling zero, we would conclude that this correlation is likely non-significant.
 As the use of standard errors in this way is only approximate, we should also test our hypothesis formally using likelihood ratio tests.
 
@@ -318,28 +326,46 @@ Here, we use the `idh` structure for our random effects. This stands for ‘iden
 The rest of the model is identical to the previous version.
 
 ```{r}
+#| eval: false
 asr_idh <- asreml(
-  cbind(speed_sc, exploration_sc) ~ trait +
-    trait:assay_rep_sc + trait:body_size_sc,
-  random = ~ ID:idh(trait),
-  residual = ~ units:us(trait),
-  data = df_dragons,
-  maxiter = 100
+    cbind(speed_sc, exploration_sc) ~ trait +
+        trait:assay_rep_sc +
+        trait:body_size_sc,
+    random = ~ ID:idh(trait),
+    residual = ~ units:us(trait),
+    data = df_dragons,
+    maxiter = 100
 )
 ```
 
 The likelihood ratio test is calculated as twice the difference between model log-likelihoods, on a single degree of freedom (the covariance term):
 ```{r}
-(p_biv <- pchisq(2 * (asr_us$loglik - asr_idh$loglik),
-  df = 1,
-  lower.tail = FALSE
+#| eval: false
+(p_biv <- pchisq(
+    2 * (asr_us$loglik - asr_idh$loglik),
+    df = 1,
+    lower.tail = FALSE
 ))
 ```
 
 In sharp contrast to the highly-significant P-value given by a correlation test using BLUPs, here we find no evidence for a correlation between flying speed and exploration.
 To better understand why BLUPs produce an anticonservative p-value in comparison to multivariate models, we should plot the correlation estimates and their confidence intervals. The confidence intervals are taken directly from the cor.test function for BLUPs, and for ASReml they are calculated as 1.96 times the standard error from the `vpredict` function.
 
+
 ```{r}
+#| label: temp-fix
+#| echo: false
+df_cor <- data.frame(
+  Method = c("ASReml", "BLUPs"),
+  Correlation = c(NA, cor_blups$estimate),
+  low = c(NA, cor_blups$conf.int[1]),
+  high = c(NA, cor_blups$conf.int[2])
+)
+
+```
+
+```{r}
+#| eval: false
 #| fig-cap: Correlation estimates (with CI) using 2 different methods
 df_cor <- data.frame(
   Method = c("ASReml", "BLUPs"),
@@ -357,7 +383,7 @@ ggplot(df_cor, aes(x = Method, y = Correlation)) +
 
 Here we can clearly see that the BLUPs method - having failed to carry through the error around the predictions of individual-level estimates - is anticonservative, with small confidence intervals and a correspondingly small P-value (*P =* `r format(cor_blups$p.value, digits = 3)`). Testing the syndrome directly in a bivariate model that retains all the data, by
 comparison, enables us to capture the true uncertainty about the estimate of the correlation. This is reflected
-in the larger confidence intervals and, in this case, the non-significant P-value (*P =* `r format(p_biv, digits = 3)`).
+in the larger confidence intervals and, in this case, the non-significant P-value <!--(*P =* r format(p_biv, digits = 3))-->.
 
 <!--
 need to add the selection aspect with trivariate model with fitness
@@ -464,6 +490,7 @@ ggplot(df_cor, aes(x = Method, y = Correlation)) +
   geom_hline(yintercept = 0, linetype = 2) +
   theme_classic()
 ```
+
 ```{r}
 #| echo: false
 #| purl: false
@@ -474,6 +501,7 @@ knitr::kable(df_cor,
      and exploration estimated with 3 different methods"
 )
 ```
+
 ### Happy multivariate models
 
 ```{r}
